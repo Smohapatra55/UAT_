@@ -557,7 +557,7 @@ public class Common_StepDefinitions extends FLUtilities {
     }
 
 
-    @Then("User sets values for prefilled form")
+    @Then("User sets data for the field")
     public void setValuesForPrefilledForm(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         waitForPageToLoad(driver);
@@ -566,26 +566,13 @@ public class Common_StepDefinitions extends FLUtilities {
             String inputValue = fieldData.get("Value");
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
-
-            String actualValue = null;
+            String id = fieldData.get("Id");
 
             switch (locatorType) {
                 case "Input":
-                    sleepInMilliSeconds(200);
-                    if (inputValue.contains("Random")) {
-                        String appName = testContext.getMapTestData().get("newProductName");
-                        inputValue = inputValue.replace("Random", "") + appName.substring(appName.lastIndexOf(" ")).trim();
-                        addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.REVIEWERNAME.getText(), inputValue);
-                    }
-                    if (findElements(driver, String.format(onCommonMethods_reactPage.dataEntryTextFields, fieldName, dataItemId, dataItemId)).size() > 0) {
-                        syncElement(driver, findElement(driver, String.format(onCommonMethods_reactPage.dataEntryTextFields, fieldName, dataItemId, dataItemId)), EnumsCommon.TOVISIBLE.getText());
-                        clickElementByJSE(driver, findElement(driver, String.format(onCommonMethods_reactPage.dataEntryTextFields, fieldName, dataItemId, dataItemId)));
-                        findElement(driver, String.format(onCommonMethods_reactPage.dataEntryTextFields, fieldName, dataItemId, dataItemId)).clear();
-                        findElement(driver, String.format(onCommonMethods_reactPage.dataEntryTextFields, fieldName, dataItemId, dataItemId)).sendKeys(inputValue, Keys.TAB);
-                    } else {
-                        syncElement(driver, findElement(driver, String.format(onDataEntryPage.txtBox_dataEntryTextFields_Mvc, fieldName, dataItemId, dataItemId)), EnumsCommon.TOVISIBLE.getText());
-                        sendKeys(driver, findElement(driver, String.format(onDataEntryPage.txtBox_dataEntryTextFields_Mvc, fieldName, dataItemId, dataItemId)), inputValue);
-                    }
+                syncElement(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)),EnumsCommon.TOCLICKABLE.getText());
+                scrollToWebElement(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)));
+                sendKeys(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)),inputValue);
                     break;
                 case "Check Box":
                     if (testContext.getUiType().equalsIgnoreCase(EnumsCommon.UITYPE_MVC.getText())) {
@@ -1606,8 +1593,8 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Input":
                     if (!validationError.equals("")) {
-                        findElement(driver, String.format(onCommonMethods_reactPage.requiredFieldsError, dataItemId, fieldName)).click();
-                        Assert.assertTrue(fieldName + ": {" + validationError + "} is not showing required field error message in red color", findElement(driver, String.format(onCommonMethodsPage.requiredFieldsError, dataItemId, fieldName)).getAttribute("innerText").equals(validationError));
+                        findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), id, fieldName)).click();
+                        Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color",validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), id, fieldName)).getAttribute("innerText").trim());
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
                     }

@@ -94,4 +94,15 @@ Feature: FireLight_End2End_Tests
       | SSN           |    | JointAnnuitant_SSN          | Input        |
       | Gender        |    | JointAnnuitant_Gender       | Select       |
       | Relationship  |    | JointAnnuitant_Relationship | Select       |
-
+    Then User opens "Owner(s)" Required for Form "Annuity Owner Module"
+    Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
+    Then User verifies Validation Message for
+      | Field     | Id        | data-dataitemid | Locator Type | Validation Error        |
+      | First Name | FirstName | Owner_FirstName | Input        | First Name is required. |
+    Then User verifies Validation Message for
+      | Field     | Id        | data-dataitemid | Locator Type | Validation Error        |
+      | Last Name | LastName | Owner_LastName | Input        | Last Name is required. |
+    Then User sets data for the field
+      | Field              | Value        |Id| data-dataitemid   | Locator Type |
+      | Owner First Name   | OwnerFName   |  |Owner_FirstName   | Input        |
+      | Owner Last Name    | OwnerLName   |  |Owner_LastName    | Input        |

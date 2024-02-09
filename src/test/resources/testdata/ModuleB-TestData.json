@@ -1,0 +1,18 @@
+{
+  "testData": {
+    "commonTestData": {
+      "username1": "IT",
+      "password1": "Montana#89",
+      "username2": "AUTOUser1_FLADIST_AUTO",
+      "password2": "Aug@2023"
+    },
+    "TC_0001": {
+      "username": "AUTOUser1_FLADEMO_AUTO",
+      "password": "Aug@2023"
+    },
+    "TC_0002": {
+      "username": "AUTOUser1_FLADEMO_AUTO",
+      "password": "Aug@2023"
+    }
+  }
+}

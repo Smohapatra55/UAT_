@@ -1,0 +1,35 @@
+# Project exclude paths
+target/
+src/test/resources/screenshot/
+src/test/resources/reports/
+src/test/resources/logs/
+*.log
+*.html
+
+mvnw
+mvnw.cmd
+.mvnw/
+
+.LOGGINGS_PATH_IS_UNDEFINED/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ Idea ###
+*.iml
+*.iws
+*.ipr
+.idea
+
+### Net Beans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle

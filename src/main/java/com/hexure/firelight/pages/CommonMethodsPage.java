@@ -248,6 +248,7 @@ public class CommonMethodsPage extends FLUtilities {
 
     private  String dataFieldsMVC="//input[@data-dataitemid='%s' or @id='%s']";
     private  String dataFieldsSelectTag="//select[@data-dataitemid='%s' or @id='%s']";
+    private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div//span[@class='validationText']";
     public CommonMethodsPage(WebDriver driver) {
         initElements(driver);
     }

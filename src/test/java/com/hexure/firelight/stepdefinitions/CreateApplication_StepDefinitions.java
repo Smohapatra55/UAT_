@@ -53,6 +53,7 @@ public class CreateApplication_StepDefinitions extends FLUtilities {
 
     @Then("User selects Given Product {string}")
     public void userSelectsGivenProduct(String product) {
+        syncMultipleElement(driver,onCreateApplicationPage.getList_Products(),EnumsCommon.TOVISIBLE.getText());
         captureScreenshot(driver, testContext, false);
         selectOptionFromList(driver, onCreateApplicationPage.getList_Products(), product, EnumsCommon.CLICK.getText());
         addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.PRODUCT.getText(), product);

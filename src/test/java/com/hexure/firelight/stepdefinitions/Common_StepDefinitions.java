@@ -16,6 +16,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -480,28 +481,13 @@ public class Common_StepDefinitions extends FLUtilities {
             String expectedValue = fieldData.get("Value");
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
-            String validationError = fieldData.get("Validation Error");
-
-            String actualValue = null;
-            sleepInMilliSeconds(3000);
+            String id = fieldData.get("Id");
             switch (locatorType) {
                 case "Input":
-                    if (findElements(driver, String.format(onCommonMethods_reactPage.preFilledFormInput, dataItemId)).size() > 0) {
-                        actualValue = findElement(driver, String.format(onCommonMethods_reactPage.preFilledFormInput, dataItemId)).getAttribute("value");
-                        Assert.assertEquals("Expected field " + fieldName + " is not pre populated on form", actualValue, expectedValue);
-                        if (!validationError.equals("")) {
-                            findElement(driver, String.format(onCommonMethods_reactPage.requiredFieldsError, dataItemId, fieldName)).click();
-                            Assert.assertTrue(fieldName + ": {" + validationError + "} is not showing required field error message in red color", findElement(driver, String.format(onCommonMethods_reactPage.requiredFieldsError, dataItemId, fieldName)).getAttribute("innerText").equals(validationError));
-                        }
-                    } else {
-                        actualValue = findElement(driver, String.format(onCommonMethodsPage.preFilledFormInput, dataItemId)).getAttribute("value");
-                        Assert.assertEquals("Expected field " + fieldName + " is not pre populated on form", actualValue, expectedValue);
-                        if (!validationError.equals("")) {
-                            findElement(driver, String.format(onCommonMethodsPage.requiredFieldsError, dataItemId, fieldName)).click();
-                            Assert.assertTrue(fieldName + ": {" + validationError + "} is not showing required field error message in red color", findElement(driver, String.format(onCommonMethodsPage.requiredFieldsError, dataItemId, fieldName)).getAttribute("innerText").equals(validationError));
-                        }
-                    }
-
+                Assert.assertEquals("Value Mismatched for field" + fieldName, expectedValue, findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)).getAttribute("value"));
+                    break;
+                case "Select":
+                    Assert.assertEquals("Value Mismatched for field" + fieldName, expectedValue, new Select(findElement(driver,String.format(onCommonMethodsPage.getDataFieldsSelectTag(),dataItemId,id))).getFirstSelectedOption().getText().trim());
                     break;
                 default:
                     // logger.error("Invalid Locator Type: {}", locatorType);
@@ -1355,18 +1341,18 @@ public class Common_StepDefinitions extends FLUtilities {
 
     @Then("User verifies prefilled data Form input text fields should be blank")
     public void user_verifies_prefilled_data_Form_input_text_fields_should_be_blank(DataTable dataTable) {
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        scrollToWebElement(driver, onCommonMethodsPage.getTxt_RiskWrapper());
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> fieldData : formFields) {
-            String dataItemId = fieldData.get("data-dataitemid");
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-item-id");
+            String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
 
             switch (locatorType) {
                 case "Input":
-                    scrollToWebElement(driver, findElement(driver, String.format(onDataEntryPage.dataFieldsMVC, dataItemId)));
-                    Assert.assertFalse("The values are not blank ", findElement(driver, String.format(onDataEntryPage.dataFieldsMVC, dataItemId)).getAttribute("value").length() > 0);
+                    scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId,id)));
+                    Assert.assertFalse(" The values are not blank for "+ fieldName, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId,id)).getAttribute("value").length() > 0);
                     break;
                 case "Select":
                     scrollToWebElement(driver, findElement(driver, String.format(onDataEntryPage.dataFieldsMVC2, dataItemId)));
@@ -1587,21 +1573,19 @@ public class Common_StepDefinitions extends FLUtilities {
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
             String validationError = fieldData.get("Validation Error");
-
-            String actualValue = null;
-            sleepInMilliSeconds(3000);
             switch (locatorType) {
                 case "Input":
                     if (!validationError.equals("")) {
-                        findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), id, fieldName)).click();
-                        Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color",validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), id, fieldName)).getAttribute("innerText").trim());
+                        syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
+                        findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+                        Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color",validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)).getAttribute("innerText").trim());
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
                     }
                     break;
                 case "Select":
                     if (!validationError.equals("")) {
-                        findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId, id)).click();
+                        findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId,dataItemId, id)).click();
                         Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color", validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageDropDown(), id, dataItemId)).getAttribute("innerText"));
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
@@ -1617,7 +1601,6 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Enters data for")
     public void User_Enters_data_for(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
@@ -1626,8 +1609,6 @@ public class Common_StepDefinitions extends FLUtilities {
             String locatorType = fieldData.get("Locator Type");
             String value = fieldData.get("Value");
 
-            String actualValue = null;
-            sleepInMilliSeconds(3000);
             switch (locatorType) {
                 case "Input":
                     if (!value.equals("")) {
@@ -1646,7 +1627,6 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Chooses option for Dropdown")
     public void User_Chooses_option_for_Dropdown(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("DropdownName");
@@ -1654,11 +1634,10 @@ public class Common_StepDefinitions extends FLUtilities {
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
             String option = fieldData.get("Option");
-            sleepInMilliSeconds(3000);
             switch (locatorType) {
                 case "Select":
                     if (!option.equals("")) {
-                        new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId, id))).selectByVisibleText(option);
+                        new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))).selectByVisibleText(option);
                     } else {
                         Assert.fail("Expected Option was Absent");
                     }
@@ -1674,14 +1653,13 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Chooses Blank option for Dropdown {string} having id {string} or DataItemId {string}")
     public void User_Chooses_option_for_Dropdown(String ddName, String ddId, String ddDataItemId) {
         captureScreenshot(driver, testContext, false);
-        new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), ddDataItemId, ddId))).selectByVisibleText("");
+        new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),ddDataItemId, ddDataItemId, ddId))).selectByVisibleText("");
 
     }
 
     @Then("User Verifies Default Option is {string} for dropdown {string}")
     public void User_verifies_Validation_Message_for(String option, String ddName, DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
@@ -1691,7 +1669,7 @@ public class Common_StepDefinitions extends FLUtilities {
             sleepInMilliSeconds(3000);
             switch (locatorType) {
                 case "Select":
-                    Assert.assertEquals(option + " was not selected by default for " + ddName, option, new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId, id))).getFirstSelectedOption().getText().trim());
+                    Assert.assertEquals(option + " was not selected by default for " + ddName, option, new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))).getFirstSelectedOption().getText().trim());
             }
         }
     }
@@ -1705,10 +1683,9 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Verifies options present for Dropdown")
     public void User_Verifies_options_present_for_Dropdown(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
-            String fieldName = fieldData.get("DropdownName");
+            String fieldName = fieldData.get("Field");
             String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
@@ -1716,7 +1693,8 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Select":
                     if (!option.equals("")) {
-                     Assert.assertTrue(option +" was not present in "+ fieldName, new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId, id))).getWrappedElement().getText().trim().contains(option));
+                        waitUntilDropDownListPopulated(driver,new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(), dataItemId,dataItemId, id))));
+                     Assert.assertTrue(option +" was not present in "+ fieldName, new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))).getWrappedElement().getText().trim().contains(option));
                     } else {
                         Assert.fail("Expected Option was Absent");
                     }
@@ -1732,7 +1710,6 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Selects {string} Radio Button for Field {string}")
     public void user_Selects_Radio_Button_for_Field(String option, String field, DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String dataItemId = fieldData.get("data-dataitemid");
@@ -1745,7 +1722,6 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User Unchecks {string} Radio Button for Field {string}")
     public void user_Unchecks_Radio_Button_for_Field(String option, String field, DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String dataItemId = fieldData.get("data-dataitemid");
@@ -1758,7 +1734,6 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User verifies Validation Message for Radio Button")
     public void User_verifies_Validation_Message_for_RadioButton(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
@@ -1789,9 +1764,8 @@ public class Common_StepDefinitions extends FLUtilities {
         onCreateApplicationPage.getBtn_CreateActivity().click();
     }
 
-    @Then("User verifies text fields Present in UI")
+    @Then("User verifies fields Present in UI")
     public void user_verifies_data_in_text_fields(io.cucumber.datatable.DataTable dataTable) {
-        waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> fieldData : formFields) {
@@ -1808,6 +1782,173 @@ public class Common_StepDefinitions extends FLUtilities {
                     break;
                 default:
                     Assert.fail("Invalid Locator Type" + locatorType);
+            }
+        }
+    }
+
+    @Then("User Verifies Blank option present for Dropdown")
+    public void User_Verifies_Blank_options_present_for_Dropdown(DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("DropdownName");
+            String dataItemId = fieldData.get("data-dataitemid");
+            String id = fieldData.get("Id");
+            String locatorType = fieldData.get("Locator Type");
+            switch (locatorType) {
+                case "Select":
+                        Assert.assertTrue("Blank option was not present in "+ fieldName, new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))).getOptions().get(0).getText().isEmpty());
+                        break;
+                default:
+                    Assert.fail("Invalid Locator Type" + locatorType);
+            }
+
+        }
+    }
+
+    @Then("User Verifies Below Options Present for Lookup {string}")
+    public void user_Verifies_Below_Options_Present_for_Mailing_Address_Lookup(String lookup,DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            boolean flag = false;
+            String option = fieldData.get("Option");
+            for(WebElement mailingAdress:onCommonMethodsPage.getList_MailingAdress()){
+                if(mailingAdress.getText().trim().equalsIgnoreCase(option)){
+                    flag = true;
+                    break;
+                }
+            }
+            Assert.assertTrue(option +" was not present Lookup "+ lookup, flag);
+        }
+    }
+
+
+    @Then("User Clears data for the field")
+    public void user_Clears_data_for_the_field(DataTable dataTable) {
+        captureScreenshot(driver, testContext, false);
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-dataitemid");
+            String locatorType = fieldData.get("Locator Type");
+            String id = fieldData.get("Id");
+
+            switch (locatorType) {
+                case "Input":
+                    WebElement element = findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id));
+
+                    new Actions(driver).moveToElement(element).click().doubleClick().click().sendKeys(Keys.BACK_SPACE,Keys.TAB).perform();
+//                    ((JavascriptExecutor) driver).executeScript("inner", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
+//                    syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
+//                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+//                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).clear();
+//                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+                   // findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).sendKeys(Keys.TAB);
+
+                    break;
+                default:
+                    // logger.error("Invalid Locator Type: {}", locatorType);
+                    Assert.fail("Invalid Locator Type");
+            }
+        }
+    }
+
+    @Then("User Selects Option for Lookup {string}")
+    public void user_Selects_Option_for_Mailing_Address_Lookup(String lookup,DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String option = fieldData.get("Option");
+            for(WebElement mailingAdress:onCommonMethodsPage.getList_MailingAdress()){
+                if(mailingAdress.getText().trim().equalsIgnoreCase(option)){
+                    clickElementByJSE(driver,mailingAdress);
+                    break;
+                }
+            }
+        }
+        sleepInMilliSeconds(3000);
+    }
+
+    @Then("User {string} checkbox {string}")
+    public void userSelectsCheckbox(String userAction, String whichCheckBox) {
+        waitForPageToLoad(driver);
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)));
+        checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)));
+        captureScreenshot(driver, testContext, false);
+    }
+
+    protected void checkBoxSelectYesNO(String userAction, WebElement element) {
+        System.out.println(getCheckBoxAction(userAction));
+        if (getCheckBoxAction(userAction)){
+            if (element.getAttribute("aria-checked").equals("false"))
+                element.click();
+        }else {
+            if (element.getAttribute("aria-checked").equals("true"))
+                element.click();
+        }
+    }
+
+    private boolean getCheckBoxAction(String action) {
+        return action.equalsIgnoreCase("check");
+    }
+
+    @Then("User verifies text fields is not Present in UI")
+    public void user_verifies_text_fields_is_not_present_in_UI(DataTable dataTable) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-item-id");
+            String id = fieldData.get("Id");
+            String locatorType = fieldData.get("Locator Type");
+            switch (locatorType) {
+                case "Input":
+                    Assert.assertFalse(fieldName+" Field was Present", findElements(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).size() > 0);
+                    break;
+                case "Select":
+                    Assert.assertFalse(fieldName+" Field was Present", findElements(driver, String.format(onCommonMethodsPage.getDataFieldsSelectTag(), dataItemId, id)).size()> 0);
+                    break;
+                default:
+                    Assert.fail("Invalid Locator Type" + locatorType);
+            }
+        }
+    }
+
+    @Then("User Verifies {string} Radio Button for Field {string}")
+    public void user_Verifies_Radio_Button_for_Field(String option, String field, DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String dataItemId = fieldData.get("data-dataitemid");
+            String id = fieldData.get("Id");
+            syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)),EnumsCommon.TOVISIBLE.getText());
+            Assert.assertTrue(option+ " Radio button for "+ field + " was not Displayed", findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isDisplayed());
+        }
+    }
+
+    @Then("User Verifies {string} Radio Button for Field {string} is {string}")
+    public void userVerifiesSelectsCheckbox( String button, String fieldName, String userAction, DataTable dataTable) {
+        waitForPageToLoad(driver);
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String dataItemId = fieldData.get("data-dataitemid");
+            String id = fieldData.get("Id");
+
+            syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)),EnumsCommon.TOVISIBLE.getText());
+            scrollToWebElement(driver,findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)));
+
+            switch (userAction.toLowerCase()) {
+                case "selected":
+                    Assert.assertTrue(button + " for " + fieldName + " was not " + userAction, findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)).isSelected() | findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)).getAttribute("aria-checked").equalsIgnoreCase("true"));
+                    break;
+                case "unchecked":
+                    Assert.assertFalse(button + " for " + fieldName + " was not " + userAction, findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)).isSelected() | findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, button)).getAttribute("aria-checked").equalsIgnoreCase("false"));
+                    break;
+                default:
+                    Assert.fail("Invalid user Action" + userAction);
             }
         }
     }

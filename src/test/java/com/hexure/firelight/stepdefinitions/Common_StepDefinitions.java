@@ -1345,7 +1345,7 @@ public class Common_StepDefinitions extends FLUtilities {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
-            String dataItemId = fieldData.get("data-item-id");
+            String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
 
@@ -1578,6 +1578,7 @@ public class Common_StepDefinitions extends FLUtilities {
                     if (!validationError.equals("")) {
                         syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
                         findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+                        syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)),EnumsCommon.TOVISIBLE.getText());
                         Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color",validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)).getAttribute("innerText").trim());
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
@@ -1893,7 +1894,7 @@ public class Common_StepDefinitions extends FLUtilities {
         return action.equalsIgnoreCase("check");
     }
 
-    @Then("User verifies text fields is not Present in UI")
+    @Then("User verifies fields is not Present in UI")
     public void user_verifies_text_fields_is_not_present_in_UI(DataTable dataTable) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
@@ -1951,6 +1952,14 @@ public class Common_StepDefinitions extends FLUtilities {
                     Assert.fail("Invalid user Action" + userAction);
             }
         }
+    }
+
+    @Then("User {string} checkbox {string} with data item Id {string}")
+    public void userSelectsCheckbox(String userAction, String whichCheckBox, String dataItemId) {
+        waitForPageToLoad(driver);
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
+        checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
+        captureScreenshot(driver, testContext, false);
     }
 
 }

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.WebElement;
@@ -309,7 +310,11 @@ public class CreateApplication_StepDefinitions extends FLUtilities {
     public void UserOpensGivenProductForApp(String product) {
         captureScreenshot(driver, testContext, false);
         syncElement(driver, findElement(driver, String.format(onCreateApplicationPage.list_OfProducts, product)), EnumsCommon.TOCLICKABLE.getText());
-        clickElementByJSE(driver, findElement(driver, String.format(onCreateApplicationPage.list_OfProducts, product)));
-        addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.PRODUCT.getText(), product);
+       try {
+           clickElement(driver, findElement(driver, String.format(onCreateApplicationPage.list_OfProducts, product)));
+       } catch (StaleElementReferenceException e){
+           clickElement(driver, findElement(driver, String.format(onCreateApplicationPage.list_OfProducts, product)));
+       }
+           addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.PRODUCT.getText(), product);
     }
 }

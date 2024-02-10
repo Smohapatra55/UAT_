@@ -3671,4 +3671,11 @@ public class DataEntry_StepDefinitions extends FLUtilities {
         captureScreenshot(driver, testContext, false);
         Assert.assertFalse("Combo Box present", getElements(driver, onDataEntryPage.getDdComboBoxMVC()).size()>0 | getElements(driver,onDataEntryPage.getDdComboBoxReact()).size() > 0);
     }
+
+    @Then("User verifies New Application gets created")
+    public void User_verifies_New_Application_gets_created() {
+        captureScreenshot(driver, testContext, false);
+        syncElement(driver, onDataEntryPage.getTxt_NewApplication(), EnumsCommon.TOVISIBLE.getText());
+        Assert.assertTrue("Application was not displayed", onDataEntryPage.getTxt_NewApplication().isDisplayed());
+    }
 }

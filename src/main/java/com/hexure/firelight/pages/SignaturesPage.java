@@ -549,6 +549,8 @@ public class SignaturesPage extends FLUtilities {
 
     public static String btnText = "//span[text()='%s']";
 
+    private String btn_Previous = "//div[@id='navigationButtonsContainer']//span[text()='%s']";
+
     public static String txtFieldWithLabelText = "//label[contains(text(),'%s')]/parent::div/following-sibling::select";
 
     public String msg_ErrorReact = "//input[@id='%s']/parent::div/following-sibling::div/div[@class='field_validator__text']";

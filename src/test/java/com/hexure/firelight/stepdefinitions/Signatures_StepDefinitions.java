@@ -1277,7 +1277,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_Clicks_on_Button(String button) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        clickElementByJSE(driver, findElement(driver, String.format(onSignaturesPage.btnText, button)));
+        clickElementByJSE(driver, findElement(driver, String.format(onSignaturesPage.getBtn_Previous(), button)));
     }
 
     @Then("User Verifies {string} TextBox is Empty")

@@ -235,7 +235,7 @@ public class CommonMethodsPage extends FLUtilities {
 
     private String msg_ErrorMessageDropDown = "//select[@id='%s' or @data-dataitemid='%s']/parent::div//span[@class='validationText']";
     private String msg_ErrorMessageRadioButton = "//div[@data-dataitemid='%s']/div/div[@title='%s']/ancestor::div[@class='componentWrapper ']//span[@class='validationText']";
-    private String elementByIdOrDataItemId="//*[@data-item-id=\"%s\" or @id=\"%s\"]";
+    private String elementByIdOrDataItemId="//select[@data-dataitemid ='%s' or @data-item-id=\"%s\" or @id=\"%s\"]";
 
     @FindBy(xpath = "//span[text()='Create Activity']")
     private WebElement heading_CreateActivity;
@@ -249,6 +249,10 @@ public class CommonMethodsPage extends FLUtilities {
     private  String dataFieldsMVC="//input[@data-dataitemid='%s' or @id='%s']";
     private  String dataFieldsSelectTag="//select[@data-dataitemid='%s' or @id='%s']";
     private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div//span[@class='validationText']";
+    public static String chk_Option = "//label[text()='%s']//parent::div//preceding-sibling::div//div[contains(@class,'ITCheckBox   ')]";
+    private String chkBox_ByDataItemId = "//div[@data-dataitemid='%s']//div[@role]";
+    @FindBy(xpath = "//div[@class='autocompleteResultItem autofill-result-item']")
+    private List<WebElement> list_MailingAdress;
     public CommonMethodsPage(WebDriver driver) {
         initElements(driver);
     }

@@ -33,6 +33,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Common_StepDefinitions extends FLUtilities {
     private WebDriver driver;
@@ -293,14 +295,8 @@ public class Common_StepDefinitions extends FLUtilities {
     public void verifyPageHeadingWithFormNameForDataEntryFlow(String pageName, String formName) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        if (testContext.getUiType().equalsIgnoreCase(EnumsCommon.UITYPE_MVC.getText())) {
-            Assert.assertEquals("Data entry page header name mismatched", pageName, getElement(driver, getExistingLocator(driver, onCommonMethods_reactPage.getDataEntryPageHeaderMVC(), onCommonMethods_reactPage.getDataEntryPageHeaderReact(), null, null)).getText());
-            Assert.assertEquals("Data entry page header name mismatched", formName, onDataEntryPage.getFormName().getAttribute("innerText"));
-        } else {
-            Assert.assertEquals("Data entry page header name mismatched", pageName, onDataEntryPage.getDataEntryPageHeader().getText());
-            Assert.assertEquals("Data entry page header name mismatched", formName, onDataEntryPage.getFormName().getAttribute("innerText"));
-
-        }
+        Assert.assertEquals("Data entry page header name mismatched", pageName, getElement(driver, getExistingLocator(driver, onCommonMethods_reactPage.getDataEntryPageHeaderMVC(), onCommonMethods_reactPage.getDataEntryPageHeaderReact(), null, null)).getText());
+        Assert.assertEquals("Data entry page header name mismatched", formName, onDataEntryPage.getFormName().getAttribute("innerText"));
         captureScreenshot(driver, testContext, false);
     }
 
@@ -443,9 +439,6 @@ public class Common_StepDefinitions extends FLUtilities {
                 }
             }
         }
-        waitForPageToLoad(driver);
-        Assert.assertEquals("Data entry page header name mismatched", formMenu, getElement(driver, getExistingLocator(driver, onCommonMethods_reactPage.getDataEntryPageHeaderMVC(), onCommonMethods_reactPage.getDataEntryPageHeaderReact(), null, null)).getText());
-        Assert.assertEquals("Data entry page header name mismatched", formName, onDataEntryPage.getFormName().getAttribute("innerText"));
     }
 
     @Then("User opens {string} Optional for Form {string}")
@@ -556,9 +549,9 @@ public class Common_StepDefinitions extends FLUtilities {
 
             switch (locatorType) {
                 case "Input":
-                syncElement(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)),EnumsCommon.TOCLICKABLE.getText());
-                scrollToWebElement(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)));
-                sendKeys(driver,findElement(driver,String.format(onCommonMethodsPage.getDataFieldsMVC(),dataItemId,id)),inputValue);
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
+                    scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
+                    sendKeys(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), inputValue);
                     break;
                 case "Check Box":
                     if (testContext.getUiType().equalsIgnoreCase(EnumsCommon.UITYPE_MVC.getText())) {
@@ -1595,7 +1588,6 @@ public class Common_StepDefinitions extends FLUtilities {
                 default:
                     Assert.fail("Invalid Locator Type" + locatorType);
             }
-
         }
     }
 
@@ -1747,7 +1739,7 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Div":
                     if (!validationError.equals("")) {
-                        Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color", validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageRadioButton(), dataItemId,radioButtonType)).getAttribute("innerText").trim());
+                        Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color", validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageRadioButton(), dataItemId, radioButtonType)).getAttribute("innerText").trim());
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
                     }
@@ -1774,12 +1766,16 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-item-id");
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
+            String title = fieldData.get("Title");
             switch (locatorType) {
                 case "Input":
-                    Assert.assertTrue(fieldName+" Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).isDisplayed());
+                    Assert.assertTrue(fieldName + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).isDisplayed());
                     break;
                 case "Select":
-                    Assert.assertTrue(fieldName+" Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsSelectTag(), dataItemId, id)).isDisplayed());
+                    Assert.assertTrue(fieldName + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsSelectTag(), dataItemId, id)).isDisplayed());
+                    break;
+                case "Div":
+                    Assert.assertTrue(title + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, title)).isDisplayed());
                     break;
                 default:
                     Assert.fail("Invalid Locator Type" + locatorType);
@@ -1787,6 +1783,79 @@ public class Common_StepDefinitions extends FLUtilities {
         }
     }
 
+    @Then("User Verifies input value for field is getting converted into Currency Value")
+    public void UserVerifiesInputValueIsGettingConvertedIntoCurrencyValue(DataTable dataTable) {
+        Pattern pattern;
+        Matcher match;
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String id = fieldData.get("Id");
+            String dataItemId = fieldData.get("data-dataitemid");
+            captureScreenshot(driver, testContext, false);
+            pattern = Pattern.compile("^\\$\\d{1,3}(,\\d{3})*$");
+            if (fieldName.equalsIgnoreCase("Total$")) {
+                match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
+            } else {
+                match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
+            }
+            Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());
+        }
+    }
+
+    @Then("User verifies field should display sum of all above fields")
+    public void UserVerifiesFieldShouldDisplaySumOfAllAboveFields(DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        Pattern pattern;
+        String value;
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String inputValue = fieldData.get("Value");
+            String dataItemId = fieldData.get("data-dataitemid");
+            String locatorType = fieldData.get("Locator Type");
+            String id = fieldData.get("Id");
+
+            switch (locatorType) {
+                case "Input":
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
+                    scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
+                    pattern = Pattern.compile("^\\$\\d{1,3}(,\\d{3})*$");
+                    Matcher match = pattern.matcher(inputValue);
+                    if (match.matches()) {
+                        value = inputValue;
+                    } else {
+                        value = String.format("$%,d", Long.parseLong(inputValue));
+                    }
+                    Assert.assertTrue("Total value Mismatched", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("value").equalsIgnoreCase(value));
+                    break;
+            }
+        }
+    }
+
+    @Then("User Verifies input value for field is getting converted into Currency Value without currency symbol")
+    public void UserVerifiesInputValueIsGettingConvertedIntoCurrencyValueWithoutCurrencySymbol(DataTable dataTable) {
+        Pattern pattern;
+        Matcher match;
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String id = fieldData.get("Id");
+            String dataItemId = fieldData.get("data-dataitemid");
+            captureScreenshot(driver, testContext, false);
+            pattern = Pattern.compile("^\\d{1,3}(,\\d{3})*$");
+            if (fieldName.contains("What is the Client's Total Net Worth?")) {
+                match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
+            } else {
+                match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
+            }
+            Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());
+        }
+    }
     @Then("User Verifies Blank option present for Dropdown")
     public void User_Verifies_Blank_options_present_for_Dropdown(DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);

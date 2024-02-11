@@ -317,4 +317,11 @@ public class CreateApplication_StepDefinitions extends FLUtilities {
        }
            addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.PRODUCT.getText(), product);
     }
+
+    @Then("User Verifies {string} field is present")
+    public void userVerifiesFieldIsPresent(String field) {
+        captureScreenshot(driver, testContext, false);
+        syncElement(driver, findElement(driver, String.format(onCreateApplicationPage.txt_AllInputField, field)), EnumsCommon.TOVISIBLE.getText());
+        Assert.assertTrue("Field was not displayed", findElements(driver, String.format(onCreateApplicationPage.txt_AllInputField, field)).size() > 0);
+    }
 }

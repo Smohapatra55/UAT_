@@ -2,7 +2,7 @@ Feature: FireLight_End2End_Tests
 
   This feature will verify UAT Application End2End Tests
 
-  @End2EndTest2
+  @End2EndTest
   Scenario: TC_02_Complete the REACT application with Pre Signature Review with Signature Then Submit
     Given User is on FireLight login page for TestCase "End2End_TC_02"
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button
@@ -11,7 +11,6 @@ Feature: FireLight_End2End_Tests
     Then User Verifies "ProductType" field is present
     Then User selects Jurisdiction "Alabama"
     Then User selects Product Type Dropdown "Variable Annuity"
-#    Then User verifies "Create New Application" window showing
     Then User opens Given Product "Variable Annuity" for application
     Then User clicks "Create" button
     Then User enters new Application name

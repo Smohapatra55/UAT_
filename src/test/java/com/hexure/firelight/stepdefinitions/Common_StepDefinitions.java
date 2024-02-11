@@ -1791,12 +1791,16 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-item-id");
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
+            String title = fieldData.get("Title");
             switch (locatorType) {
                 case "Input":
                     Assert.assertTrue(fieldName + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).isDisplayed());
                     break;
                 case "Select":
                     Assert.assertTrue(fieldName + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsSelectTag(), dataItemId, id)).isDisplayed());
+                    break;
+                case "Div":
+                    Assert.assertTrue(title + " Field was Not Present", findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, title)).isDisplayed());
                     break;
                 default:
                     Assert.fail("Invalid Locator Type" + locatorType);

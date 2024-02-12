@@ -2030,6 +2030,12 @@ public class Common_StepDefinitions extends FLUtilities {
         checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
         captureScreenshot(driver, testContext, false);
     }
+    @Then("User verifies Agent Information is displayed on Agent Module Header")
+    public void user_Verifies_Agent_Information_Is_Displayed_on_Header() {
+        captureScreenshot(driver, testContext, false);
+        Assert.assertTrue("Agent Information is not Displayed",getElement(driver, getExistingLocator(driver, onCommonMethodsPage.getTxt_AgentInformation(), null, null, null)).isDisplayed());
+        Assert.assertTrue("Agent Information is not Displayed",getElement(driver, getExistingLocator(driver, onCommonMethodsPage.getTxt_AgentInformation(), null, null, null)).isDisplayed());
+    }
 
 }
 

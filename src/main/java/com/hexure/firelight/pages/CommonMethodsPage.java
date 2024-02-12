@@ -251,6 +251,7 @@ public class CommonMethodsPage extends FLUtilities {
     private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div//span[@class='validationText']";
     public static String chk_Option = "//label[text()='%s']//parent::div//preceding-sibling::div//div[contains(@class,'ITCheckBox   ')]";
     private String chkBox_ByDataItemId = "//div[@data-dataitemid='%s']//div[@role]";
+    private By txt_AgentInformation = By.xpath("//div[contains(text(),'Agent Information')]");
     @FindBy(xpath = "//div[@class='autocompleteResultItem autofill-result-item']")
     private List<WebElement> list_MailingAdress;
     public CommonMethodsPage(WebDriver driver) {

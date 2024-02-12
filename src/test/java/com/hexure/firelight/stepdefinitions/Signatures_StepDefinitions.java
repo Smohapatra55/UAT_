@@ -1887,4 +1887,10 @@ public class Signatures_StepDefinitions extends FLUtilities {
         Assert.assertTrue("Sign Now is Disabled", onSignaturesPage.getBtn_ReactSignNow().isEnabled());
         Assert.assertTrue("Send Email is Disbled", onSignaturesPage.getBtn_ReactSendEmailRequest().isEnabled());
     }
+    @Then("User verify {string} of field {string} is {string}")
+    public void verifyAttributeValue(String attribute, String txtBox, String value) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute(attribute));
+    }
 }

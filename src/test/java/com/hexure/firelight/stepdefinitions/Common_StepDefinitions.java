@@ -992,6 +992,7 @@ public class Common_StepDefinitions extends FLUtilities {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         onCommonMethodsPage.getRedColorErrorValidationBubble().click();
+        sleepInMilliSeconds(500);
     }
 
     @Then("User close the dialog window {string}")
@@ -1630,6 +1631,7 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Select":
                     if (!option.equals("")) {
+                        waitUntilDropDownListPopulated(driver,new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))));
                         new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByIdOrDataItemId(),dataItemId, dataItemId, id))).selectByVisibleText(option);
                     } else {
                         Assert.fail("Expected Option was Absent");
@@ -1949,7 +1951,6 @@ public class Common_StepDefinitions extends FLUtilities {
     }
 
     protected void checkBoxSelectYesNO(String userAction, WebElement element) {
-        System.out.println(getCheckBoxAction(userAction));
         if (getCheckBoxAction(userAction)){
             if (element.getAttribute("aria-checked").equals("false"))
                 element.click();

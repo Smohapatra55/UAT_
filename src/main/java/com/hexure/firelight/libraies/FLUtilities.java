@@ -106,7 +106,10 @@ public class FLUtilities extends BaseClass
             }else{
                 element.click();
             }
-        }catch (Exception e){
+        }catch (StaleElementReferenceException s){
+            element.click();
+        }
+        catch (Exception e){
             Log.error("Could Not Click WebElement ", e);
             throw new FLException("Could Not Click WebElement " + e.getMessage());
         }
@@ -170,7 +173,12 @@ public class FLUtilities extends BaseClass
             clickElement(driver, element);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
-        } catch (Exception e) {
+        }catch (StaleElementReferenceException s) {
+            clickElementByJSE(driver, element);
+            element.sendKeys(stringToInput);
+            element.sendKeys(Keys.TAB);
+        }
+        catch (Exception e) {
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }

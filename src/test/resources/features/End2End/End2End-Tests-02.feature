@@ -185,7 +185,7 @@ Feature: FireLight_End2End_Tests
     Then User Selects "Yes" Radio Button for Field "Do you have a reverse mortgage?"
       | data-dataitemid         |
       | FinInfo_ReverseMortgage |
-    Then User verifies text fields Present in UI
+    Then User verifies fields Present in UI
       | Field                                                                         | Title | data-item-id                            | Locator Type |
       | If Yes, is any premium intended to fund this annuity from a reverse mortgage? | Yes   | FinInfo_ReverseMortgage_PremiumIntended | Div          |
     Then User verifies Validation Message for Radio Button

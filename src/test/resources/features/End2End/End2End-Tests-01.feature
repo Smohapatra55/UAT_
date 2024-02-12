@@ -8,6 +8,8 @@ Feature: FireLight_End2End_Tests
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button
     Then User clicks "Application" Tab
     Then User verifies "Create New Application" window showing
+    Then User Verifies "Jurisdiction" field is present
+    Then User Verifies "ProductType" field is present
     Then User Verifies Default Option is "Select Jurisdiction" for dropdown "Jurisdiction"
       | Field        | Id           | data-dataitemid | Locator Type |
       | Jurisdiction | Jurisdiction |                 | Select       |
@@ -21,8 +23,11 @@ Feature: FireLight_End2End_Tests
     Then User Verifies Heading "Variable Annuity"
     Then User clicks "Create" button
     Then User Verifies heading as Create Activity
+    Then User verifies "Create" Button
+    Then User verifies "Cancel" Button
     Then User enters new Application name
     Then User clicks on Create button on Rename window
+    Then User verifies New Application gets created
     Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow
 #    Then User opens "Client Data" Required for Form "Annuity Owner Module"
 #    Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow
@@ -485,7 +490,7 @@ Feature: FireLight_End2End_Tests
       | Field  | Id | data-dataitemid       | Locator Type | Option |
       | Gender |    | JointAnnuitant_Gender | Select       | Male   |
       | Gender |    | JointAnnuitant_Gender | Select       | Female |
-    Then User Chooses Blank option for Dropdown "Gender" having id "Gender" or DataItemId "JointAnnuitant_Gender"
+    Then User Chooses Blank option for Dropdown "Gender" having id "" or DataItemId "JointAnnuitant_Gender"
     Then User verifies Validation Message for
       | Field  | Id | data-dataitemid       | Locator Type | Validation Error                    |
       | Gender |    | JointAnnuitant_Gender | Select       | Joint Annuitant Gender is required. |
@@ -609,7 +614,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies prefilled form
       | Field                      | Value               | data-dataitemid                        | Locator Type |
       | Residential Address Street | North Garland Court | JointAnnuitant_ResidentialAddress1     | Input        |
-      | City                       | Chicago             | JointAnnuitant_ResidentialAddress_City | Input       |
+      | City                       | Chicago             | JointAnnuitant_ResidentialAddress_City | Input        |
     Then User Clears data for the field
       | Field                      | Id | data-dataitemid                    | Locator Type |
       | Residential Address Street |    | JointAnnuitant_ResidentialAddress1 | Input        |
@@ -626,18 +631,18 @@ Feature: FireLight_End2End_Tests
       | Field | Id | data-dataitemid                        | Locator Type | Validation Error                  |
       | City  |    | JointAnnuitant_ResidentialAddress_City | Input        | Joint Annuitant City is required. |
     Then User sets data for the field
-      | Field | Value    | Id | data-dataitemid               | Locator Type |
+      | Field | Value    | Id | data-dataitemid                        | Locator Type |
       | City  | Oak Park |    | JointAnnuitant_ResidentialAddress_City | Input        |
     Then User Chooses option for Dropdown
-      | Field | Id | data-dataitemid                         | Locator Type | Option |
-      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama     |
+      | Field | Id | data-dataitemid                         | Locator Type | Option  |
+      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama |
     Then User Chooses Blank option for Dropdown "State" having id "" or DataItemId "JointAnnuitant_ResidentialAddress_State"
     Then User verifies Validation Message for
       | Field | Id | data-dataitemid                         | Locator Type | Validation Error                   |
       | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Joint Annuitant State is required. |
     Then User Chooses option for Dropdown
-      | Field | Id | data-dataitemid                         | Locator Type | Option |
-      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama     |
+      | Field | Id | data-dataitemid                         | Locator Type | Option  |
+      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama |
     Then User Clears data for the field
       | Field       | Id | data-dataitemid                           | Locator Type |
       | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
@@ -645,8 +650,82 @@ Feature: FireLight_End2End_Tests
       | Field       | Id | data-dataitemid                           | Locator Type | Validation Error                         |
       | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        | Joint Annuitant Postal Code is required. |
     Then User sets data for the field
-      | Field       | Value      | Id | data-dataitemid                           | Locator Type |
-      | Postal Code | 28134  |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
+      | Field       | Value | Id | data-dataitemid                           | Locator Type |
+      | Postal Code | 28134 |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
       | Postal Code | 28134 |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
 
 
+    Then User verifies Validation Message for
+      | Field                | Id | data-dataitemid                    | Locator Type | Validation Error                          |
+      | Primary Phone Number |    | JointAnnuitant_Primary_PhoneNumber | Input        | Joint Annuitant Phone Number is required. |
+    Then User sets data for the field
+      | Field                | Value  | Id | data-dataitemid                    | Locator Type |
+      | Primary Phone Number | 678453 |    | JointAnnuitant_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field                | Id | data-dataitemid                    | Locator Type |
+      | Primary Phone Number |    | JointAnnuitant_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field                | Value | Id | data-dataitemid                    | Locator Type |
+      | Primary Phone Number | Shiba |    | JointAnnuitant_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field                | Id | data-dataitemid                    | Locator Type |
+      | Primary Phone Number |    | JointAnnuitant_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field                | Value      | Id | data-dataitemid                    | Locator Type |
+      | Primary Phone Number | 7864564464 |    | JointAnnuitant_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field         | Value | Id | data-dataitemid                     | Locator Type |
+      | Email Address | Shiba |    | JointAnnuitant_Primary_EmailAddress | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid                     | Locator Type | Validation Error                                        |
+      | Email Address |    | JointAnnuitant_Primary_EmailAddress | Input        | Please enter a valid Email address for Joint Annuitant. |
+    Then User sets data for the field
+      | Field         | Value            | Id | data-dataitemid                     | Locator Type |
+      | Email Address | testdata@jointann.com |    | JointAnnuitant_Primary_EmailAddress | Input        |
+    Then User Clicks on Button "Previous"
+    Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
+    Then User verifies prefilled form
+      | Field                      | Value                   | data-dataitemid                | Locator Type |
+      | Owner First Name           | Monkey                  | Owner_FirstName                | Input        |
+      | Owner Middle Name          | D                       | Owner_MiddleName               | Input        |
+      | Owner Last Name            | Luffy                   | Owner_LastName                 | Input        |
+      | Owner Dob                  | 10/11/1965              | Owner_DOB                      | Input        |
+      | Owner SSN                  | 545-01-7855             | Owner_SSN                      | Input        |
+      | Owner Gender               | Male                    | Owner_Gender                   | Select       |
+      | Mailing Address Street     | Enetai Avenue Northeast | Owner_MailingAddress1          | Input        |
+      | City                       | Tacoma                  | Owner_MailingAddress_City      | Input        |
+      | zip                       | 98422                  | Owner_MailingAddress_Zipcode      | Input        |
+      | State                      | WA                      | Owner_MailingAddress_State     | Select       |
+      | Residential Address Street | ENorth Allen Avenue     | Owner_ResidentialAddress1      | Input        |
+      | City                       | Chicago                 | Owner_ResidentialAddress_City  | Input        |
+      | State                      | IL                      | Owner_ResidentialAddress_State | Select       |
+      | Primary Phone Number       | (464) 646-4464          | Owner_Primary_PhoneNumber      | Input        |
+      | Email Address              | testdata@fbw.com        | Owner_Primary_EmailAddress     | Input        |
+    Then User Clicks on Button "Next"
+    Then User verifies Page heading "Annuitant Module" with form name "Annuitant(s)" for data entry flow
+    Then User verifies prefilled form
+      | Field                       | Value                 | data-dataitemid                           | Locator Type |
+      | Annuitant First Name        | Steven                | Annuitant_FirstName                       | Input        |
+      | Annuitant Middle Name       | K                     | Annuitant_MiddleName                      | Input        |
+      | Annuitant Last Name         | Smith                 | Annuitant_LastName                        | Input        |
+      | Annuitant Dob               | 10/11/1995            | Annuitant_DOB                             | Input        |
+      | Annuitant SSN               | 787-66-4646           | Annuitant_SSN                             | Input        |
+      | Annuitant Gender            | Male                  | Annuitant_Gender                          | Select       |
+      | Joint Annuitant First Name  | Cyborg                | JointAnnuitant_FirstName                  | Input        |
+      | Joint Annuitant Middle Name | KIng                  | JointAnnuitant_MiddleName                 | Input        |
+      | Joint Annuitant Last Name   | Franky                | JointAnnuitant_LastName                   | Input        |
+      | Joint Annuitant Dob         | 10/11/1970            | JointAnnuitant_DOB                        | Input        |
+      | Joint Annuitant SSN         | 644-59-7855           | JointAnnuitant_SSN                        | Input        |
+      | Joint Annuitant Gender      | Female                | JointAnnuitant_Gender                     | Select       |
+      | Mailing Address Street      | North Garland Court   | JointAnnuitant_MailingAddress1            | Input        |
+      | City                        | Chicago               | JointAnnuitant_MailingAddress_City        | Input        |
+      | zip                         | 28134                 | JointAnnuitant_MailingAddress_Zipcode     | Input        |
+      | State                       | IL                    | JointAnnuitant_MailingAddress_State       | Select       |
+      | Residential Address Street  | North Garland Court   | JointAnnuitant_ResidentialAddress1        | Input        |
+      | City                        | Oak Park              | JointAnnuitant_ResidentialAddress_City    | Input        |
+      | ZipCode                     | 28134                 | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
+      | State                       | Alabama               | JointAnnuitant_ResidentialAddress_State   | Select       |
+      | Primary Phone Number        | (786) 456-4464        | JointAnnuitant_Primary_PhoneNumber        | Input        |
+      | Email Address               | testdata@jointann.com | JointAnnuitant_Primary_EmailAddress       | Input        |
+    Then User Clicks on Button "Next"
+    Then User verifies Page heading "Beneficiary Module: Separate" with form name "Beneficiary" for data entry flow

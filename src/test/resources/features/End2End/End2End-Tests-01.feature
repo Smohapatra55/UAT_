@@ -8,6 +8,8 @@ Feature: FireLight_End2End_Tests
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button
     Then User clicks "Application" Tab
     Then User verifies "Create New Application" window showing
+    Then User Verifies "Jurisdiction" field is present
+    Then User Verifies "ProductType" field is present
     Then User Verifies Default Option is "Select Jurisdiction" for dropdown "Jurisdiction"
       | Field        | Id           | data-dataitemid | Locator Type |
       | Jurisdiction | Jurisdiction |                 | Select       |
@@ -21,8 +23,11 @@ Feature: FireLight_End2End_Tests
     Then User Verifies Heading "Variable Annuity"
     Then User clicks "Create" button
     Then User Verifies heading as Create Activity
+    Then User verifies "Create" Button
+    Then User verifies "Cancel" Button
     Then User enters new Application name
     Then User clicks on Create button on Rename window
+    Then User verifies New Application gets created
     Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow
 #    Then User opens "Client Data" Required for Form "Annuity Owner Module"
 #    Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow

@@ -257,6 +257,8 @@ public class CommonMethodsPage extends FLUtilities {
 
     @FindBy(xpath = "//div[@class='autocompleteResultItem autofill-result-item']")
     private List<WebElement> list_MailingAdress;
+    @FindBy(xpath = "//div[text()='Joint Annuitant Information']")
+    private List<WebElement> list_JointAnnuitant;
     public CommonMethodsPage(WebDriver driver) {
         initElements(driver);
     }

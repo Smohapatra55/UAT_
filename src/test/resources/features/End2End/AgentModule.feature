@@ -23,7 +23,7 @@ Feature: FireLight_End2End_Tests
       | Total Number of Agents | TotalNumberofAgents | Total_Agents_Number | Select       | 2      |
     Then User Chooses Blank option for Dropdown "Total Number of Agents" having id "TotalNumberofAgents" or DataItemId "Total_Agents_Number"
     Then User verifies Validation Message for
-      | Field                  | Id                  | data-dataitemid     | Locator Type | Validation Error        |
+      | Field                  | Id                  | data-dataitemid     | Locator Type | Validation Error                    |
       | Total Number of Agents | TotalNumberofAgents | Total_Agents_Number | Select       | Total Number of Agents is required. |
     Then User Chooses option for Dropdown
       | Field                  | Id                  | data-dataitemid     | Locator Type | Option |
@@ -39,8 +39,8 @@ Feature: FireLight_End2End_Tests
       | Field             | Id               | data-dataitemid        | Locator Type | Validation Error               |
       | Commission Option | CommissionOption | Agent_CommissionOption | Select       | Commission Option is required. |
     Then User sets data for the field
-      | Field      | Value       | Id        | data-dataitemid | Locator Type |
-      | Commission Option | C | CommissionOption | Agent_CommissionOption | Select       |
+      | Field             | Value | Id               | data-dataitemid        | Locator Type |
+      | Commission Option | C     | CommissionOption | Agent_CommissionOption | Select       |
     Then User verifies prefilled form
       | Field      | Value       | data-dataitemid | Locator Type |
       | First Name | Ashwani_FBW | Agent_FirstName | Input        |
@@ -51,11 +51,11 @@ Feature: FireLight_End2End_Tests
       | Field      | Id        | data-dataitemid | Locator Type | Validation Error              |
       | First Name | FirstName | Agent_FirstName | Input        | Agent First Name is required. |
     Then User sets data for the field
-      | Field      | Value       | Id        | data-dataitemid | Locator Type |
+      | Field      | Value  | Id        | data-dataitemid | Locator Type |
       | First Name | Arnold | FirstName | Agent_FirstName | Input        |
     Then User sets data for the field
       | Field       | Value | Id         | data-dataitemid  | Locator Type |
-      | Middle Name | SHIV     | MiddleName | Agent_MiddleName | Input        |
+      | Middle Name | SHIV  | MiddleName | Agent_MiddleName | Input        |
     Then User verifies "MiddleName" TextBox has Prefilled Value "S"
     Then User verify "maxlength" of field "MiddleName" is "1"
     Then User sets data for the field
@@ -74,23 +74,23 @@ Feature: FireLight_End2End_Tests
       | Field                | Value   | Id                 | data-dataitemid | Locator Type |
       | Agent License Number | 6478590 | AgentLicenseNumber | Agent_IDNumber  | Input        |
     Then User sets data for the field
-      | Field                  | Value                   | Id                    | data-dataitemid       | Locator Type |
-      | CRD Number             | 34523                   | CRDNumber             | Agent_CRDNumber       | Input        |
+      | Field      | Value | Id        | data-dataitemid | Locator Type |
+      | CRD Number | 34523 | CRDNumber | Agent_CRDNumber | Input        |
     Then User verifies prefilled form
       | Field      | Value | data-dataitemid | Locator Type |
       | CRD Number | 34523 | Agent_CRDNumber | Input        |
     Then User verifies Validation Message for
-      | Field               | Value | Id        | data-dataitemid | Locator Type |Validation Error|
-      | Agent License Number |       | NPNNumber | Agent_NPNNumber | Input        |  Agent NPN Number is required.|
+      | Field                | Value | Id        | data-dataitemid | Locator Type | Validation Error              |
+      | Agent License Number |       | NPNNumber | Agent_NPNNumber | Input        | Agent NPN Number is required. |
     Then User sets data for the field
       | Field                | Value | Id        | data-dataitemid | Locator Type |
       | Agent License Number | 57687 | NPNNumber | Agent_NPNNumber | Input        |
     Then User verifies Validation Message for
-      | Field    |Value | Id       | data-dataitemid | Locator Type |Validation Error|
-      | Firm Name |     |FirmName | Agent_FirmName  | Input        |  Agent Firm Name is required.|
+      | Field     | Value | Id       | data-dataitemid | Locator Type | Validation Error             |
+      | Firm Name |       | FirmName | Agent_FirmName  | Input        | Agent Firm Name is required. |
     Then User sets data for the field
-      | Field    |Value | Id       | data-dataitemid | Locator Type |
-      | Firm Name |  Hexure   |FirmName | Agent_FirmName  | Input        |
+      | Field     | Value  | Id       | data-dataitemid | Locator Type |
+      | Firm Name | Hexure | FirmName | Agent_FirmName  | Input        |
     Then User sets data for the field
       | Field        | Value          | Id          | data-dataitemid           | Locator Type |
       | Phone Number | (abc) def-abcd | PhoneNumber | Agent_Primary_PhoneNumber | Input        |
@@ -102,13 +102,13 @@ Feature: FireLight_End2End_Tests
       | Field        | Value          | data-dataitemid           | Locator Type |
       | Phone Number | (645) 767-8686 | Agent_Primary_PhoneNumber | Input        |
     Then User sets data for the field
-      | Field         | Value     | Id           | data-dataitemid            | Locator Type |
+      | Field         | Value   | Id           | data-dataitemid            | Locator Type |
       | Email Address | shiv777 | EmailAddress | Agent_Primary_EmailAddress | Input        |
     Then User verifies Validation Message for
       | Field         | Value | Id           | data-dataitemid            | Locator Type | Validation Error                    |
       | Email Address |       | EmailAddress | Agent_Primary_EmailAddress | Input        | Please enter a valid Email address. |
     Then User sets data for the field
-      | Field         | Value         | Id           | data-dataitemid            | Locator Type |
+      | Field         | Value          | Id           | data-dataitemid            | Locator Type |
       | Email Address | abcd@gmail.com | EmailAddress | Agent_Primary_EmailAddress | Input        |
     Then User Clears data for the field
       | Field      | Id         | data-dataitemid       | Locator Type |
@@ -118,19 +118,19 @@ Feature: FireLight_End2End_Tests
       | Percentage |       | Percentage | Agent_CommissionSplit | Input        | Commission Percentage is required. |
     Then User sets data for the field
       | Field      | Value | Id         | data-dataitemid       | Locator Type |
-      | Percentage |  56     | Percentage | Agent_CommissionSplit | Input        |
+      | Percentage | 56    | Percentage | Agent_CommissionSplit | Input        |
     Then User verifies Validation Message for
-      | Field      | Value | Id         | data-dataitemid       | Locator Type | Validation Error                   |
+      | Field      | Value | Id         | data-dataitemid       | Locator Type | Validation Error                        |
       | Percentage |       | Percentage | Agent_CommissionSplit | Input        | Agent Commission Total must equal 100%. |
     Then User sets data for the field
       | Field      | Value | Id         | data-dataitemid       | Locator Type |
-      | Percentage |  105     | Percentage | Agent_CommissionSplit | Input        |
+      | Percentage | 105   | Percentage | Agent_CommissionSplit | Input        |
     Then User verifies Validation Message for
-      | Field      | Value | Id         | data-dataitemid       | Locator Type | Validation Error                   |
+      | Field      | Value | Id         | data-dataitemid       | Locator Type | Validation Error                        |
       | Percentage |       | Percentage | Agent_CommissionSplit | Input        | Agent Commission Total must equal 100%. |
     Then User sets data for the field
       | Field      | Value | Id         | data-dataitemid       | Locator Type |
-      | Percentage |  100     | Percentage | Agent_CommissionSplit | Input        |
+      | Percentage | 100   | Percentage | Agent_CommissionSplit | Input        |
     Then User clicks red bubble icon
     Then User verifies Validation Message for Radio Button
       | Field                                                                        | Id | data-dataitemid        | Locator Type | RadioButtonType | Validation Error              |

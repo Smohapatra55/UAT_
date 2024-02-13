@@ -1020,6 +1020,121 @@ public class Common_StepDefinitions extends FLUtilities {
         new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByDataItemId(), ddDataItemId))).selectByVisibleText("");
     }
 
+    @Then("User verifies placeholder value for field")
+    public void UserVerifiesPlaceholderValueForField(DataTable dataTable) {
+        captureScreenshot(driver, testContext, false);
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-item-id");
+            String id = fieldData.get("Id");
+            String placeholder = fieldData.get("Placeholder");
+            String locatorType = fieldData.get("Locator Type");
+            switch (locatorType) {
+                case "Input":
+                    Assert.assertTrue("Placeholder for " + fieldName + " was wrong", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("placeholder").equalsIgnoreCase(placeholder));
+                    break;
+                default:
+                    Assert.fail("Invalid Locator Type" + locatorType);
+            }
+        }
+    }
+
+    @Then("User verifies field accept decimal values upto two digits")
+    public void UserVerifiesFieldAcceptDecimalValuesUptoTwoDigits(DataTable dataTable) {
+        Pattern pattern;
+        Matcher match;
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-dataitemid");
+            captureScreenshot(driver, testContext, false);
+            pattern = Pattern.compile("\\d+\\.\\d{1,2}");
+            match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
+            Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", match.matches());
+        }
+    }
+
+    @Then("User verifies field accept only values between {int} to {int}")
+    public void UserVerifiesFieldAcceptOnlyValuesBetween(DataTable dataTable, Integer start, Integer end) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-dataitemid");
+            captureScreenshot(driver, testContext, false);
+            double range = Double.parseDouble(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
+            Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", range >= start && range <= end);
+        }
+    }
+
+    @Then("User verifies field becomes yellow in color if the entered value is below 100 percentage")
+    public void UserVerifiesFieldBecomesYellowInColorIfTheEnteredValueIsBelowPercentage(DataTable dataTable) {
+        captureScreenshot(driver, testContext, false);
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-item-id");
+            String id = fieldData.get("Id");
+            String locatorType = fieldData.get("Locator Type");
+            switch (locatorType) {
+                case "Input":
+                    Assert.assertTrue(fieldName + " was not in yellow color even if it was less than 100%", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getCssValue("background-color").equalsIgnoreCase("rgb(252, 241, 201)"));
+                    break;
+                default:
+                    Assert.fail("Invalid Locator Type" + locatorType);
+            }
+        }
+    }
+
+    @Then("User verifies field is read only")
+    public void UserVerifiesFieldIsReadOnly(DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-dataitemid");
+            String locatorType = fieldData.get("Locator Type");
+            String id = fieldData.get("Id");
+            switch (locatorType) {
+                case "Input":
+                    Assert.assertTrue(fieldName + " Field was not read only", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("class").contains("readOnly"));
+                    break;
+                case "Select":
+                    Assert.assertTrue(fieldName + " Field was not read only", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsSelectTag(), dataItemId, id)).getAttribute("class").contains("readOnly"));
+                    break;
+                default:
+                    Assert.fail("Invalid Locator Type");
+            }
+            captureScreenshot(driver, testContext, false);
+        }
+    }
+
+    @Then("User verifies Date Picker is Displayed for")
+    public void User_verifies_Date_Picker_Is_Displayed(DataTable dataTable) {
+        List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        for (Map<String, String> fieldData : formFields) {
+            String fieldName = fieldData.get("Field");
+            String dataItemId = fieldData.get("data-dataitemid");
+            String id = fieldData.get("Id");
+            String locatorType = fieldData.get("Locator Type");
+            switch (locatorType) {
+                case "Input":
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
+                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.datePickerPop, dataItemId)), EnumsCommon.TOVISIBLE.getText());
+                    Assert.assertTrue("Date Picker was not present for " + fieldName, findElement(driver, String.format(onCommonMethodsPage.datePickerPop, dataItemId)).isDisplayed());
+                    break;
+                default:
+                    Assert.fail("Invalid Locator Type" + locatorType);
+            }
+        }
+    }
 }
 
 

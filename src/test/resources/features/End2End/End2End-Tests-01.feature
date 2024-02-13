@@ -729,3 +729,495 @@ Feature: FireLight_End2End_Tests
       | Email Address               | testdata@jointann.com | JointAnnuitant_Primary_EmailAddress       | Input        |
     Then User Clicks on Button "Next"
     Then User verifies Page heading "Beneficiary Module: Separate" with form name "Beneficiary" for data entry flow
+    Then User Verifies Blank option present for Dropdown
+      | Field                           | Id | data-dataitemid                          | Locator Type |
+      | Number of Primary Beneficiaries |    | PrimaryBeneficiary_NumberofBeneficiaries | Select       |
+    Then User Verifies options present for Dropdown
+      | Field                           | Id                           | data-dataitemid                          | Locator Type | Option |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 1      |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 2      |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 3      |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 4      |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 5      |
+    Then User Chooses Blank option for Dropdown "Number of Primary Beneficiaries" having id "NumberofPrimaryBeneficiaries" or DataItemId "PrimaryBeneficiary_NumberofBeneficiaries"
+    Then User verifies Validation Message for
+      | Field                           | Id                           | data-dataitemid                          | Locator Type | Validation Error                             |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | Number of Primary Beneficiaries is required. |
+    Then User Chooses option for Dropdown
+      | Field                           | Id                           | data-dataitemid                          | Locator Type | Option |
+      | Number of Primary Beneficiaries | NumberofPrimaryBeneficiaries | PrimaryBeneficiary_NumberofBeneficiaries | Select       | 2      |
+    Then User Verifies "Primary Beneficiary 1" field should be displayed on UI
+    Then User Verifies "Primary Beneficiary 2" field should be displayed on UI
+    Then User Verifies Blank option present for Dropdown
+      | Field          | Id | data-dataitemid            | Locator Type |
+      | Living Person? |    | PrimaryBeneficiary_Natural | Select       |
+    Then User Verifies options present for Dropdown
+      | Field          | Id            | data-dataitemid            | Locator Type | Option |
+      | Living Person? | LivingPerson? | PrimaryBeneficiary_Natural | Select       | Yes    |
+      | Living Person? | LivingPerson? | PrimaryBeneficiary_Natural | Select       | No     |
+    Then User Chooses Blank option for Dropdown "Living Person?" having id "LivingPerson?" or DataItemId "PrimaryBeneficiary_Natural"
+    Then User verifies Validation Message for
+      | Field          | Id            | data-dataitemid            | Locator Type | Validation Error                       |
+      | Living Person? | LivingPerson? | PrimaryBeneficiary_Natural | Select       | Beneficiary Living Person is required. |
+    Then User Chooses option for Dropdown
+      | Field          | Id            | data-dataitemid            | Locator Type | Option |
+      | Living Person? | LivingPerson? | PrimaryBeneficiary_Natural | Select       | Yes    |
+    Then User verifies fields Present in UI
+      | Field                  | Id | data-item-id                      | Locator Type |
+      | First Name             |    | PrimaryBeneficiary_FirstName      | Input        |
+      | Middle Name            |    | PrimaryBeneficiary_MiddleName     | Input        |
+      | Last Name              |    | PrimaryBeneficiary_LastName       | Input        |
+      | Date of Birth          |    | PrimaryBeneficiary_DOB            | Input        |
+      | SSN                    |    | PrimaryBeneficiary_SSN            | Input        |
+      | Gender                 |    | PrimaryBeneficiary_Gender         | Select       |
+      | Mailing Address Lookup |    | PrimaryBeneficiary_Address_Lookup | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field        | Id           | data-dataitemid                 | Locator Type |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       |
+    Then User Verifies options present for Dropdown
+      | Field        | Id           | data-dataitemid                 | Locator Type | Option                       |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Spouse                       |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Child                        |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Parent                       |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Sibling                      |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Other Family                 |
+      | Relationship | Relationship | PrimaryBeneficiary_Relationship | Select       | Other (Non-Natural Entities) |
+    Then User Chooses Blank option for Dropdown "Relationship" having id "" or DataItemId "PrimaryBeneficiary_Relationship"
+    Then User verifies Validation Message for
+      | Field        | Id | data-dataitemid                 | Locator Type | Validation Error                      |
+      | Relationship |    | PrimaryBeneficiary_Relationship | Select       | Beneficiary Relationship is required. |
+    Then User Chooses option for Dropdown
+      | Field        | Id | data-dataitemid                 | Locator Type | Option |
+      | Relationship |    | PrimaryBeneficiary_Relationship | Select       | Parent |
+    Then User verifies placeholder value for field
+      | Field           | Placeholder | Id | data-item-id                  | Locator Type |
+      | Primary Percent | 0.00%       |    | PrimaryBeneficiary_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field           | Id | data-dataitemid               | Locator Type | Validation Error                 |
+      | Primary Percent |    | PrimaryBeneficiary_Percentage | Input        | Beneficiary Percent is required. |
+    Then User sets data for the field
+      | Field           | Value | Id | data-dataitemid               | Locator Type |
+      | Primary Percent | 65    |    | PrimaryBeneficiary_Percentage | Input        |
+    Then User verifies field accept decimal values upto two digits
+      | Field           | Id | data-dataitemid               |
+      | Primary Percent |    | PrimaryBeneficiary_Percentage |
+    Then User verifies field accept only values between 1 to 100
+      | Field           | Id | data-dataitemid               |
+      | Primary Percent |    | PrimaryBeneficiary_Percentage |
+    Then User verifies field becomes yellow in color if the entered value is below 100 percentage
+      | Field           | Id | data-dataitemid               | Locator Type |
+      | Primary Percent |    | PrimaryBeneficiary_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field      | Id | data-dataitemid              | Locator Type | Validation Error                    |
+      | First Name |    | PrimaryBeneficiary_FirstName | Input        | Beneficiary First Name is required. |
+      | Last Name  |    | PrimaryBeneficiary_LastName  | Input        | Beneficiary Last Name is required.  |
+    Then User sets data for the field
+      | Field       | Value  | Id | data-dataitemid               | Locator Type |
+      | First Name  | Johns  |    | PrimaryBeneficiary_FirstName  | Input        |
+      | Middle Name | N      |    | PrimaryBeneficiary_MiddleName | Input        |
+      | Last Name   | Taylor |    | PrimaryBeneficiary_LastName   | Input        |
+    Then User verifies fields Present in UI
+      | Field         | Id | data-item-id           | Locator Type |
+      | Date of Birth |    | PrimaryBeneficiary_DOB | Input        |
+    Then User sets data for the field
+      | Field         | Value      | Id | data-dataitemid        | Locator Type |
+      | Date of Birth | 10/11/2070 |    | PrimaryBeneficiary_DOB | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid        | Locator Type | Validation Error                         |
+      | Date of Birth |    | PrimaryBeneficiary_DOB | Input        | Beneficiary DOB cannot be in the future. |
+    Then User sets data for the field
+      | Field         | Value      | Id | data-dataitemid        | Locator Type |
+      | Date of Birth | 10/11/1960 |    | PrimaryBeneficiary_DOB | Input        |
+    Then User sets data for the field
+      | Field | Value | Id  | data-dataitemid        | Locator Type |
+      | SSN   | 45    | SSN | PrimaryBeneficiary_SSN | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field | Id | data-dataitemid        | Locator Type |
+      | SSN   | 45 | PrimaryBeneficiary_SSN | Input        |
+    Then User sets data for the field
+      | Field | Value     | Id  | data-dataitemid        | Locator Type |
+      | SSN   | 545013243 | SSN | PrimaryBeneficiary_SSN | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field  | Id | data-dataitemid           | Locator Type |
+      | Gender |    | PrimaryBeneficiary_Gender | Select       |
+    Then User Verifies options present for Dropdown
+      | Field  | Id | data-dataitemid           | Locator Type | Option |
+      | Gender |    | PrimaryBeneficiary_Gender | Select       | Male   |
+      | Gender |    | PrimaryBeneficiary_Gender | Select       | Female |
+    Then User Chooses Blank option for Dropdown "Gender" having id "" or DataItemId "PrimaryBeneficiary_Gender"
+    Then User Chooses option for Dropdown
+      | Field  | Id | data-dataitemid           | Locator Type | Option |
+      | Gender |    | PrimaryBeneficiary_Gender | Select       | Female |
+    Then User sets data for the field
+      | Field                  | Value    | Id                   | data-dataitemid                   | Locator Type |
+      | Mailing Address Lookup | carolina | MailingAddressLookup | PrimaryBeneficiary_Address_Lookup | Input        |
+    Then User Selects Option for Lookup "Mailing Address Lookup"
+      | Option                                     |
+      | Carolina Place Parkway, Pineville, NC, USA |
+    Then User sets data for the field
+      | Field        | Value  | Id          | data-dataitemid                        | Locator Type |
+      | Phone Number | 422342 | PhoneNumber | PrimaryBeneficiary_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id          | data-dataitemid                        | Locator Type |
+      | Phone Number | PhoneNumber | PrimaryBeneficiary_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value | Id          | data-dataitemid                        | Locator Type |
+      | Phone Number | Jay   | PhoneNumber | PrimaryBeneficiary_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id          | data-dataitemid                        | Locator Type |
+      | Phone Number | PhoneNumber | PrimaryBeneficiary_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value      | Id          | data-dataitemid                        | Locator Type |
+      | Phone Number | 7864568752 | PhoneNumber | PrimaryBeneficiary_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field         | Value   | Id           | data-dataitemid                         | Locator Type |
+      | Email Address | JayTest | EmailAddress | PrimaryBeneficiary_Primary_EmailAddress | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id           | data-dataitemid                         | Locator Type | Validation Error                    |
+      | Email Address | EmailAddress | PrimaryBeneficiary_Primary_EmailAddress | Input        | Please enter a valid Email address. |
+    Then User sets data for the field
+      | Field         | Value                 | Id           | data-dataitemid                         | Locator Type |
+      | Email Address | testdata@primbene.com | EmailAddress | PrimaryBeneficiary_Primary_EmailAddress | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field          | Id | data-dataitemid             | Locator Type |
+      | Living Person? |    | PrimaryBeneficiary2_Natural | Select       |
+    Then User Verifies options present for Dropdown
+      | Field          | Id | data-dataitemid             | Locator Type | Option |
+      | Living Person? |    | PrimaryBeneficiary2_Natural | Select       | Yes    |
+      | Living Person? |    | PrimaryBeneficiary2_Natural | Select       | No     |
+    Then User Chooses Blank option for Dropdown "Living Person?" having id "" or DataItemId "PrimaryBeneficiary2_Natural"
+    Then User verifies Validation Message for
+      | Field          | Id | data-dataitemid             | Locator Type | Validation Error           |
+      | Living Person? |    | PrimaryBeneficiary2_Natural | Select       | Living Person is required. |
+    Then User Chooses option for Dropdown
+      | Field          | Id | data-dataitemid             | Locator Type | Option |
+      | Living Person? |    | PrimaryBeneficiary2_Natural | Select       | No     |
+    Then User verifies fields Present in UI
+      | Field      | Id | data-item-id                       | Locator Type |
+      | Name       |    | PrimaryBeneficiary2_NonNaturalName | Input        |
+      | Trust Date |    | PrimaryBeneficiary2_TrustDate      | Input        |
+      | Tax ID     |    | PrimaryBeneficiary2_TIN            | Input        |
+    Then User verifies prefilled form
+      | Field        | Value                        | data-dataitemid                  | Locator Type |
+      | Relationship | Other (Non-Natural Entities) | PrimaryBeneficiary2_Relationship | Select       |
+    Then User verifies field is read only
+      | Field        | data-dataitemid                  | Locator Type |
+      | Relationship | PrimaryBeneficiary2_Relationship | Select       |
+    Then User verifies placeholder value for field
+      | Field           | Placeholder | Id | data-item-id                   | Locator Type |
+      | Primary Percent | 0.00%       |    | PrimaryBeneficiary2_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field           | Id | data-dataitemid                | Locator Type | Validation Error                 |
+      | Primary Percent |    | PrimaryBeneficiary2_Percentage | Input        | Beneficiary Percent is required. |
+    Then User sets data for the field
+      | Field           | Value | Id | data-dataitemid                | Locator Type |
+      | Primary Percent | 35    |    | PrimaryBeneficiary2_Percentage | Input        |
+    Then User verifies field accept decimal values upto two digits
+      | Field           | Id | data-dataitemid                |
+      | Primary Percent |    | PrimaryBeneficiary2_Percentage |
+    Then User verifies field accept only values between 1 to 100
+      | Field           | Id | data-dataitemid                |
+      | Primary Percent |    | PrimaryBeneficiary2_Percentage |
+    Then User verifies field becomes yellow in color if the entered value is below 100 percentage
+      | Field           | Id | data-dataitemid                | Locator Type |
+      | Primary Percent |    | PrimaryBeneficiary2_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field | Id | data-dataitemid                    | Locator Type | Validation Error              |
+      | Name  |    | PrimaryBeneficiary2_NonNaturalName | Input        | Beneficiary Name is required. |
+    Then User sets data for the field
+      | Field | Value | Id | data-dataitemid                    | Locator Type |
+      | Name  | Bruno |    | PrimaryBeneficiary2_NonNaturalName | Input        |
+    Then User verifies Date Picker is Displayed for
+      | Field      | Id | data-dataitemid               | Locator Type |
+      | Trust Date |    | PrimaryBeneficiary2_TrustDate | Input        |
+    Then User sets data for the field
+      | Field      | Value      | Id | data-dataitemid               | Locator Type |
+      | Trust Date | 10/11/2030 |    | PrimaryBeneficiary2_TrustDate | Input        |
+    Then User verifies Validation Message for
+      | Field      | Id | data-dataitemid               | Locator Type | Validation Error                                |
+      | Trust Date |    | PrimaryBeneficiary2_TrustDate | Input        | Beneficiary Trust Date cannot be in the future. |
+    Then User sets data for the field
+      | Field      | Value      | Id | data-dataitemid               | Locator Type |
+      | Trust Date | 10/11/1988 |    | PrimaryBeneficiary2_TrustDate | Input        |
+    Then User sets data for the field
+      | Field  | Value | Id    | data-dataitemid         | Locator Type |
+      | Tax ID | 4543  | TaxID | PrimaryBeneficiary2_TIN | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field  | Id   | data-dataitemid         | Locator Type |
+      | Tax ID | 4543 | PrimaryBeneficiary2_TIN | Input        |
+    Then User sets data for the field
+      | Field  | Value      | Id    | data-dataitemid         | Locator Type |
+      | Tax ID | 67-5757788 | TaxID | PrimaryBeneficiary2_TIN | Input        |
+    Then User sets data for the field
+      | Field                  | Value    | Id | data-dataitemid                    | Locator Type |
+      | Mailing Address Lookup | carolina |    | PrimaryBeneficiary2_Address_Lookup | Input        |
+    Then User Selects Option for Lookup "Mailing Address Lookup"
+      | Option                                     |
+      | Carolina Place Parkway, Pineville, NC, USA |
+    Then User sets data for the field
+      | Field        | Value | Id | data-dataitemid                         | Locator Type |
+      | Phone Number | 95839 |    | PrimaryBeneficiary2_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id | data-dataitemid                         | Locator Type |
+      | Phone Number |    | PrimaryBeneficiary2_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value    | Id | data-dataitemid                         | Locator Type |
+      | Phone Number | JayPhone |    | PrimaryBeneficiary2_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id | data-dataitemid                         | Locator Type |
+      | Phone Number |    | PrimaryBeneficiary2_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value      | Id | data-dataitemid                         | Locator Type |
+      | Phone Number | 6543789464 |    | PrimaryBeneficiary2_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field         | Value   | Id | data-dataitemid                          | Locator Type |
+      | Email Address | JayTest |    | PrimaryBeneficiary2_Primary_EmailAddress | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid                          | Locator Type | Validation Error                    |
+      | Email Address |    | PrimaryBeneficiary2_Primary_EmailAddress | Input        | Please enter a valid Email address. |
+    Then User sets data for the field
+      | Field         | Value       | Id | data-dataitemid                          | Locator Type |
+      | Email Address | pb2@ann.com |    | PrimaryBeneficiary2_Primary_EmailAddress | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field                              | Id | data-dataitemid                             | Locator Type |
+      | Number of Contingent Beneficiaries |    | ContingentBeneficiary_NumberofBeneficiaries | Select       |
+    Then User Verifies options present for Dropdown
+      | Field                              | Id                              | data-dataitemid                             | Locator Type | Option |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 1      |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 2      |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 3      |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 4      |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 5      |
+    Then User Verifies Default Option is "0" for dropdown "Number of Contingent Beneficiaries"
+      | Field                              | Id                              | data-dataitemid                             | Locator Type |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       |
+    Then User Chooses Blank option for Dropdown "Number of Contingent Beneficiaries" having id "NumberofContingentBeneficiaries" or DataItemId "ContingentBeneficiary_NumberofBeneficiaries"
+    Then User Verifies Blank option present for Dropdown
+      | Field                              | Id | data-dataitemid                             | Locator Type |
+      | Number of Contingent Beneficiaries |    | ContingentBeneficiary_NumberofBeneficiaries | Select       |
+    Then User Chooses option for Dropdown
+      | Field                              | Id                              | data-dataitemid                             | Locator Type | Option |
+      | Number of Contingent Beneficiaries | NumberofContingentBeneficiaries | ContingentBeneficiary_NumberofBeneficiaries | Select       | 1      |
+    Then User Verifies "Contingent Beneficiary 1" field should be displayed on UI
+
+    Then User Verifies Blank option present for Dropdown
+      | Field          | Id | data-dataitemid                | Locator Type |
+      | Living Person? |    | ContingentBeneficiary1_Natural | Select       |
+    Then User Verifies options present for Dropdown
+      | Field          | Id | data-dataitemid                | Locator Type | Option |
+      | Living Person? |    | ContingentBeneficiary1_Natural | Select       | Yes    |
+      | Living Person? |    | ContingentBeneficiary1_Natural | Select       | No     |
+    Then User Chooses Blank option for Dropdown "Living Person?" having id "" or DataItemId "ContingentBeneficiary1_Natural"
+    Then User verifies Validation Message for
+      | Field          | Id | data-dataitemid                | Locator Type | Validation Error                 |
+      | Living Person? |    | ContingentBeneficiary1_Natural | Select       | Living Person must be Yes or No. |
+    Then User Chooses option for Dropdown
+      | Field          | Id | data-dataitemid                | Locator Type | Option |
+      | Living Person? |    | ContingentBeneficiary1_Natural | Select       | Yes    |
+    Then User verifies fields Present in UI
+      | Field                  | Id | data-item-id                          | Locator Type |
+      | First Name             |    | ContingentBeneficiary1_FirstName      | Input        |
+      | Middle Name            |    | ContingentBeneficiary1_MiddleName     | Input        |
+      | Last Name              |    | ContingentBeneficiary1_LastName       | Input        |
+      | Date of Birth          |    | ContingentBeneficiary1_DOB            | Input        |
+      | SSN                    |    | ContingentBeneficiary1_SSN            | Input        |
+      | Gender                 |    | ContingentBeneficiary1_Gender         | Select       |
+      | Mailing Address Lookup |    | ContingentBeneficiary1_Address_Lookup | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field        | Id | data-dataitemid                     | Locator Type |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       |
+    Then User Verifies options present for Dropdown
+      | Field        | Id | data-dataitemid                     | Locator Type | Option                       |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Spouse                       |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Child                        |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Parent                       |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Sibling                      |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Other Family                 |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Other (Non-Natural Entities) |
+    Then User Chooses Blank option for Dropdown "Relationship" having id "" or DataItemId "ContingentBeneficiary1_Relationship"
+    Then User verifies Validation Message for
+      | Field        | Id | data-dataitemid                     | Locator Type | Validation Error                      |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Beneficiary Relationship is required. |
+    Then User Chooses option for Dropdown
+      | Field        | Id | data-dataitemid                     | Locator Type | Option       |
+      | Relationship |    | ContingentBeneficiary1_Relationship | Select       | Other Family |
+    Then User verifies placeholder value for field
+      | Field              | Placeholder | Id | data-item-id                      | Locator Type |
+      | Contingent Percent | 0.00%       |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field              | Id | data-dataitemid                   | Locator Type | Validation Error                 |
+      | Contingent Percent |    | ContingentBeneficiary1_Percentage | Input        | Beneficiary Percent is required. |
+    Then User sets data for the field
+      | Field              | Value | Id | data-dataitemid                   | Locator Type |
+      | Contingent Percent | 65    |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User verifies field accept decimal values upto two digits
+      | Field              | Id | data-dataitemid                   |
+      | Contingent Percent |    | ContingentBeneficiary1_Percentage |
+    Then User verifies field accept only values between 1 to 100
+      | Field              | Id | data-dataitemid                   |
+      | Contingent Percent |    | ContingentBeneficiary1_Percentage |
+    Then User verifies field becomes yellow in color if the entered value is below 100 percentage
+      | Field              | Id | data-dataitemid                   | Locator Type |
+      | Contingent Percent |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User sets data for the field
+      | Field              | Value | Id | data-dataitemid                   | Locator Type |
+      | Contingent Percent | 100   |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field      | Id | data-dataitemid                  | Locator Type | Validation Error                    |
+      | First Name |    | ContingentBeneficiary1_FirstName | Input        | Beneficiary First Name is required. |
+      | Last Name  |    | ContingentBeneficiary1_LastName  | Input        | Beneficiary Last Name is required.  |
+    Then User sets data for the field
+      | Field       | Value | Id | data-dataitemid                   | Locator Type |
+      | First Name  | Test  |    | ContingentBeneficiary1_FirstName  | Input        |
+      | Middle Name | Ram   |    | ContingentBeneficiary1_MiddleName | Input        |
+      | Last Name   | Dev   |    | ContingentBeneficiary1_LastName   | Input        |
+    Then User verifies fields Present in UI
+      | Field         | Id | data-item-id               | Locator Type |
+      | Date of Birth |    | ContingentBeneficiary1_DOB | Input        |
+    Then User verifies Date Picker is Displayed for
+      | Field      | Id | data-dataitemid            | Locator Type |
+      | Trust Date |    | ContingentBeneficiary1_DOB | Input        |
+    Then User sets data for the field
+      | Field         | Value      | Id | data-dataitemid            | Locator Type |
+      | Date of Birth | 10/11/2040 |    | ContingentBeneficiary1_DOB | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid            | Locator Type | Validation Error                         |
+      | Date of Birth |    | ContingentBeneficiary1_DOB | Input        | Beneficiary DOB cannot be in the future. |
+    Then User sets data for the field
+      | Field         | Value      | Id | data-dataitemid            | Locator Type |
+      | Date of Birth | 10/11/1980 |    | ContingentBeneficiary1_DOB | Input        |
+    Then User sets data for the field
+      | Field | Value | Id  | data-dataitemid            | Locator Type |
+      | SSN   | 567   | SSN | ContingentBeneficiary1_SSN | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field | Id  | data-dataitemid            | Locator Type |
+      | SSN   | 567 | ContingentBeneficiary1_SSN | Input        |
+    Then User sets data for the field
+      | Field | Value     | Id  | data-dataitemid            | Locator Type |
+      | SSN   | 546577855 | SSN | ContingentBeneficiary1_SSN | Input        |
+    Then User Verifies Blank option present for Dropdown
+      | Field  | Id | data-dataitemid               | Locator Type |
+      | Gender |    | ContingentBeneficiary1_Gender | Select       |
+    Then User Verifies options present for Dropdown
+      | Field  | Id | data-dataitemid               | Locator Type | Option |
+      | Gender |    | ContingentBeneficiary1_Gender | Select       | Male   |
+      | Gender |    | ContingentBeneficiary1_Gender | Select       | Female |
+    Then User Chooses Blank option for Dropdown "Gender" having id "" or DataItemId "ContingentBeneficiary1_Gender"
+    Then User Chooses option for Dropdown
+      | Field  | Id | data-dataitemid               | Locator Type | Option |
+      | Gender |    | ContingentBeneficiary1_Gender | Select       | Female |
+    Then User sets data for the field
+      | Field                  | Value    | Id | data-dataitemid                       | Locator Type |
+      | Mailing Address Lookup | carolina |    | ContingentBeneficiary1_Address_Lookup | Input        |
+    Then User Selects Option for Lookup "Mailing Address Lookup"
+      | Option                                     |
+      | Carolina Place Parkway, Pineville, NC, USA |
+    Then User sets data for the field
+      | Field        | Value  | Id | data-dataitemid                            | Locator Type |
+      | Phone Number | 324234 |    | ContingentBeneficiary1_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id | data-dataitemid                            | Locator Type |
+      | Phone Number |    | ContingentBeneficiary1_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value | Id | data-dataitemid                            | Locator Type |
+      | Phone Number | Jay   |    | ContingentBeneficiary1_Primary_PhoneNumber | Input        |
+    Then User verifies prefilled data Form input text fields should be blank
+      | Field        | Id | data-dataitemid                            | Locator Type |
+      | Phone Number |    | ContingentBeneficiary1_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field        | Value      | Id | data-dataitemid                            | Locator Type |
+      | Phone Number | 7864587264 |    | ContingentBeneficiary1_Primary_PhoneNumber | Input        |
+    Then User sets data for the field
+      | Field         | Value   | Id | data-dataitemid                             | Locator Type |
+      | Email Address | JayTest |    | ContingentBeneficiary1_Primary_EmailAddress | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid                             | Locator Type | Validation Error                    |
+      | Email Address |    | ContingentBeneficiary1_Primary_EmailAddress | Input        | Please enter a valid Email address. |
+    Then User sets data for the field
+      | Field         | Value             | Id | data-dataitemid                             | Locator Type |
+      | Email Address | contbene@data.com |    | ContingentBeneficiary1_Primary_EmailAddress | Input        |
+    Then User verifies field is read only
+      | Field         | data-dataitemid                     | Locator Type |
+      | Primary Total | PrimaryBeneficiary_Percentage_Total | Input        |
+    Then User sets data for the field
+      | Field           | Value | Id | data-dataitemid               | Locator Type |
+      | Primary Percent | 60    |    | PrimaryBeneficiary_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field         | Id | data-dataitemid                     | Locator Type | Validation Error                           |
+      | Primary Total |    | PrimaryBeneficiary_Percentage_Total | Input        | Primary Beneficiary Total must equal 100%. |
+    Then User sets data for the field
+      | Field           | Value | Id | data-dataitemid               | Locator Type |
+      | Primary Percent | 65    |    | PrimaryBeneficiary_Percentage | Input        |
+    Then User verifies field is read only
+      | Field            | data-dataitemid                        | Locator Type |
+      | Contingent Total | ContingentBeneficiary_Percentage_Total | Input        |
+    Then User sets data for the field
+      | Field              | Value | Id | data-dataitemid                   | Locator Type |
+      | Contingent Percent | 95    |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User verifies Validation Message for
+      | Field            | Id | data-dataitemid                        | Locator Type | Validation Error                                    |
+      | Contingent Total |    | ContingentBeneficiary_Percentage_Total | Input        | Contingent Beneficiary Total must equal 0% or 100%. |
+    Then User sets data for the field
+      | Field              | Value | Id | data-dataitemid                   | Locator Type |
+      | Contingent Percent | 100   |    | ContingentBeneficiary1_Percentage | Input        |
+    Then User Clicks on Button "Previous"
+    Then User verifies prefilled form
+      | Field                       | Value                 | data-dataitemid                           | Locator Type |
+      | Annuitant First Name        | Steven                | Annuitant_FirstName                       | Input        |
+      | Annuitant Middle Name       | K                     | Annuitant_MiddleName                      | Input        |
+      | Annuitant Last Name         | Smith                 | Annuitant_LastName                        | Input        |
+      | Annuitant Dob               | 10/11/1995            | Annuitant_DOB                             | Input        |
+      | Annuitant SSN               | 787-66-4646           | Annuitant_SSN                             | Input        |
+      | Annuitant Gender            | Male                  | Annuitant_Gender                          | Select       |
+      | Joint Annuitant First Name  | Cyborg                | JointAnnuitant_FirstName                  | Input        |
+      | Joint Annuitant Middle Name | KIng                  | JointAnnuitant_MiddleName                 | Input        |
+      | Joint Annuitant Last Name   | Franky                | JointAnnuitant_LastName                   | Input        |
+      | Joint Annuitant Dob         | 10/11/1970            | JointAnnuitant_DOB                        | Input        |
+      | Joint Annuitant SSN         | 644-59-7855           | JointAnnuitant_SSN                        | Input        |
+      | Joint Annuitant Gender      | Female                | JointAnnuitant_Gender                     | Select       |
+      | Mailing Address Street      | North Garland Court   | JointAnnuitant_MailingAddress1            | Input        |
+      | City                        | Chicago               | JointAnnuitant_MailingAddress_City        | Input        |
+      | zip                         | 28134                 | JointAnnuitant_MailingAddress_Zipcode     | Input        |
+      | State                       | IL                    | JointAnnuitant_MailingAddress_State       | Select       |
+      | Residential Address Street  | North Garland Court   | JointAnnuitant_ResidentialAddress1        | Input        |
+      | City                        | Oak Park              | JointAnnuitant_ResidentialAddress_City    | Input        |
+      | ZipCode                     | 28134                 | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
+      | State                       | IL                    | JointAnnuitant_ResidentialAddress_State   | Select       |
+      | Primary Phone Number        | (786) 456-4464        | JointAnnuitant_Primary_PhoneNumber        | Input        |
+      | Email Address               | testdata@jointann.com | JointAnnuitant_Primary_EmailAddress       | Input        |
+    Then User clicks on Next buttons
+    Then User verifies prefilled form
+      | Field                              | Value                        | data-dataitemid                             | Locator Type |
+      | Number of Primary Beneficiaries    | 2                            | PrimaryBeneficiary_NumberofBeneficiaries    | Select       |
+      | Living Person?                     | Yes                          | PrimaryBeneficiary_Natural                  | Select       |
+      | Relationship                       | Parent                       | PrimaryBeneficiary_Relationship             | Select       |
+      | Primary Percent                    | 65                           | PrimaryBeneficiary_Percentage               | Input        |
+      | First Name                         | Johns                        | PrimaryBeneficiary_FirstName                | Input        |
+      | Middle Name                        | N                            | PrimaryBeneficiary_MiddleName               | Input        |
+      | Last Name                          | Taylor                       | PrimaryBeneficiary_LastName                 | Input        |
+      | Date of Birth                      | 10/11/1960                   | PrimaryBeneficiary_DOB                      | Input        |
+      | SSN                                | 545013243                    | PrimaryBeneficiary_SSN                      | Input        |
+      | City                               | Pineville                    | PrimaryBeneficiary_MailingAddress_City      | Input        |
+      | State                              | NC                           | PrimaryBeneficiary_MailingAddress_State     | Select       |
+      | Postal Code                        | 28134                        | PrimaryBeneficiary_MailingAddress_Zipcode   | Input        |
+      | Phone Number                       | 7864568752                   | PrimaryBeneficiary_Primary_PhoneNumber      | Input        |
+      | Email Address                      | testdata@primbene.com        | PrimaryBeneficiary_Primary_EmailAddress     | Input        |
+      | Living Person?                     | No                           | PrimaryBeneficiary2_Natural                 | Select       |
+      | Relationship                       | Other (Non-Natural Entities) | PrimaryBeneficiary2_Relationship            | Select       |
+      | Primary Percent                    | 35                           | PrimaryBeneficiary2_Percentage              | Input        |
+      | Name                               | Bruno                        | PrimaryBeneficiary2_NonNaturalName          | Input        |
+      | Trust Date                         | 10/11/1988                   | PrimaryBeneficiary2_TrustDate               | Input        |
+      | Tax ID                             | 67-5757788                   | PrimaryBeneficiary2_TIN                     | Input        |
+      | Phone Number                       | 6543789464                   | PrimaryBeneficiary2_Primary_PhoneNumber     | Input        |
+      | Email Address                      | pb2@ann.com                  | PrimaryBeneficiary2_Primary_EmailAddress    | Input        |
+      | Number of Contingent Beneficiaries | 1                            | ContingentBeneficiary_NumberofBeneficiaries | Select       |
+      | Living Person?                     | Yes                          | ContingentBeneficiary1_Natural              | Select       |
+      | Relationship                       | Other Family                 | ContingentBeneficiary1_Relationship         | Select       |
+      | Contingent Percent                 | 100                          | ContingentBeneficiary1_Percentage           | Input        |
+      | First Name                         | Test                         | ContingentBeneficiary1_FirstName            | Input        |
+      | Middle Name                        | Ram                          | ContingentBeneficiary1_MiddleName           | Input        |
+      | Last Name                          | Dev                          | ContingentBeneficiary1_LastName             | Input        |
+      | Date of Birth                      | 10/11/1980                   | ContingentBeneficiary1_DOB                  | Input        |
+      | SSN                                | 546577855                    | ContingentBeneficiary1_SSN                  | Input        |
+      | Phone Number                       | 7864587264                   | ContingentBeneficiary1_Primary_PhoneNumber  | Input        |
+      | Email Address                      | contbene@data.com            | ContingentBeneficiary1_Primary_EmailAddress | Input        |

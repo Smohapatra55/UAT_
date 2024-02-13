@@ -1909,5 +1909,10 @@ public class Signatures_StepDefinitions extends FLUtilities {
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute(attribute));
     }
 
-
+    @Then("User Verifies {string} field should be displayed on UI")
+    public void UserVerifiesFieldShouldBeDisplayedOnUI(String heading) {
+        captureScreenshot(driver, testContext, false);
+        syncElement(driver, onSignaturesPage.getSectionHeading(), EnumsCommon.TOVISIBLE.getText());
+        Assert.assertTrue("Field was not Displayed", onSignaturesPage.getSectionHeading().getText().equalsIgnoreCase(heading));
+    }
 }

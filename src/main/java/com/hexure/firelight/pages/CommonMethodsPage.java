@@ -266,6 +266,9 @@ public class CommonMethodsPage extends FLUtilities {
     private List<WebElement> list_MailingAdress;
     @FindBy(xpath = "//div[text()='Joint Annuitant Information']")
     private List<WebElement> list_JointAnnuitant;
+
+    public String datePickerPop = "//div[contains(@class,'react-datepicker')]/div[@data-dataitemid='%s']";
+
     public CommonMethodsPage(WebDriver driver) {
         initElements(driver);
     }

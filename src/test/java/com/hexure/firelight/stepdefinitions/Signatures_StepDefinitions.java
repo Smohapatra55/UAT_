@@ -1216,24 +1216,8 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_Enters_in_TextBox(String value, String txtBox) {
         captureScreenshot(driver, testContext, false);
         waitForPageToLoad(driver);
-        if(value.contains("Random")) {
-            String appName = testContext.getMapTestData().get("newProductName");
-            value = value + appName.substring(appName.lastIndexOf(" "));
-            addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.REVIEWERNAME.getText(), value);
-            addPropertyValueInJSON(testContext.getTestCaseID(), testContext, EnumsJSONProp.AGENTNAME.getText(), value);
-        }
-       else if(value.equalsIgnoreCase("More Than 75 Chareacters")) {
-           value=value+testContext.getMapTestData().get("value");
-        }
-       else if (value.contains("Copy_of")) {
-            addPropertyValueInJSON(testContext.getTestCaseID(),testContext,value,"Copy of "+testContext.getMapTestData().get(value.replace("Copy_of","")));
-           value="Copy of "+testContext.getMapTestData().get(value.replace("Copy_of",""));
-        }
         findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
-        sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)), value+Keys.TAB);
-            if(value.length() == 0) {
-                findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
-        }
+        sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)), value);
     }
 
     @Then("User Clears the TextBox{string}")

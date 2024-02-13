@@ -17,27 +17,15 @@ public class PageObjectManager extends BaseClass
     private DataEntryPage onDataEntryPage;
     private ReviewPage onReviewPage;
     private SignaturesPage onSignaturesPage;
-    private ReviewQueuePage onReviewQueuePage;
-    private HistoryPage onHistoryPage;
-	private FinishPage onFinishPage;
-    private LoginSSNPage onLoginSSNPage;
     private SSNHomePage onSSNHomePage;
-    private HistoryPopupPage onHistoryPopupPage;
-	private SelectDocumentsToPrintPage onSelectDocumentsToPrintPage;
-	private PartyEntryPage onPartyEntryPage;
-	private RCTCompleteFillingAndSigningPage onRCTCompleteFillingAndSigningPage;
-	private RequestSentPage onRequestSentPage;
 	private ExternalLoginPage onExternalLoginPage;
 	private SignApplicationPage onSignApplicationPage;
 	private FinalizePage onFinalizePage;
-	private RCTCompleteFillingAppPage onRCTCompleteFillingAppPage;
-	private EasySigningFormPage onEasySigningFormPage;
-	private ExternalURLPage onExternalURLPage;
 	private CommonMethodsPage onCommonMethodsPage;
 	private CreateApplication_ReactPage onCreateApplication_reactPage;
 	private CommonMethods_ReactPage onCommonMethods_reactPage;
 	private DataEntry_ReactPage onDataEntryReactPage;
-	private ReviewerDocumentsPage onReviewerDocumentsPage;
+
 	private TabAppPage onTabAppPage;
 	private EnrollmentPage onEnrollmentPage;
 
@@ -103,32 +91,10 @@ public class PageObjectManager extends BaseClass
 		}
 	}
 
-	public ReviewQueuePage getOnReviewQueuePage()	{
-		try{
-			return (onReviewQueuePage == null) ? onReviewQueuePage = new ReviewQueuePage(driver) : onReviewQueuePage;
-		} catch (Exception e){
-			Log.error("Instance creations of ReviewQueuePage Failed ", e);
-			throw new FLException("Instance creations of ReviewQueuePage Failed " + e.getMessage());
-		}
-	}
 
-	public HistoryPage getOnHistoryPage()	{
-		try{
-			return (onHistoryPage == null) ? onHistoryPage = new HistoryPage(driver) : onHistoryPage;
-		} catch (Exception e){
-			Log.error("Instance creations of HistoryPage Failed ", e);
-			throw new FLException("Instance creations of HistoryPage Failed " + e.getMessage());
-		}
-	}
 
-	public LoginSSNPage getLoginSSNPage()	{
-		try{
-			return (onLoginSSNPage == null) ? onLoginSSNPage = new LoginSSNPage(driver) : onLoginSSNPage;
-		} catch (Exception e){
-			Log.error("Instance creations of LoginSSNPage Failed ", e);
-			throw new FLException("Instance creations of LoginSSNPage Failed " + e.getMessage());
-		}
-	}
+
+
 
 	public SSNHomePage getSSNHomePage()	{
 		try{
@@ -139,49 +105,13 @@ public class PageObjectManager extends BaseClass
 		}
 	}
 
-	public FinishPage getFinishPage()	{
-		try{
-			return (onFinishPage == null) ? onFinishPage = new FinishPage(driver) : onFinishPage;
-		} catch (Exception e){
-			Log.error("Instance creations of FinishPage Failed ", e);
-			throw new FLException("Instance creations of FinishPage Failed " + e.getMessage());
-		}
-	}
 
-	public HistoryPopupPage getHistoryPopupPage()	{
-		try{
-			return (onHistoryPopupPage == null) ? onHistoryPopupPage = new HistoryPopupPage(driver) : onHistoryPopupPage;
-		} catch (Exception e){
-			Log.error("Instance creations of HistoryPopupPage Failed ", e);
-			throw new FLException("Instance creations of HistoryPopupPage Failed " + e.getMessage());
-		}
-	}
 
-	public PartyEntryPage getPartyEntryPage()	{
-		try{
-			return (onPartyEntryPage == null) ? onPartyEntryPage = new PartyEntryPage(driver) : onPartyEntryPage;
-		} catch (Exception e){
-			Log.error("Instance creations of PartyEntryPage Failed ", e);
-			throw new FLException("Instance creations of PartyEntryPage Failed " + e.getMessage());
-		}
-	}
 
-	public RCTCompleteFillingAndSigningPage getonRCTCompleteFillingAndSigningPage()	{
-	try{
-		return (onRCTCompleteFillingAndSigningPage == null) ? onRCTCompleteFillingAndSigningPage = new RCTCompleteFillingAndSigningPage(driver) : onRCTCompleteFillingAndSigningPage;
-	} catch (Exception e){
-		Log.error("Instance creations of RCT_Complete_Filling_and_SigningPage Failed ", e);
-		throw new FLException("Instance creations of RCT_Complete_Filling_and_SigningPage Failed " + e.getMessage());
-	}
-}
-	public RequestSentPage getOnRequestSentPage()	{
-		try{
-			return (onRequestSentPage == null) ? onRequestSentPage = new RequestSentPage(driver) : onRequestSentPage;
-		} catch (Exception e){
-			Log.error("Instance creations of RequestSentPage Failed ", e);
-			throw new FLException("Instance creations of RequestSentPage Failed " + e.getMessage());
-		}
-	}
+
+
+
+
 
 	public ExternalLoginPage getOnExternalLoginPage() {
 		try {
@@ -210,14 +140,7 @@ public class PageObjectManager extends BaseClass
 		}
 	}
 
-	public SelectDocumentsToPrintPage getSelectDocumentsToPrintPage()	{
-		try{
-			return (onSelectDocumentsToPrintPage == null) ? onSelectDocumentsToPrintPage = new SelectDocumentsToPrintPage(driver) : onSelectDocumentsToPrintPage;
-		} catch (Exception e){
-			Log.error("Instance creations of SelectDocumentsToPrintPage Failed ", e);
-			throw new FLException("Instance creations of SelectDocumentsToPrintPage Failed " + e.getMessage());
-		}
-	}
+
 
 	public CommonMethodsPage getCommonMethodPage()	{
 		try{
@@ -228,33 +151,12 @@ public class PageObjectManager extends BaseClass
 		}
 	}
 
-	public ExternalURLPage getExternalURLPage()	{
-		try{
-			return (onExternalURLPage == null) ? onExternalURLPage = new ExternalURLPage(driver) : onExternalURLPage;
-		} catch (Exception e){
-			Log.error("Instance creations of ExternalURLPage Failed ", e);
-			throw new FLException("Instance creations of ExternalURLPage Failed " + e.getMessage());
-		}
-	}
+
 //************* React POJO
 
-	public RCTCompleteFillingAppPage getRCTCompleteFillingAppPage()	{
-		try{
-			return (onRCTCompleteFillingAppPage == null) ? onRCTCompleteFillingAppPage = new RCTCompleteFillingAppPage(driver) : onRCTCompleteFillingAppPage;
-		} catch (Exception e){
-			Log.error("Instance creations of RCTCompleteFillingAppPage Failed ", e);
-			throw new FLException("Instance creations of RCTCompleteFillingAppPage Failed " + e.getMessage());
-		}
-	}
 
-	public EasySigningFormPage getEasySigningFormPage()	{
-		try{
-			return (onEasySigningFormPage == null) ? onEasySigningFormPage = new EasySigningFormPage(driver) : onEasySigningFormPage;
-		} catch (Exception e){
-			Log.error("Instance creations of EasySigningFormPage Failed ", e);
-			throw new FLException("Instance creations of EasySigningFormPage Failed " + e.getMessage());
-		}
-	}
+
+
 
 	public CreateApplication_ReactPage getCreateApplication_reactPage()	{
 		try{
@@ -283,14 +185,6 @@ public class PageObjectManager extends BaseClass
 		}
 	}
 
-	public ReviewerDocumentsPage getReviewerDocumentsPage()	{
-		try{
-			return (onReviewerDocumentsPage == null) ? onReviewerDocumentsPage = new ReviewerDocumentsPage(driver) : onReviewerDocumentsPage;
-		} catch (Exception e){
-			Log.error("Instance creations of ReviewerDocumentsPage Failed ", e);
-			throw new FLException("Instance creations of ReviewerDocumentsPage Failed " + e.getMessage());
-		}
-	}
 
 	public TabAppPage getOnTabAppPage()	{
 		try{

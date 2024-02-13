@@ -542,7 +542,7 @@ Feature: FireLight_End2End_Tests
     Then User Enters "6" in field "Small Cap Value Fund 3"
     Then User Enters "8" in field "Small Cap Value Fund 4"
     Then User Enters "10" in field "Small Cap Value Fund 5"
-    Then User verifies "Total_Initial_Investment_Allocation_Percentage" is "readonly" field
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" is "readOnly" field
     Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "97%"
     Then User verifies Validation Message for
       | Field                 | Id                   | data-dataitemid                                | Locator Type | Validation Error                                      |

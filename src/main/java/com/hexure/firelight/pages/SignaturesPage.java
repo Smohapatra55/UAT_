@@ -543,7 +543,7 @@ public class SignaturesPage extends FLUtilities {
     @FindBy(xpath = "//p[@class='verification_AuthenticationHeader']")
     private WebElement heading_SignaturePage_React1;
 
-    public static String txtFieldWithId = "//*[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\"]";
+    public static String txtFieldWithId = "//*[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\" and @readonly]";
     public static String tableWithClass = "(//table[@class='%s'])[1]//th";
     public static String txtFieldWithClass = "//*[@class=\"%s\"]";
 

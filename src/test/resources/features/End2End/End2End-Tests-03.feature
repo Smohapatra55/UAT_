@@ -84,7 +84,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies "CashAmount" TextBox has Prefilled Value "$123.51"
     Then User verify "maxlength" of field "CashAmount" is "100"
     Then User clears value in field "CashAmount"
-    Then User verifies "TotalSinglePremiumAmount" is "readonly" field
+    Then User verifies "TotalSinglePremiumAmount" is "readOnly" field
     Then User verifies "TotalSinglePremiumAmount" TextBox has Prefilled Value "$0.00"
     Then User Enters "12452.55" in TextBox "CashAmount"
     Then User verifies "TotalSinglePremiumAmount" TextBox has Prefilled Value "$12,452.55"
@@ -104,9 +104,9 @@ Feature: FireLight_End2End_Tests
     Then User verify error message "Either Yes or No is required." for "No" on page
     Then User "check" radiobutton "Yes" for "Do you have any existing life insurance or annuity contracts?"
     Then User Verifies "Will this contract replace or change any of your existing life insurance policies or annuity contracts?" is "displayed" under "Existing Insurance" on page
-    Then User verifies "TotalSinglePremiumAmount" is "readonly" field
-    Then User Verifies radiobutton "Yes" is "readonly" for "Will this contract replace or change any of your existing life insurance policies or annuity contracts?"
-    Then User Verifies radiobutton "No" is "readonly" for "Will this contract replace or change any of your existing life insurance policies or annuity contracts?"
+    Then User verifies "TotalSinglePremiumAmount" is "readOnly" field
+    Then User Verifies radiobutton "Yes" is "readOnly" for "Will this contract replace or change any of your existing life insurance policies or annuity contracts?"
+    Then User Verifies radiobutton "No" is "readOnly" for "Will this contract replace or change any of your existing life insurance policies or annuity contracts?"
     Then User Verifies radiobutton "No" is "checked" for "Will this contract replace or change any of your existing life insurance policies or annuity contracts?"
     Then User clicks "Previous" button
     Then User verifies Page heading "Rider Module" with form name "Riders" for data entry flow
@@ -543,17 +543,17 @@ Feature: FireLight_End2End_Tests
     Then User Enters "8" in field "Small Cap Value Fund 4"
     Then User Enters "10" in field "Small Cap Value Fund 5"
     Then User verifies "Total_Initial_Investment_Allocation_Percentage" is "readOnly" field
-    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "97%"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "97.00%"
     Then User verifies Validation Message for
       | Field                 | Id                   | data-dataitemid                                | Locator Type | Validation Error                                      |
       | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
     Then User Enters "14" in field "Small Cap Value Fund 5"
-    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "101%"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "101.00%"
     Then User verifies Validation Message for
       | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |
       | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
     Then User Enters "13" in field "Small Cap Value Fund 5"
-    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100%"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100.00%"
 #    Then User "check" checkbox "I elect Automatic Asset Rebalancing"
 #    Then User Verifies "Frequency" is "displayed" under "Automatic Asset Rebalancing" on page
 #    Then User Verifies "Start Date" is "displayed" under "Automatic Asset Rebalancing" on page
@@ -959,7 +959,7 @@ Feature: FireLight_End2End_Tests
 #    Then User Enters "8.89" in field "Small Cap Value Fund 3"
 #    Then User Enters "2.99" in field "Small Cap Value Fund 4"
 #    Then User Enters "0.84" in field "Small Cap Value Fund 5"
-#    Then User verifies "Fund_Allocation_Total" is "readonly" field
+#    Then User verifies "Fund_Allocation_Total" is "readOnly" field
 #    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "98.56%"
 #    Then User verifies Validation Message for
 #      | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |

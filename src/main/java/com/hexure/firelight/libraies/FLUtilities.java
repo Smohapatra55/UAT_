@@ -167,13 +167,14 @@ public class FLUtilities extends BaseClass
 
     protected void sendKeys(WebDriver driver, WebElement element, String stringToInput)
     {
-        syncElement(driver, element, EnumsCommon.TOVISIBLE.getText());
+        syncElement(driver, element, EnumsCommon.TOCLICKABLE.getText());
         try {
             element.clear();
             clickElement(driver, element);
+            sleepInMilliSeconds(100);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
-        }catch (StaleElementReferenceException s) {
+        }catch (ElementClickInterceptedException s) {
             clickElementByJSE(driver, element);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
@@ -182,6 +183,7 @@ public class FLUtilities extends BaseClass
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }
+        sleepInMilliSeconds(1000);
     }
 
     protected void selectOptionFromList(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType)

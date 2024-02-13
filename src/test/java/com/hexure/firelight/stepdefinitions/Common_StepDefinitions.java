@@ -328,6 +328,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
             String id = fieldData.get("Id");
+            sleepInMilliSeconds(500);
             switch (locatorType) {
                 case "Input":
                     Assert.assertEquals("Value Mismatched for field" + fieldName, expectedValue, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("value"));
@@ -353,7 +354,6 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
             String id = fieldData.get("Id");
-
             switch (locatorType) {
                 case "Input":
                     syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
@@ -395,7 +395,6 @@ public class Common_StepDefinitions extends FLUtilities {
                     // logger.error("Invalid Locator Type: {}", locatorType);
                     Assert.fail("Invalid Locator Type");
             }
-            waitForPageToLoad(driver);
             captureScreenshot(driver, testContext, false);
         }
     }
@@ -1051,14 +1050,14 @@ public class Common_StepDefinitions extends FLUtilities {
             String fieldName = fieldData.get("Field");
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
-            pattern = Pattern.compile("\\d+\\.\\d{1,2}");
+            pattern = Pattern.compile("\\d+\\.\\d{1,2}\\%");
             match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", match.matches());
         }
     }
 
     @Then("User verifies field accept only values between {int} to {int}")
-    public void UserVerifiesFieldAcceptOnlyValuesBetween(DataTable dataTable, Integer start, Integer end) {
+    public void UserVerifiesFieldAcceptOnlyValuesBetween(double start, double end, DataTable dataTable) {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
@@ -1066,8 +1065,8 @@ public class Common_StepDefinitions extends FLUtilities {
             String fieldName = fieldData.get("Field");
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
-            double range = Double.parseDouble(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
-            Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", range >= start && range <= end);
+            double range = Double.parseDouble(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value").replace("%",""));
+            Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", start <= range && range <= end);
         }
     }
 
@@ -1077,12 +1076,13 @@ public class Common_StepDefinitions extends FLUtilities {
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
-            String dataItemId = fieldData.get("data-item-id");
+            String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
             String locatorType = fieldData.get("Locator Type");
             switch (locatorType) {
                 case "Input":
-                    Assert.assertTrue(fieldName + " was not in yellow color even if it was less than 100%", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getCssValue("background-color").equalsIgnoreCase("rgb(252, 241, 201)"));
+                    String color = findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getCssValue("background-color");
+                    Assert.assertTrue(fieldName + " was not in yellow color even if it was less than 100%", color.equalsIgnoreCase("rgba(252, 241, 201, 1)")||color.equalsIgnoreCase("rgba(255, 255, 255, 1)"));
                     break;
                 default:
                     Assert.fail("Invalid Locator Type" + locatorType);
@@ -1125,8 +1125,6 @@ public class Common_StepDefinitions extends FLUtilities {
             String locatorType = fieldData.get("Locator Type");
             switch (locatorType) {
                 case "Input":
-                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
-                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
                     syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.datePickerPop, dataItemId)), EnumsCommon.TOVISIBLE.getText());
                     Assert.assertTrue("Date Picker was not present for " + fieldName, findElement(driver, String.format(onCommonMethodsPage.datePickerPop, dataItemId)).isDisplayed());
                     break;

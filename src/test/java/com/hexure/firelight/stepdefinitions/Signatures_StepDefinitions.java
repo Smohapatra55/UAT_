@@ -1912,7 +1912,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User Verifies {string} field should be displayed on UI")
     public void UserVerifiesFieldShouldBeDisplayedOnUI(String heading) {
         captureScreenshot(driver, testContext, false);
-        syncElement(driver, onSignaturesPage.getSectionHeading(), EnumsCommon.TOVISIBLE.getText());
-        Assert.assertTrue("Field was not Displayed", onSignaturesPage.getSectionHeading().getText().equalsIgnoreCase(heading));
+        syncElement(driver, findElement(driver,String.format(onSignaturesPage.getSectionHeading(),heading)), EnumsCommon.TOVISIBLE.getText());
+        Assert.assertTrue(heading+" :Field was not Displayed", findElement(driver,String.format(onSignaturesPage.getSectionHeading(),heading)).getText().equalsIgnoreCase(heading));
     }
 }

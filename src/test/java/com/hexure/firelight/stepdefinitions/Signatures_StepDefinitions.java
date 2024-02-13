@@ -1584,7 +1584,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
         if(attribute.contains("not"))
             Assert.assertTrue(field + " is read only", findElement(driver, String.format(onSignaturesPage.txtFieldWithId, field, field, field)).isEnabled());
         else
-            Assert.assertTrue(field + " is not read only", findElement(driver, String.format(onSignaturesPage.txtFieldWithId, field, field, field)).getAttribute("class").toLowerCase().contains(attribute.toLowerCase()));
+            Assert.assertTrue(field + " is not read only", findElement(driver, String.format(onSignaturesPage.txtFieldWithId, field, field, field)).getAttribute("class").contains(attribute));
     }
 
     @Then("User verify button {string} is {string}")

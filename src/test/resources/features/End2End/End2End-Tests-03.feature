@@ -527,7 +527,7 @@ Feature: FireLight_End2End_Tests
     Then User Enters "1" in field "International Fund 3"
     Then User Enters "5" in field "International Fund 4"
     Then User Enters "7" in field "International Fund 5"
-    Then User Enters "2.2" in field "Large Cap Value Fund 1"
+    Then User Enters "2.4" in field "Large Cap Value Fund 1"
     Then User Enters "5.6" in field "Large Cap Value Fund 2"
     Then User Enters "3" in field "Large Cap Value Fund 3"
     Then User Enters "6" in field "Large Cap Value Fund 4"
@@ -542,18 +542,18 @@ Feature: FireLight_End2End_Tests
     Then User Enters "6" in field "Small Cap Value Fund 3"
     Then User Enters "8" in field "Small Cap Value Fund 4"
     Then User Enters "10" in field "Small Cap Value Fund 5"
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" is "readonly" field
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "97%"
-#    Then User verifies Validation Message for
-#      | Field                 | Id                   | data-dataitemid                                | Locator Type | Validation Error                                      |
-#      | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
-#    Then User Enters "14" in field "Small Cap Value Fund 5"
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "101%"
-#    Then User verifies Validation Message for
-#      | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |
-#      | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
-#    Then User Enters "13" in field "Small Cap Value Fund 5"
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100%"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" is "readonly" field
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "97%"
+    Then User verifies Validation Message for
+      | Field                 | Id                   | data-dataitemid                                | Locator Type | Validation Error                                      |
+      | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
+    Then User Enters "14" in field "Small Cap Value Fund 5"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "101%"
+    Then User verifies Validation Message for
+      | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |
+      | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
+    Then User Enters "13" in field "Small Cap Value Fund 5"
+    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100%"
 #    Then User "check" checkbox "I elect Automatic Asset Rebalancing"
 #    Then User Verifies "Frequency" is "displayed" under "Automatic Asset Rebalancing" on page
 #    Then User Verifies "Start Date" is "displayed" under "Automatic Asset Rebalancing" on page
@@ -659,7 +659,7 @@ Feature: FireLight_End2End_Tests
 #    Then User verifies "International Fund 3" field has Prefilled Value "1"
 #    Then User verifies "International Fund 4" field has Prefilled Value "5"
 #    Then User verifies "International Fund 5" field has Prefilled Value "7"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.2"
+#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.4"
 #    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "5.6"
 #    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "3"
 #    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "6"
@@ -983,7 +983,7 @@ Feature: FireLight_End2End_Tests
 #    Then User verifies "International Fund 3" field has Prefilled Value "1"
 #    Then User verifies "International Fund 4" field has Prefilled Value "5"
 #    Then User verifies "International Fund 5" field has Prefilled Value "7"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.2"
+#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.4"
 #    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "5.6"
 #    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "3"
 #    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "6"

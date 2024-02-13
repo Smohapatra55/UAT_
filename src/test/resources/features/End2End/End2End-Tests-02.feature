@@ -116,7 +116,7 @@ Feature: FireLight_End2End_Tests
       | Field                       | data-dataitemid                     | Locator Type | Validation Error                              |
       | Stocks/Bonds/Mutual Funds $ | FinInfo_NonLiquidAssets_Investments | Input        | Stocks/Bonds/Mutual Funds amount is required. |
     Then User sets data for the field
-      | Field                       | Value | data-dataitemid                     | Locator Type |
+      | Field                       | Value  | data-dataitemid                     | Locator Type |
       | Stocks/Bonds/Mutual Funds $ | 947342 | FinInfo_NonLiquidAssets_Investments | Input        |
     Then User Verifies input value for field is getting converted into Currency Value
       | Field                       | Id                        |
@@ -135,13 +135,13 @@ Feature: FireLight_End2End_Tests
       | Life Insurance Cash Value $ | LifeInsuranceCashValue$ | FinInfo_NonLiquidAssets_LifeInsurance | Input        | Life Insurance Cash Value amount is required. |
     Then User sets data for the field
       | Field                       | Value | data-dataitemid                       | Locator Type |
-      | Life Insurance Cash Value $ | 74854 | FinInfo_NonLiquidAssets_LifeInsurance | Input        |
+      | Life Insurance Cash Value $ | 4535  | FinInfo_NonLiquidAssets_LifeInsurance | Input        |
     Then User Verifies input value for field is getting converted into Currency Value
       | Field                       | Id                      |
       | Life Insurance Cash Value $ | LifeInsuranceCashValue$ |
     Then User sets data for the field
       | Field   | Value | data-dataitemid               | Locator Type |
-      | Other $ | 56734 | FinInfo_NonLiquidAssets_Other | Input        |
+      | Other $ | 3245  | FinInfo_NonLiquidAssets_Other | Input        |
     Then User Verifies input value for field is getting converted into Currency Value
       | Field   | Id     |
       | Other $ | Other$ |
@@ -150,7 +150,7 @@ Feature: FireLight_End2End_Tests
       | Total$ | FinInfo_NonLiquidAssets_Total |
     Then User verifies field should display sum of all above fields
       | Field  | Id | data-dataitemid               | Value   | Locator Type |
-      | Total$ |    | FinInfo_NonLiquidAssets_Total | 1286234 | Input        |
+      | Total$ |    | FinInfo_NonLiquidAssets_Total | 1162426 | Input        |
     Then User verifies Validation Message for
       | Field                                 | data-dataitemid         | Locator Type | Validation Error             |
       | What is the Client's Total Net Worth? | FinInfo_Assets_NetWorth | Input        | Total Net Worth is required. |
@@ -225,13 +225,13 @@ Feature: FireLight_End2End_Tests
       | Field            | Id            | data-dataitemid   | Locator Type | Option |
       | How old are you? | Howoldareyou? | Customer_AgeRange | Select       | 25-35  |
     Then User Verifies options present for Dropdown
-      | Field                                          | Id                                      | data-dataitemid   | Locator Type | Option      |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 10%         |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 15%         |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 25%         |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 28%         |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 33%         |
-      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate     | Select       | 35%         |
+      | Field                                          | Id                                      | data-dataitemid | Locator Type | Option |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 10%    |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 15%    |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 25%    |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 28%    |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 33%    |
+      | What is your Federal Tax Bracket? (Select One) | WhatisyourFederalTaxBracket?(SelectOne) | Owner_TaxRate   | Select       | 35%    |
     Then User Chooses Blank option for Dropdown "What is your Federal Tax Bracket? (Select One)" having id "WhatisyourFederalTaxBracket?(SelectOne)" or DataItemId "Owner_TaxRate"
     Then User verifies Validation Message for
       | Field                                          | Id                                      | data-dataitemid | Locator Type | Validation Error        |

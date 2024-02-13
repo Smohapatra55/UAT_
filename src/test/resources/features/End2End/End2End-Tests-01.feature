@@ -635,14 +635,14 @@ Feature: FireLight_End2End_Tests
       | City  | Oak Park |    | JointAnnuitant_ResidentialAddress_City | Input        |
     Then User Chooses option for Dropdown
       | Field | Id | data-dataitemid                         | Locator Type | Option  |
-      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama |
+      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | IL |
     Then User Chooses Blank option for Dropdown "State" having id "" or DataItemId "JointAnnuitant_ResidentialAddress_State"
     Then User verifies Validation Message for
       | Field | Id | data-dataitemid                         | Locator Type | Validation Error                   |
       | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Joint Annuitant State is required. |
     Then User Chooses option for Dropdown
       | Field | Id | data-dataitemid                         | Locator Type | Option  |
-      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | Alabama |
+      | State |    | JointAnnuitant_ResidentialAddress_State | Select       | IL |
     Then User Clears data for the field
       | Field       | Id | data-dataitemid                           | Locator Type |
       | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
@@ -724,7 +724,7 @@ Feature: FireLight_End2End_Tests
       | Residential Address Street  | North Garland Court   | JointAnnuitant_ResidentialAddress1        | Input        |
       | City                        | Oak Park              | JointAnnuitant_ResidentialAddress_City    | Input        |
       | ZipCode                     | 28134                 | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
-      | State                       | Alabama               | JointAnnuitant_ResidentialAddress_State   | Select       |
+      | State                       | IL               | JointAnnuitant_ResidentialAddress_State   | Select       |
       | Primary Phone Number        | (786) 456-4464        | JointAnnuitant_Primary_PhoneNumber        | Input        |
       | Email Address               | testdata@jointann.com | JointAnnuitant_Primary_EmailAddress       | Input        |
     Then User Clicks on Button "Next"

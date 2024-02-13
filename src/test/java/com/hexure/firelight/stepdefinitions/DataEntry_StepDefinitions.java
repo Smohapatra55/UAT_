@@ -38,11 +38,13 @@ public class DataEntry_StepDefinitions extends FLUtilities {
     private WebDriver driver;
     private DataEntryPage onDataEntryPage;
     private TestContext testContext;
+    private DataEntry_ReactPage onDataEntryReactPage;
+    private static final Logger Log = LogManager.getLogger(DataEntry_StepDefinitions.class);
     public DataEntry_StepDefinitions(TestContext context) {
         testContext = context;
         driver = context.getDriver();
         onDataEntryPage = context.getPageObjectManager().getDataEntryPage();
-
+        onDataEntryReactPage = context.getPageObjectManager().getDataEntryReactPage();
     }
 
     @Then("User clicks on Next buttons")
@@ -58,4 +60,12 @@ public class DataEntry_StepDefinitions extends FLUtilities {
         syncElement(driver, onDataEntryPage.getTxt_NewApplication(), EnumsCommon.TOVISIBLE.getText());
         Assert.assertTrue("Application was not displayed", onDataEntryPage.getTxt_NewApplication().isDisplayed());
     }
+
+    @Then("User Verifies value {string} for field {string}")
+    public void userVerifiesValueForField(String value, String fieldName) {
+        captureScreenshot(driver, testContext, false);
+        Assert.assertEquals("Default value mismatched", value,
+                onDataEntryReactPage.getDefaultDropdownValue(driver, fieldName).getText().trim());
+    }
+
 }

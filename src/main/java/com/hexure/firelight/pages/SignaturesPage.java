@@ -543,14 +543,14 @@ public class SignaturesPage extends FLUtilities {
     @FindBy(xpath = "//p[@class='verification_AuthenticationHeader']")
     private WebElement heading_SignaturePage_React1;
 
-    public static String txtFieldWithId = "//*[@id=\"%s\" or @name=\"%s\" or @aria-label=\"%s\"]";
+    public static String txtFieldWithId = "//*[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\"]";
     public static String tableWithClass = "(//table[@class='%s'])[1]//th";
     public static String txtFieldWithClass = "//*[@class=\"%s\"]";
 
     public static String btnText = "//span[text()='%s']";
 
     private String btn_Previous = "//div[@id='navigationButtonsContainer']//span[text()='%s']";
-
+    public static String selectFieldWithId = "//select[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\"]";
     public static String txtFieldWithLabelText = "//label[contains(text(),'%s')]/parent::div/following-sibling::select";
 
     public String msg_ErrorReact = "//input[@id='%s']/parent::div/following-sibling::div/div[@class='field_validator__text']";
@@ -655,6 +655,7 @@ public class SignaturesPage extends FLUtilities {
     @FindBy(xpath = "//div[@id='signerListDiv']")
     private WebElement signatureWindow;
 
+    public static String txtField = "//div[@title='%s']//ancestor::div[@class='dataGrid__row']//input";
     public String txtImg_selectedReviewDoc = "//button[contains(text(),'%s')]//parent::td//preceding-sibling::td//img";
 
     public SignaturesPage(WebDriver driver) {

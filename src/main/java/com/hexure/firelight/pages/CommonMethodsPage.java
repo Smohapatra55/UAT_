@@ -251,9 +251,16 @@ public class CommonMethodsPage extends FLUtilities {
     private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div//span[@class='validationText']";
     public static String chk_Option = "//label[text()='%s']//parent::div//preceding-sibling::div//div[contains(@class,'ITCheckBox   ')]";
     private String chkBox_ByDataItemId = "//div[@data-dataitemid='%s']//div[@role]";
-
+    private String chkBox_ByDataItemIdAndTitle = "//div[@data-dataitemid='%s']//div[@title='%s']";
+    private String stringElement="//div[text()='%s']//..//..//*[@title='%s']";
+    public String requiredFieldError = "//div[@title='%s']//ancestor::div[@class='ITComponent']//div[contains(@class,'errorText')]";
+    public static String radio_Option = "//div[@title='%s']//ancestor::div[@class='row baselineAlign']//div[@title='%s']";
     @FindBy(xpath = "//div[contains(text(),'Agent Information')]")
     private WebElement agent_Information;
+
+    @FindBy(className = "react-datepicker-popper")
+    private WebElement datePicker;
+    private String elementByDataItemId="//select[@data-dataitemid=\"%s\"]";
 
     @FindBy(xpath = "//div[@class='autocompleteResultItem autofill-result-item']")
     private List<WebElement> list_MailingAdress;

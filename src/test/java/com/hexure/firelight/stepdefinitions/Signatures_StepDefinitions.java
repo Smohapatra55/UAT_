@@ -1148,32 +1148,12 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_Verfies_options_present_for_dropdown(String dropdown, DataTable dataTable) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        syncElement(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId,dropdown,dropdown,dropdown)), EnumsCommon.TOVISIBLE.getText());
-        String list_Options = new Select(findElement(driver, String.format(onSignaturesPage.txtFieldWithId,dropdown,dropdown,dropdown))).getWrappedElement().getText().trim();
+        syncElement(driver, findElement(driver, String.format(onSignaturesPage.selectFieldWithId,dropdown,dropdown,dropdown)), EnumsCommon.TOVISIBLE.getText());
+        String list_Options = new Select(findElement(driver, String.format(onSignaturesPage.selectFieldWithId,dropdown,dropdown,dropdown))).getWrappedElement().getText().trim();
         List<Map<String, String>> fieldValues = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> fieldValue : fieldValues) {
             String field = fieldValue.get("options");
-            if(field.contains("DateMask_OP") || field.contains("SSNMask_OP") || field.contains("ZipMask_OP") || field.contains("PhoneMask_OP")) {
-                switch (field) {
-                    case "DateMask_OP":
-                        Assert.assertTrue(testContext.getMapTestData().get(EnumsJSONProp.DATEMASKNAME.getText()) + " was not present in Dropdown", list_Options.contains(testContext.getMapTestData().get(EnumsJSONProp.DATEMASKNAME.getText())));
-                        break;
-                    case "SSNMask_OP":
-                        Assert.assertTrue(testContext.getMapTestData().get(EnumsJSONProp.SSNMASKNAME.getText()) + " was not present in Dropdown", list_Options.contains(testContext.getMapTestData().get(EnumsJSONProp.SSNMASKNAME.getText())));
-                        break;
-                    case "ZipMask_OP":
-                        Assert.assertTrue(testContext.getMapTestData().get(EnumsJSONProp.ZIPMASKNAME.getText()) + " was not present in Dropdown", list_Options.contains(testContext.getMapTestData().get(EnumsJSONProp.ZIPMASKNAME.getText())));
-                        break;
-                    case "PhoneMask_OP":
-                        Assert.assertTrue(testContext.getMapTestData().get(EnumsJSONProp.PHONEMASKNAME.getText()) + " was not present in Dropdown", list_Options.contains(testContext.getMapTestData().get(EnumsJSONProp.PHONEMASKNAME.getText())));
-                        break;
-                    default:
-                        throw new FLException("Invalid field: " + field);
-                }
-            }
-            else {
                 Assert.assertTrue(field + " was not present in Dropdown", list_Options.contains(field));
-            }
         }
     }
 
@@ -1893,4 +1873,41 @@ public class Signatures_StepDefinitions extends FLUtilities {
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute(attribute));
     }
+
+    @Then("User verifies {string} field has Prefilled Value {string}")
+    public void verifyField(String txtBox, String value) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
+    }
+
+    @Then("User Enters {string} in field {string}")
+    public void enterValue(String value, String txtBox) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtField, txtBox)), value);
+    }
+
+    @Then("User verify max length of field {string} is {string}")
+    public void verifyMaxValue(String txtBox, String value) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertEquals(txtBox + " Text Box has not maximum value: " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("maxlength"));
+    }
+
+    @Then("User clears value in field {string}")
+    public void clearValue(String txtBox) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+    }
+
+    @Then("User verifies {string} field has {string} Value {string}")
+    public void verifyField(String txtBox, String attribute, String value) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute(attribute));
+    }
+
+
 }

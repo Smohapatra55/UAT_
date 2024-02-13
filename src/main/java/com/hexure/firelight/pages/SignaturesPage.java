@@ -655,9 +655,7 @@ public class SignaturesPage extends FLUtilities {
     @FindBy(xpath = "//div[@id='signerListDiv']")
     private WebElement signatureWindow;
 
-    @FindBy(xpath = "//div[@class='ITPanelTitleText']")
-    private WebElement sectionHeading;
-
+    private String sectionHeading = "//div[@class='ITPanelTitleText' and text() ='%s']";
     public static String txtField = "//div[@title='%s']//ancestor::div[@class='dataGrid__row']//input";
     public String txtImg_selectedReviewDoc = "//button[contains(text(),'%s')]//parent::td//preceding-sibling::td//img";
 

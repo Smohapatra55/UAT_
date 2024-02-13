@@ -68,6 +68,22 @@ Feature: FireLight_End2End_Tests
     Then User verifies Validation Message for
       | Field       | Id         | data-dataitemid           | Locator Type | Validation Error         |
       | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount is required. |
+    Then User Enters "abc" in TextBox "CashAmount"
+    Then User verifies Validation Message for
+      | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
+      | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount must be a positive number. |
+    Then User Enters "!@#$" in TextBox "CashAmount"
+    Then User verifies Validation Message for
+      | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
+      | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount must be a positive number. |
+    Then User Enters "-123" in TextBox "CashAmount"
+    Then User verifies Validation Message for
+      | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
+      | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount must be a positive number. |
+    Then User Enters "123.512" in TextBox "CashAmount"
+    Then User verifies "CashAmount" TextBox has Prefilled Value "$123.51"
+    Then User verify "maxlength" of field "CashAmount" is "100"
+    Then User clears value in field "CashAmount"
     Then User verifies "TotalSinglePremiumAmount" is "readonly" field
     Then User verifies "TotalSinglePremiumAmount" TextBox has Prefilled Value "$0.00"
     Then User Enters "12452.55" in TextBox "CashAmount"

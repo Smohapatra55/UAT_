@@ -1,38 +1,15 @@
 package com.hexure.firelight.stepdefinitions;
 
-import com.hexure.firelight.libraies.Enums.EnumsJSONProp;
 import com.hexure.firelight.libraies.EnumsCommon;
-import com.hexure.firelight.libraies.FLException;
 import com.hexure.firelight.libraies.FLUtilities;
 import com.hexure.firelight.libraies.TestContext;
 import com.hexure.firelight.pages.DataEntryPage;
 import com.hexure.firelight.libraies.pages_react.DataEntry_ReactPage;
-import com.hexure.firelight.pages.HomePage;
-import com.hexure.firelight.pages.RCTCompleteFillingAndSigningPage;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import io.cucumber.datatable.DataTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import org.openqa.selenium.interactions.Actions;
-import com.hexure.firelight.libraies.pages_react.CommonMethods_ReactPage;
-import com.hexure.firelight.pages.*;
-
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import org.openqa.selenium.support.ui.Select;
 
 public class DataEntry_StepDefinitions extends FLUtilities {
     private WebDriver driver;

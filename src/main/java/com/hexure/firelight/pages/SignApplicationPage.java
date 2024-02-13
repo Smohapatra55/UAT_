@@ -36,14 +36,12 @@ public class SignApplicationPage extends FLUtilities {
     @FindBy(xpath = "//div[@title='Individual']")
     private WebElement radioBtn_Individual;
 
-    @FindBy(xpath = "//div[@title='Joint']")
-    private WebElement radioBtn_Joint;
+
 
     @FindBy(xpath = "//div[.='Annuitant']/ancestor::div[@data-dataitemid='Annuitant_SameAsOwner_Panel']//div[@title='No']")
     private WebElement radioBtn_IsTheAnnuitantTheSameAsTheOwnerNo;
 
-    @FindBy(xpath = "//div[.='Annuitant']/ancestor::div[@data-dataitemid='Annuitant_SameAsOwner_Panel']//div[@title='Yes']")
-    private WebElement radioBtn_IsTheAnnuitantTheSameAsTheOwnerYes;
+
 
     @FindBy(xpath = "//div[@title='Non-Qualified Account']")
     private WebElement radioBtn_NonQualifiedAccount;

@@ -15,16 +15,6 @@ import java.util.List;
 @Data
 public class SSNHomePage extends FLUtilities
 {
-    private By link_SignActivity1 = By.xpath("//span[text()='Sign Activity']");
-    private By link_SignActivity2 = By.id("lnkStartSign");
-    private By link_SignActivity3 = By.xpath("//span[@aria-label='Sign Activity Button']");
-    private By link_AttachDocuments = By.xpath("//a[text()='Attach Documents']");
-
-    private By txt_ErrorMsg = By.xpath("//div[@id='docList']//p");
-    private By txt_ErrorMsg1 = By.id("divSMSError");
-
-    private By txt_ErrorMsg2 = By.className("red");
-
     @FindBy(id="lnkViewDoc")
     private WebElement link_ReviewDocuments;
 
@@ -49,26 +39,18 @@ public class SSNHomePage extends FLUtilities
     @FindBy(xpath="//a[text()='View Activity PDF']")
     private WebElement btn_ViewActivityPDF;
 
-    @FindBy(xpath="//span[text()='OK']")
-    private WebElement btn_NewOK;
-
     @FindBy(xpath="//a[text()='Download All']")
     private WebElement link_DownloadAll;
 
     @FindBy(xpath="//a[text()='View All']")
     private WebElement link_ViewAll;
 
-    @FindBy(xpath="//div[@class='docName']")
-    private List<WebElement> list_ApplicationForms;
 
     @FindBy(xpath="//a[text()='Download']")
     private WebElement link_Download;
 
     @FindBy(xpath="//a[text()='View']")
     private WebElement link_View;
-
-    @FindBy(xpath="//table[@id='tblFinalPdf']//tr")
-    private List<WebElement> txt_DocumentNames;
 
     @FindBy(xpath = "//div[contains(text(),'Send Reminder to')]")
     private WebElement link_SendReminderPendingReq;

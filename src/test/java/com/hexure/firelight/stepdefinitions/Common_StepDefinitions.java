@@ -424,6 +424,7 @@ public class Common_StepDefinitions extends FLUtilities {
                         syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
                         findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
                         syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)), EnumsCommon.TOVISIBLE.getText());
+                        scrollToWebElement(driver,findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)));
                         Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color", validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)).getAttribute("innerText").trim());
                     } else {
                         Assert.fail("Expected Validation Message was Absent");
@@ -653,7 +654,6 @@ public class Common_StepDefinitions extends FLUtilities {
         }
     }
     protected void checkBoxSelectYesNO(String userAction, WebElement element) {
-        System.out.println(getCheckBoxAction(userAction));
         if (getCheckBoxAction(userAction)) {
             if (element.getAttribute("aria-checked").equals("false"))
                 element.click();
@@ -916,6 +916,110 @@ public class Common_StepDefinitions extends FLUtilities {
         checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
         captureScreenshot(driver, testContext, false);
     }
+
+    @Then("User Verifies {string} is {string} under {string} on page")
+    public void verifyStringStatus(String option, String status, String heading) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        switch (status.toLowerCase()) {
+            case "displayed":
+                Assert.assertTrue(option +" was not present on page", findElement(driver, String.format(onCommonMethodsPage.getStringElement(), heading, option)).isDisplayed());
+                break;
+            case "not displayed":
+                Assert.assertEquals(option + " was present on page", 0, findElements(driver, String.format(onCommonMethodsPage.getStringElement(), heading, option)).size());
+                break;
+            default:
+                Assert.fail("Invalid Locator Type" + option);
+        }
+    }
+
+    @Then("User verify error message {string} for {string} on page")
+    public void verifyMessage(String message, String option) {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertTrue("Error message does not match ", findElement(driver, String.format(onCommonMethodsPage.requiredFieldError, option)).getText().equalsIgnoreCase(message));
+    }
+
+    @Then("User Verifies checkbox {string} is {string}")
+    public void userVerifiesCheckbox( String whichCheckBox, String userAction) {
+        waitForPageToLoad(driver);
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)));
+        switch (userAction.toLowerCase()){
+            case "checked" :
+                Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
+                break;
+            case "unchecked" :
+                Assert.assertFalse(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
+                break;
+            case "disabled" :
+                Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)).getAttribute(userAction).equalsIgnoreCase("true"));
+                break;
+            default:
+                new FLException(" Invalid value for User Action :"+userAction);
+        }
+        captureScreenshot(driver, testContext, false);
+    }
+
+    @Then("User {string} radiobutton {string} for {string}")
+    public void userSelectsRadioButton(String userAction, String whichCheckBox, String heading) {
+        waitForPageToLoad(driver);
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)));
+        checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)));
+        captureScreenshot(driver, testContext, false);
+    }
+
+    @Then("User Verifies radiobutton {string} is {string} for {string}")
+    public void userVerifiesRadioButton( String whichCheckBox, String userAction, String heading) {
+        waitForPageToLoad(driver);
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)));
+        switch (userAction.toLowerCase()){
+            case "checked" :
+                Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
+                break;
+            case "unchecked" :
+                Assert.assertFalse(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
+                break;
+            case "disabled" :
+                Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)).getAttribute(userAction).equalsIgnoreCase("true"));
+                break;
+            case "readonly" :
+                Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.radio_Option, heading, whichCheckBox)).getAttribute("class").contains("readOnlyInput"));
+                break;
+            default:
+                new FLException(" Invalid value for User Action :"+userAction);
+        }
+        captureScreenshot(driver, testContext, false);
+    }
+
+    @Then("User selects value {string} for field {string}")
+    public void userSelectsValueForField(String value, String fieldName) {
+        waitForPageToLoad(driver);
+        new Select(findElement(driver, String.format(onCommonMethodsPage.selectDocumentType, fieldName, fieldName, fieldName,fieldName, fieldName,fieldName))).selectByVisibleText(value);
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+    }
+
+    @Then("User verifies data picker is displayed")
+    public void verifyDatePicker() {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        Assert.assertTrue("Error message does not match ", onCommonMethodsPage.getDatePicker().isDisplayed());
+    }
+
+    @Then("User select start date in past from date picker")
+    public void selectDate() {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        int day = LocalDate.now().getDayOfMonth() - 1;
+        clickElement(driver, findElement(driver, "//div[text()='" + day + "']"));
+    }
+
+    @Then("User Chooses Blank option for Dropdown {string} having DataItemId {string}")
+    public void selectOption(String ddName, String ddDataItemId) {
+        captureScreenshot(driver, testContext, false);
+        new Select(findElement(driver, String.format(onCommonMethodsPage.getElementByDataItemId(), ddDataItemId))).selectByVisibleText("");
+    }
+
 }
 
 

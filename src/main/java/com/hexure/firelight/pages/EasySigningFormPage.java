@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class EasySigningFormPage extends FLUtilities {
 
-    public static String buttonWithText = "//a[.='%s']";
+
     public static String btn_closeDocuments_MVC = "//span[.='Documents']/following-sibling::button[@title='Close']";
     public static String btn_closeDocuments_REACT = "//div[@aria-describedby='dialogDocuments']//button[@title='Close']";
 

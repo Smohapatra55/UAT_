@@ -740,7 +740,7 @@ public class Common_StepDefinitions extends FLUtilities {
         for (Map<String, String> fieldData : formFields) {
             String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
-            if(!findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isSelected());
+            if(findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isSelected());
             clickElement(driver, findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)));
         }
     }

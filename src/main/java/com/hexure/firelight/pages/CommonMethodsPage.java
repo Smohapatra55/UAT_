@@ -269,6 +269,10 @@ public class CommonMethodsPage extends FLUtilities {
 
     public String datePickerPop = "//div[contains(@class,'react-datepicker')]/div[@data-dataitemid='%s']";
 
+    @FindBy(id="StatusBar_Complete")
+    private WebElement tost_popupbox;
+
+    private By icon_closeTostPopupboxMVC = By.xpath("//a[@title='Close']");
     public CommonMethodsPage(WebDriver driver) {
         initElements(driver);
     }

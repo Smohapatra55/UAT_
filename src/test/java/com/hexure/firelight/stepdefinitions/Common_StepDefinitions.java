@@ -511,7 +511,6 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
             if (!findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isSelected())
-                ;
             clickElement(driver, findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)));
         }
     }
@@ -741,7 +740,7 @@ public class Common_StepDefinitions extends FLUtilities {
         for (Map<String, String> fieldData : formFields) {
             String dataItemId = fieldData.get("data-dataitemid");
             String id = fieldData.get("Id");
-            if( findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isSelected());
+            if(findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)).isSelected());
             clickElement(driver, findElement(driver, String.format(onCommonMethodsPage.getRadioBtn_AsPerDataItemId(), dataItemId, option)));
         }
     }
@@ -1133,6 +1132,20 @@ public class Common_StepDefinitions extends FLUtilities {
             }
         }
     }
+
+    @Then("User Verifies Data Entry Met Toast popup is show")
+    public void userVerifiesDataEntryMetToastPopupIsShow() {
+        syncElement(driver,onCommonMethodsPage.getTost_popupbox(),EnumsCommon.TOVISIBLE.getText());
+        captureScreenshot(driver, testContext, false);
+        Assert.assertTrue("Toast popup is not displayed",onCommonMethodsPage.getTost_popupbox().isDisplayed());
+    }
+
+    @Then("User clicks on Close icon on Toast Popup")
+    public void userClicksOnCloseIconOnToastPopup() {
+        captureScreenshot(driver, testContext, false);
+        clickElementByJSE(driver,getElement(driver, onCommonMethodsPage.getIcon_closeTostPopupboxMVC()));
+    }
+
 }
 
 

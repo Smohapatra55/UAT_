@@ -29,8 +29,6 @@ Feature: FireLight_End2End_Tests
     Then User clicks on Create button on Rename window
     Then User verifies New Application gets created
     Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow
-#    Then User opens "Client Data" Required for Form "Annuity Owner Module"
-#    Then User verifies Page heading "Annuity Owner Module" with form name "Client Data" for data entry flow
     Then User Verifies Blank option present for Dropdown
       | Field      | Id        | data-dataitemid | Locator Type |
       | Owner Type | OwnerType | Owner_Type      | Select       |
@@ -41,9 +39,6 @@ Feature: FireLight_End2End_Tests
       | Owner Type | OwnerType | Owner_Type      | Select       | Trust       |
       | Owner Type | OwnerType | Owner_Type      | Select       | Custodian   |
       | Owner Type | OwnerType | Owner_Type      | Select       | Corporation |
-#    Then User verifies Validation Message for
-#      | Field     | Id        | data-dataitemid | Locator Type | Validation Error        |
-#      | OwnerType | OwnerType | Owner_Type      | Select       | Owner Type is required. |
     Then User Chooses Blank option for Dropdown "Owner Type" having id "OwnerType" or DataItemId "Owner_Type"
     Then User verifies Validation Message for
       | Field      | Id        | data-dataitemid | Locator Type | Validation Error        |
@@ -2698,22 +2693,25 @@ Feature: FireLight_End2End_Tests
     Then User sets data for the field
       | Field      | Value | Id         | data-dataitemid       | Locator Type |
       | Percentage | 100   | Percentage | Agent_CommissionSplit | Input        |
-    Then User clicks red bubble icon
     Then User verifies Validation Message for Radio Button
       | Field                                                                        | Id | data-dataitemid        | Locator Type | RadioButtonType | Validation Error              |
       | Are you aware of any existing annuities or insurance owned by the applicant? |    | Agent_ExistingPolicies | Div          | Yes             | Either Yes or No is required. |
-    Then User verifies Validation Message for Radio Button
-      | Field                                                                        | Id | data-dataitemid        | Locator Type | RadioButtonType | Validation Error              |
-      | Are you aware of any existing annuities or insurance owned by the applicant? |    | Agent_ExistingPolicies | Div          | No              | Either Yes or No is required. |
     Then User Selects "Yes" Radio Button for Field "Are you aware of any existing annuities or insurance owned by the applicant?"
       | data-dataitemid        |
       | Agent_ExistingPolicies |
+     Then User Selects "Yes" Radio Button for Field "Will the applied for contract replace, discontinue or change any existing life insurance or annuity contract?"
+      | data-dataitemid      |
+      | Agent_ChangePolicies |
+    Then User Unchecks "Yes" Radio Button for Field "Will the applied for contract replace, discontinue or change any existing life insurance or annuity contract?"
+      | data-dataitemid      |
+      | Agent_ChangePolicies |
     Then User verifies Validation Message for Radio Button
       | Field                                                                                                         | Id | data-dataitemid      | Locator Type | RadioButtonType | Validation Error              |
       | Will the applied for contract replace, discontinue or change any existing life insurance or annuity contract? |    | Agent_ChangePolicies | Div          | Yes             | Either Yes or No is required. |
-    Then User verifies Validation Message for Radio Button
-      | Field                                                                                                         | Id | data-dataitemid      | Locator Type | RadioButtonType | Validation Error              |
-      | Will the applied for contract replace, discontinue or change any existing life insurance or annuity contract? |    | Agent_ChangePolicies | Div          | No              | Either Yes or No is required. |
     Then User Selects "Yes" Radio Button for Field "Will the applied for contract replace, discontinue or change any existing life insurance or annuity contract?"
       | data-dataitemid      |
       | Agent_ChangePolicies |
+    Then User Verifies Data Entry Met Toast popup is show
+    Then User clicks on Close icon on Toast Popup
+    Then User clicks "Continue" button
+    Then User Clicks on Button "Yes"

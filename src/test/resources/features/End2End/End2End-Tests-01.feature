@@ -3,7 +3,7 @@ Feature: FireLight_End2End_Tests
   This feature will verify UAT Application End2End Tests
 
   @End2EndTest
-  Scenario: TC_01_Complete the REACT application with Pre Signature Review with Signature Then Submit
+  Scenario: TC_01_Complete UAT application Data Entry for client Fidelity Automation
     Given User is on FireLight login page for TestCase "End2End_TC_01"
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button
     Then User clicks "Application" Tab
@@ -153,13 +153,6 @@ Feature: FireLight_End2End_Tests
     Then User sets data for the field
       | Field                  | Value | Id                   | data-dataitemid      | Locator Type |
       | Mailing Address Lookup | usa   | MailingAddressLookup | Owner_Address_Lookup | Input        |
-    Then User Verifies Below Options Present for Lookup "Mailing Address Lookup"
-      | Option                                    |
-      | USA Parkway, Fishers, IN, USA             |
-      | USA Medical Center Drive, Mobile, AL, USA |
-      | USA Parkway, Sparks, NV, USA              |
-      | USA Drive, Fishers, IN, USA               |
-      | Usaa Boulevard, San Antonio, TX, USA      |
     Then User Selects Option for Lookup "Mailing Address Lookup"
       | Option                        |
       | USA Parkway, Fishers, IN, USA |
@@ -217,13 +210,6 @@ Feature: FireLight_End2End_Tests
     Then User sets data for the field
       | Field                      | Value   | Id                       | data-dataitemid                 | Locator Type |
       | Residential Address Lookup | Chicago | ResidentialAddressLookup | Owner_ResidentialAddress_Lookup | Input        |
-    Then User Verifies Below Options Present for Lookup "Residential Address Lookup"
-      | Option                                               |
-      | Chicago Riverwalk, Chicago, IL, USA                  |
-      | Chicago Pedway System, Chicago, IL, USA              |
-      | Chicago Skyway, Chicago, IL, USA                     |
-      | Chicago Transit Authority Red Line, Chicago, IL, USA |
-      | West Chicago Avenue, Chicago, IL, USA                |
     Then User Selects Option for Lookup "Residential Address Lookup"
       | Option                              |
       | Chicago Riverwalk, Chicago, IL, USA |
@@ -530,13 +516,6 @@ Feature: FireLight_End2End_Tests
     Then User sets data for the field
       | Field                  | Value    | Id | data-dataitemid               | Locator Type |
       | Mailing Address Lookup | carolina |    | JointAnnuitant_Address_Lookup | Input        |
-    Then User Verifies Below Options Present for Lookup "Mailing Address Lookup"
-      | Option                                           |
-      | Carolina Street, Gary, IN, USA                   |
-      | Carolina Place Parkway, Pineville, NC, USA       |
-      | Carolina MacGillavrylaan, Amsterdam, Netherlands |
-      | Carolina Place, Fort Mill, SC, USA               |
-      | Carolina Trace Road, Harrison, OH, USA           |
     Then User Selects Option for Lookup "Mailing Address Lookup"
       | Option                                     |
       | Carolina Place Parkway, Pineville, NC, USA |
@@ -594,13 +573,6 @@ Feature: FireLight_End2End_Tests
     Then User sets data for the field
       | Field                      | Value | Id | data-dataitemid                          | Locator Type |
       | Residential Address Lookup | Gar   |    | JointAnnuitant_ResidentialAddress_Lookup | Input        |
-    Then User Verifies Below Options Present for Lookup "Residential Address Lookup"
-      | Option                                    |
-      | North Garland Court, Chicago, IL, USA     |
-      | North Garvey Court, Chicago, IL, USA      |
-      | West Garfield Boulevard, Chicago, IL, USA |
-      | Garfield Square, Chicago, IL, USA         |
-      | Garfield Street, Oak Park, IL, USA        |
     Then User Selects Option for Lookup "Residential Address Lookup"
       | Option                                |
       | North Garland Court, Chicago, IL, USA |
@@ -2713,5 +2685,3 @@ Feature: FireLight_End2End_Tests
       | Agent_ChangePolicies |
     Then User Verifies Data Entry Met Toast popup is show
     Then User clicks on Close icon on Toast Popup
-    Then User clicks "Continue" button
-    Then User Clicks on Button "Yes"

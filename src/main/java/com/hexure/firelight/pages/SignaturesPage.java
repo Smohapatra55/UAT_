@@ -18,7 +18,6 @@ public class SignaturesPage extends FLUtilities {
 
     private static final Logger Log = LogManager.getLogger(SignaturesPage.class);
     private By chk_Owner = By.xpath("//div[text()='Owner']//..//div[@class='ITCheckBoxCheck']");
-    private By chk_Payer = By.xpath("//div[text()='Payor']//..//div[@class='ITCheckBoxCheck']");
     private By id_Owner = By.id("Owner");
     private By id_Owner2 = By.id("OwnerChild2");
     private By id_Payer = By.id("Payor");

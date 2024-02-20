@@ -1855,6 +1855,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void verifyAttributeValue(String attribute, String txtBox, String value) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
+        sleepInMilliSeconds(500);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute(attribute));
     }
 
@@ -1862,6 +1863,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void verifyField(String txtBox, String value) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
+        sleepInMilliSeconds(200);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
     }
 

@@ -561,6 +561,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("^\\$\\d{1,3}(,\\d{3})*$");
+            sleepInMilliSeconds(500);
             if (fieldName.equalsIgnoreCase("Total$")) {
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {

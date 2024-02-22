@@ -1887,7 +1887,10 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void clearValue(String txtBox) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+        WebElement element = findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox));
+        element.clear();
+        new Actions(driver).moveToElement(element).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        new Actions(driver).moveToElement(element).sendKeys(Keys.TAB).perform();
     }
 
     @Then("User verifies {string} field has {string} Value {string}")

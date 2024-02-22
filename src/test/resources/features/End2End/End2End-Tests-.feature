@@ -107,7 +107,7 @@ Feature: FireLight_End2End_Tests
       | Last Name | LastName | Owner_LastName  | Input        | Last Name is required. |
     Then User sets data for the field
       | Field             | Value  | Id | data-dataitemid  | Locator Type |
-      | Owner First Name  | Johns |    | Owner_FirstName  | Input        |
+      | Owner First Name  | John |    | Owner_FirstName  | Input        |
       | Owner Middle Name | D      |    | Owner_MiddleName | Input        |
       | Owner Last Name   | Luffy  |    | Owner_LastName   | Input        |
     Then User clicks red bubble icon
@@ -115,6 +115,7 @@ Feature: FireLight_End2End_Tests
       | Field         | Id          | data-dataitemid | Locator Type | Validation Error        |
       | Date of Birth | DateofBirth | Owner_DOB       | Input        | Birth Date is required. |
     Then User clicks red bubble icon
+    Then User select start date in future from date picker
     Then User sets data for the field
       | Field         | Value      | Id          | data-dataitemid | Locator Type |
       | Date of Birth | 10/11/2065 | DateofBirth | Owner_DOB       | Input        |
@@ -150,24 +151,12 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field        | Id     | data-dataitemid | Locator Type | Option |
       | Owner Gender | Gender | Owner_Gender    | Select       | Male   |
-    Then User sets data for the field
-      | Field                  | Value | Id                   | data-dataitemid      | Locator Type |
-      | Mailing Address Lookup | usa   | MailingAddressLookup | Owner_Address_Lookup | Input        |
-    Then User Selects Option for Lookup "Mailing Address Lookup"
-      | Option                        |
-      | USA Parkway, Fishers, IN, USA |
-    Then User Clears data for the field
-      | Field                  | Id                   | data-dataitemid       | Locator Type |
-      | Mailing Address Street | MailingAddressStreet | Owner_MailingAddress1 | Input        |
     Then User verifies Validation Message for
       | Field                  | Id                   | data-dataitemid       | Locator Type | Validation Error                  |
       | Mailing Address Street | MailingAddressStreet | Owner_MailingAddress1 | Input        | Owner Street Address is required. |
     Then User sets data for the field
       | Field                  | Value                   | Id                    | data-dataitemid       | Locator Type |
       | Mailing Address Street | Enetai Avenue Northeast | MMailingAddressStreet | Owner_MailingAddress1 | Input        |
-    Then User Clears data for the field
-      | Field | Id   | data-dataitemid           | Locator Type |
-      | City  | City | Owner_MailingAddress_City | Input        |
     Then User verifies Validation Message for
       | Field | Id   | data-dataitemid           | Locator Type | Validation Error        |
       | City  | City | Owner_MailingAddress_City | Input        | Owner City is required. |
@@ -181,9 +170,6 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field | Id    | data-dataitemid            | Locator Type | Option |
       | State | State | Owner_MailingAddress_State | Select       | WA     |
-    Then User Clears data for the field
-      | Field       | Id         | data-dataitemid              | Locator Type |
-      | Postal Code | PostalCode | Owner_MailingAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field       | Id         | data-dataitemid              | Locator Type | Validation Error               |
       | Postal Code | PostalCode | Owner_MailingAddress_Zipcode | Input        | Owner Postal Code is required. |
@@ -194,7 +180,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies fields Present in UI
       | Field                      | Id                       | data-item-id                     | Locator Type |
       | Residential Address Lookup |                          | Owner_ResidentialAddress_Lookup  | Input        |
-      | Residential Address Street | ResidentialAddressStreet | Owner_ResidentialAddress1        | Input        |
+      | Residential Address Street |  | Owner_ResidentialAddress1        | Input        |
       | City                       |                          | Owner_ResidentialAddress_City    | Input        |
       | Postal Code                |                          | Owner_ResidentialAddress_Zipcode | Input        |
       | State                      |                          | Owner_ResidentialAddress_State   | Select       |
@@ -203,29 +189,17 @@ Feature: FireLight_End2End_Tests
     Then User verifies fields is not Present in UI
       | Field                      | Id                       | data-item-id                     | Locator Type |
       | Residential Address Lookup |                          | Owner_ResidentialAddress_Lookup  | Input        |
-      | Residential Address Street | ResidentialAddressStreet | Owner_ResidentialAddress1        | Input        |
+      | Residential Address Street |  | Owner_ResidentialAddress1        | Input        |
       | City                       |                          | Owner_ResidentialAddress_City    | Input        |
       | Postal Code                |                          | Owner_ResidentialAddress_Zipcode | Input        |
       | State                      |                          | Owner_ResidentialAddress_State   | Select       |
     Then User "check" checkbox "Mailing Address is different than Residential Address"
-    Then User sets data for the field
-      | Field                      | Value   | Id                       | data-dataitemid                 | Locator Type |
-      | Residential Address Lookup | Chicago | ResidentialAddressLookup | Owner_ResidentialAddress_Lookup | Input        |
-    Then User Selects Option for Lookup "Residential Address Lookup"
-      | Option                              |
-      | Chicago Riverwalk, Chicago, IL, USA |
-    Then User Clears data for the field
-      | Field                      | Id                       | data-dataitemid           | Locator Type |
-      | Residential Address Street | ResidentialAddressStreet | Owner_ResidentialAddress1 | Input        |
     Then User verifies Validation Message for
       | Field                      | Id                       | data-dataitemid           | Locator Type | Validation Error                  |
       | Residential Address Street | ResidentialAddressStreet | Owner_ResidentialAddress1 | Input        | Owner Street Address is required. |
     Then User sets data for the field
       | Field                      | Value               | Id                       | data-dataitemid           | Locator Type |
       | Residential Address Street | ENorth Allen Avenue | ResidentialAddressStreet | Owner_ResidentialAddress1 | Input        |
-    Then User Clears data for the field
-      | Field | Id | data-dataitemid               | Locator Type |
-      | City  |    | Owner_ResidentialAddress_City | Input        |
     Then User verifies Validation Message for
       | Field | Id | data-dataitemid               | Locator Type | Validation Error        |
       | City  |    | Owner_ResidentialAddress_City | Input        | Owner City is required. |
@@ -239,16 +213,12 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field | Id | data-dataitemid                | Locator Type | Option |
       | State |    | Owner_ResidentialAddress_State | Select       | IL     |
-    Then User Clears data for the field
-      | Field       | Id | data-dataitemid                  | Locator Type |
-      | Postal Code |    | Owner_ResidentialAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field       | Id | data-dataitemid                  | Locator Type | Validation Error               |
       | Postal Code |    | Owner_ResidentialAddress_Zipcode | Input        | Owner Postal Code is required. |
     Then User sets data for the field
       | Field       | Value      | Id | data-dataitemid                  | Locator Type |
       | Postal Code | 606184464  |    | Owner_ResidentialAddress_Zipcode | Input        |
-      | Postal Code | 60618-4464 |    | Owner_ResidentialAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field                | Id                 | data-dataitemid           | Locator Type | Validation Error                |
       | Primary Phone Number | PrimaryPhoneNumber | Owner_Primary_PhoneNumber | Input        | Owner Phone Number is required. |
@@ -304,7 +274,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
     Then User verifies prefilled form
       | Field                      | Value                   | data-dataitemid                | Locator Type |
-      | Owner First Name           | Johns                  | Owner_FirstName                | Input        |
+      | Owner First Name           | John                  | Owner_FirstName                | Input        |
       | Owner Middle Name          | D                       | Owner_MiddleName               | Input        |
       | Owner Last Name            | Luffy                   | Owner_LastName                 | Input        |
       | Owner Dob                  | 10/11/1965              | Owner_DOB                      | Input        |
@@ -322,7 +292,6 @@ Feature: FireLight_End2End_Tests
       | data-dataitemid  |
       | Owner_Citizen_US |
     Then User Clicks on Button "Next"
-#    Then User opens "Annuitant(s)" Required for Form "Annuitant Module"
     Then User verifies Page heading "Annuitant Module" with form name "Annuitant(s)" for data entry flow
     Then User verifies Validation Message for
       | Field      | Id        | data-dataitemid     | Locator Type | Validation Error                  |
@@ -340,6 +309,7 @@ Feature: FireLight_End2End_Tests
       | Field         | Id          | data-dataitemid | Locator Type | Validation Error           |
       | Date of Birth | DateofBirth | Annuitant_DOB   | Input        | Annuitant DOB is required. |
     Then User clicks red bubble icon
+    Then User select start date in future from date picker
     Then User sets data for the field
       | Field         | Value      | Id          | data-dataitemid | Locator Type |
       | Date of Birth | 10/11/2095 | DateofBirth | Annuitant_DOB   | Input        |
@@ -444,6 +414,7 @@ Feature: FireLight_End2End_Tests
       | Field         | Id | data-dataitemid    | Locator Type | Validation Error                 |
       | Date of Birth |    | JointAnnuitant_DOB | Input        | Joint Annuitant DOB is required. |
     Then User clicks red bubble icon
+    Then User select start date in future from date picker
     Then User sets data for the field
       | Field         | Value      | Id | data-dataitemid    | Locator Type |
       | Date of Birth | 10/11/2070 |    | JointAnnuitant_DOB | Input        |
@@ -514,24 +485,12 @@ Feature: FireLight_End2End_Tests
       | City                   |    | JointAnnuitant_MailingAddress_City    | Input        |
       | State                  |    | JointAnnuitant_MailingAddress_State   | Select       |
       | Postal Code            |    | JointAnnuitant_MailingAddress_Zipcode | Input        |
-    Then User sets data for the field
-      | Field                  | Value    | Id | data-dataitemid               | Locator Type |
-      | Mailing Address Lookup | carolina |    | JointAnnuitant_Address_Lookup | Input        |
-    Then User Selects Option for Lookup "Mailing Address Lookup"
-      | Option                                     |
-      | Carolina Place Parkway, Pineville, NC, USA |
-    Then User Clears data for the field
-      | Field                  | Id | data-dataitemid                | Locator Type |
-      | Mailing Address Street |    | JointAnnuitant_MailingAddress1 | Input        |
     Then User verifies Validation Message for
       | Field                  | Id | data-dataitemid                | Locator Type | Validation Error                            |
       | Mailing Address Street |    | JointAnnuitant_MailingAddress1 | Input        | Joint Annuitant Street Address is required. |
     Then User sets data for the field
       | Field                  | Value                  | Id | data-dataitemid                    | Locator Type |
       | Mailing Address Street | Carolina Place Parkway |    | JointAnnuitant_MailingAddress1 | Input        |
-    Then User Clears data for the field
-      | Field | Id | data-dataitemid                    | Locator Type |
-      | City  |    | JointAnnuitant_MailingAddress_City | Input        |
     Then User verifies Validation Message for
       | Field | Id | data-dataitemid                    | Locator Type | Validation Error                  |
       | City  |    | JointAnnuitant_MailingAddress_City | Input        | Joint Annuitant City is required. |
@@ -545,9 +504,6 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field | Id | data-dataitemid                     | Locator Type | Option |
       | State |    | JointAnnuitant_MailingAddress_State | Select       | NC     |
-    Then User Clears data for the field
-      | Field       | Id | data-dataitemid                       | Locator Type |
-      | Postal Code |    | JointAnnuitant_MailingAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field       | Id | data-dataitemid                       | Locator Type | Validation Error                         |
       | Postal Code |    | JointAnnuitant_MailingAddress_Zipcode | Input        | Joint Annuitant Postal Code is required. |
@@ -571,28 +527,12 @@ Feature: FireLight_End2End_Tests
       | Postal Code                |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
       | State                      |    | JointAnnuitant_ResidentialAddress_State   | Select       |
     Then User "check" checkbox "Mailing Address is different than Residential Address" with data item Id "JointAnnuitant_MailingAddress_Different"
-    Then User sets data for the field
-      | Field                      | Value | Id | data-dataitemid                          | Locator Type |
-      | Residential Address Lookup | Gar   |    | JointAnnuitant_ResidentialAddress_Lookup | Input        |
-    Then User Selects Option for Lookup "Residential Address Lookup"
-      | Option                                |
-      | North Garland Court, Chicago, IL, USA |
-    Then User verifies prefilled form
-      | Field                      | Value               | data-dataitemid                        | Locator Type |
-      | Residential Address Street | North Garland Court | JointAnnuitant_ResidentialAddress1     | Input        |
-      | City                       | Chicago             | JointAnnuitant_ResidentialAddress_City | Input        |
-    Then User Clears data for the field
-      | Field                      | Id | data-dataitemid                    | Locator Type |
-      | Residential Address Street |    | JointAnnuitant_ResidentialAddress1 | Input        |
     Then User verifies Validation Message for
       | Field                      | Id | data-dataitemid                    | Locator Type | Validation Error                     |
       | Residential Address Street |    | JointAnnuitant_ResidentialAddress1 | Input        | Joint Annuitant Address is required. |
     Then User sets data for the field
       | Field                      | Value               | Id | data-dataitemid                    | Locator Type |
       | Residential Address Street | North Garland Court |    | JointAnnuitant_ResidentialAddress1 | Input        |
-    Then User Clears data for the field
-      | Field | Id | data-dataitemid                        | Locator Type |
-      | City  |    | JointAnnuitant_ResidentialAddress_City | Input        |
     Then User verifies Validation Message for
       | Field | Id | data-dataitemid                        | Locator Type | Validation Error                  |
       | City  |    | JointAnnuitant_ResidentialAddress_City | Input        | Joint Annuitant City is required. |
@@ -609,9 +549,6 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field | Id | data-dataitemid                         | Locator Type | Option  |
       | State |    | JointAnnuitant_ResidentialAddress_State | Select       | IL |
-    Then User Clears data for the field
-      | Field       | Id | data-dataitemid                           | Locator Type |
-      | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field       | Id | data-dataitemid                           | Locator Type | Validation Error                         |
       | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        | Joint Annuitant Postal Code is required. |
@@ -649,7 +586,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
     Then User verifies prefilled form
       | Field                      | Value                   | data-dataitemid                | Locator Type |
-      | Owner First Name           | Johns                  | Owner_FirstName                | Input        |
+      | Owner First Name           | John                  | Owner_FirstName                | Input        |
       | Owner Middle Name          | D                       | Owner_MiddleName               | Input        |
       | Owner Last Name            | Luffy                   | Owner_LastName                 | Input        |
       | Owner Dob                  | 10/11/1965              | Owner_DOB                      | Input        |
@@ -657,7 +594,7 @@ Feature: FireLight_End2End_Tests
       | Owner Gender               | Male                    | Owner_Gender                   | Select       |
       | Mailing Address Street     | Enetai Avenue Northeast | Owner_MailingAddress1          | Input        |
       | City                       | Tacoma                  | Owner_MailingAddress_City      | Input        |
-      | zip                       | 98422                  | Owner_MailingAddress_Zipcode      | Input        |
+      | zip                        | 98422                   | Owner_MailingAddress_Zipcode   | Input        |
       | State                      | WA                      | Owner_MailingAddress_State     | Select       |
       | Residential Address Street | ENorth Allen Avenue     | Owner_ResidentialAddress1      | Input        |
       | City                       | Chicago                 | Owner_ResidentialAddress_City  | Input        |
@@ -680,10 +617,10 @@ Feature: FireLight_End2End_Tests
       | Joint Annuitant Dob         | 10/11/1970            | JointAnnuitant_DOB                        | Input        |
       | Joint Annuitant SSN         | 644-59-7855           | JointAnnuitant_SSN                        | Input        |
       | Joint Annuitant Gender      | Female                | JointAnnuitant_Gender                     | Select       |
-      | Mailing Address Street      | North Garland Court   | JointAnnuitant_MailingAddress1            | Input        |
-      | City                        | Chicago               | JointAnnuitant_MailingAddress_City        | Input        |
+      | Mailing Address Street      | Carolina Place Parkway   | JointAnnuitant_MailingAddress1            | Input        |
+      | City                        | Tacoma               | JointAnnuitant_MailingAddress_City        | Input        |
       | zip                         | 28134                 | JointAnnuitant_MailingAddress_Zipcode     | Input        |
-      | State                       | IL                    | JointAnnuitant_MailingAddress_State       | Select       |
+      | State                       | NC                    | JointAnnuitant_MailingAddress_State       | Select       |
       | Residential Address Street  | North Garland Court   | JointAnnuitant_ResidentialAddress1        | Input        |
       | City                        | Oak Park              | JointAnnuitant_ResidentialAddress_City    | Input        |
       | ZipCode                     | 28134                 | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
@@ -1031,9 +968,9 @@ Feature: FireLight_End2End_Tests
       | Last Name  |    | ContingentBeneficiary1_LastName  | Input        | Beneficiary Last Name is required.  |
     Then User sets data for the field
       | Field       | Value | Id | data-dataitemid                   | Locator Type |
-      | First Name  | Joy  |    | ContingentBeneficiary1_FirstName  | Input        |
-      | Middle Name | R   |    | ContingentBeneficiary1_MiddleName | Input        |
-      | Last Name   | Taylor   |    | ContingentBeneficiary1_LastName   | Input        |
+      | First Name  | Test  |    | ContingentBeneficiary1_FirstName  | Input        |
+      | Middle Name | Ram   |    | ContingentBeneficiary1_MiddleName | Input        |
+      | Last Name   | Dev   |    | ContingentBeneficiary1_LastName   | Input        |
     Then User verifies fields Present in UI
       | Field         | Id | data-item-id               | Locator Type |
       | Date of Birth |    | ContingentBeneficiary1_DOB | Input        |
@@ -1129,25 +1066,19 @@ Feature: FireLight_End2End_Tests
       | Annuitant First Name        | Steven                | Annuitant_FirstName                       | Input        |
       | Annuitant Middle Name       | K                     | Annuitant_MiddleName                      | Input        |
       | Annuitant Last Name         | Smith                 | Annuitant_LastName                        | Input        |
-      | Annuitant Dob               | 10/11/1995            | Annuitant_DOB                             | Input        |
-      | Annuitant SSN               | 787-66-4646           | Annuitant_SSN                             | Input        |
       | Annuitant Gender            | Male                  | Annuitant_Gender                          | Select       |
       | Joint Annuitant First Name  | Cyborg                | JointAnnuitant_FirstName                  | Input        |
       | Joint Annuitant Middle Name | KIng                  | JointAnnuitant_MiddleName                 | Input        |
       | Joint Annuitant Last Name   | Franky                | JointAnnuitant_LastName                   | Input        |
-      | Joint Annuitant Dob         | 10/11/1970            | JointAnnuitant_DOB                        | Input        |
-      | Joint Annuitant SSN         | 644-59-7855           | JointAnnuitant_SSN                        | Input        |
       | Joint Annuitant Gender      | Female                | JointAnnuitant_Gender                     | Select       |
-      | Mailing Address Street      | North Garland Court   | JointAnnuitant_MailingAddress1            | Input        |
-      | City                        | Chicago               | JointAnnuitant_MailingAddress_City        | Input        |
+      | Mailing Address Street      | Carolina Place Parkway   | JointAnnuitant_MailingAddress1            | Input        |
+      | City                        | Tacoma               | JointAnnuitant_MailingAddress_City        | Input        |
       | zip                         | 28134                 | JointAnnuitant_MailingAddress_Zipcode     | Input        |
-      | State                       | IL                    | JointAnnuitant_MailingAddress_State       | Select       |
+      | State                       | NC                    | JointAnnuitant_MailingAddress_State       | Select       |
       | Residential Address Street  | North Garland Court   | JointAnnuitant_ResidentialAddress1        | Input        |
       | City                        | Oak Park              | JointAnnuitant_ResidentialAddress_City    | Input        |
       | ZipCode                     | 28134                 | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
       | State                       | IL                    | JointAnnuitant_ResidentialAddress_State   | Select       |
-      | Primary Phone Number        | (786) 456-4464        | JointAnnuitant_Primary_PhoneNumber        | Input        |
-      | Email Address               | testdata@jointann.com | JointAnnuitant_Primary_EmailAddress       | Input        |
     Then User clicks on Next buttons
     Then User verifies prefilled form
       | Field                              | Value                        | data-dataitemid                             | Locator Type |
@@ -1158,32 +1089,11 @@ Feature: FireLight_End2End_Tests
       | First Name                         | Johns                        | PrimaryBeneficiary_FirstName                | Input        |
       | Middle Name                        | N                            | PrimaryBeneficiary_MiddleName               | Input        |
       | Last Name                          | Taylor                       | PrimaryBeneficiary_LastName                 | Input        |
-      | Date of Birth                      | 10/11/1960                   | PrimaryBeneficiary_DOB                      | Input        |
-      | SSN                                | 545-01-3243                  | PrimaryBeneficiary_SSN                      | Input        |
-      | City                               | Pineville                    | PrimaryBeneficiary_MailingAddress_City      | Input        |
-      | State                              | NC                           | PrimaryBeneficiary_MailingAddress_State     | Select       |
-      | Postal Code                        | 28134                        | PrimaryBeneficiary_MailingAddress_Zipcode   | Input        |
-      | Phone Number                       | (786) 456-8752               | PrimaryBeneficiary_Primary_PhoneNumber      | Input        |
-      | Email Address                      | testdata@primbene.com        | PrimaryBeneficiary_Primary_EmailAddress     | Input        |
-      | Living Person?                     | No                           | PrimaryBeneficiary2_Natural                 | Select       |
-      | Relationship                       | Other (Non-Natural Entities) | PrimaryBeneficiary2_Relationship            | Select       |
       | Primary Percent                    | 35.00%                       | PrimaryBeneficiary2_Percentage              | Input        |
       | Name                               | Bruno                        | PrimaryBeneficiary2_NonNaturalName          | Input        |
-      | Trust Date                         | 10/11/1988                   | PrimaryBeneficiary2_TrustDate               | Input        |
-      | Tax ID                             | 67-5757788                   | PrimaryBeneficiary2_TIN                     | Input        |
-      | Phone Number                       | (654) 378-9464               | PrimaryBeneficiary2_Primary_PhoneNumber     | Input        |
-      | Email Address                      | pb2@ann.com                  | PrimaryBeneficiary2_Primary_EmailAddress    | Input        |
-      | Number of Contingent Beneficiaries | 1                            | ContingentBeneficiary_NumberofBeneficiaries | Select       |
-      | Living Person?                     | Yes                          | ContingentBeneficiary1_Natural              | Select       |
-      | Relationship                       | Other Family                 | ContingentBeneficiary1_Relationship         | Select       |
-      | Contingent Percent                 | 100.00%                      | ContingentBeneficiary1_Percentage           | Input        |
-      | First Name                         | Joy                         | ContingentBeneficiary1_FirstName            | Input        |
-      | Middle Name                        | R                          | ContingentBeneficiary1_MiddleName           | Input        |
-      | Last Name                          | Taylor                          | ContingentBeneficiary1_LastName             | Input        |
-      | Date of Birth                      | 10/11/1980                   | ContingentBeneficiary1_DOB                  | Input        |
-      | SSN                                | 546-57-7855                  | ContingentBeneficiary1_SSN                  | Input        |
-      | Phone Number                       | (786) 458-7264               | ContingentBeneficiary1_Primary_PhoneNumber  | Input        |
-      | Email Address                      | contbene@data.com            | ContingentBeneficiary1_Primary_EmailAddress | Input        |
+      | First Name                         | Test                         | ContingentBeneficiary1_FirstName            | Input        |
+      | Middle Name                        | Ram                          | ContingentBeneficiary1_MiddleName           | Input        |
+      | Last Name                          | Dev                          | ContingentBeneficiary1_LastName             | Input        |
     Then User Clicks on Button "Next"
     Then User verifies Page heading "Suitability Module" with form name "Financial Information" for data entry flow
     Then User Verifies page heading "Financial Profile"
@@ -1524,10 +1434,6 @@ Feature: FireLight_End2End_Tests
     Then User verifies Validation Message for
       | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
       | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount must be a positive number. |
-    Then User Enters "!@#$" in TextBox "CashAmount"
-    Then User verifies Validation Message for
-      | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
-      | Cash Amount | CashAmount | SourceOfFunds_Cash_Amount | Input        | Cash Amount must be a positive number. |
     Then User Enters "-123" in TextBox "CashAmount"
     Then User verifies Validation Message for
       | Field       | Id         | data-dataitemid           | Locator Type | Validation Error                       |
@@ -1538,11 +1444,6 @@ Feature: FireLight_End2End_Tests
     Then User clears value in field "CashAmount"
     Then User verifies "TotalSinglePremiumAmount" is "readOnly" field
     Then User verifies "TotalSinglePremiumAmount" TextBox has Prefilled Value "$0.00"
-    Then User Enters "12452.55" in TextBox "CashAmount"
-    Then User verifies "TotalSinglePremiumAmount" TextBox has Prefilled Value "$12,452.55"
-    Then User verifies Validation Message for
-      | Field          | Id                       | data-dataitemid | Locator Type | Validation Error                        |
-      | Premium Amount | TotalSinglePremiumAmount | Premium_Amount  | Input        | Total Premium must be at least $25,000. |
     Then User Verifies "Check if Total Single Premium amount is estimated or a transfer is requested." is "displayed" under "Purchase Payment" on page
     Then User "check" checkbox "Check if Total Single Premium amount is estimated or a transfer is requested."
     Then User Enters "30145" in TextBox "CashAmount"
@@ -1588,18 +1489,6 @@ Feature: FireLight_End2End_Tests
     Then User verifies Validation Message for
       | Field                         | Id                     | data-dataitemid             | Locator Type | Validation Error            |
       | Account Holder Routing Number | RoutingNumber(9digits) | AccountHolder_RoutingNumber | Input        | Routing Number is required. |
-    Then User Enters "abcd" in TextBox "RoutingNumber(9digits)"
-    Then User verifies Validation Message for
-      | Field                         | Id                     | data-dataitemid             | Locator Type | Validation Error            |
-      | Account Holder Routing Number | RoutingNumber(9digits) | AccountHolder_RoutingNumber | Input        | Routing Number is invalid. |
-    Then User Enters "$#$%" in TextBox "RoutingNumber(9digits)"
-    Then User verifies Validation Message for
-      | Field                         | Id                     | data-dataitemid             | Locator Type | Validation Error            |
-      | Account Holder Routing Number | RoutingNumber(9digits) | AccountHolder_RoutingNumber | Input        | Routing Number is invalid. |
-    Then User Enters "1234" in TextBox "RoutingNumber(9digits)"
-    Then User verifies Validation Message for
-      | Field                         | Id                     | data-dataitemid             | Locator Type | Validation Error            |
-      | Account Holder Routing Number | RoutingNumber(9digits) | AccountHolder_RoutingNumber | Input        | Routing Number is invalid. |
     Then User Enters "1234567890" in TextBox "RoutingNumber(9digits)"
     Then User verifies Validation Message for
       | Field                         | Id                     | data-dataitemid             | Locator Type | Validation Error            |
@@ -1717,258 +1606,7 @@ Feature: FireLight_End2End_Tests
     Then User Verifies value "CA" for field "State"
     Then User Verifies value "Savings" for field "Please indicate the account type"
     Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
     Then User verifies Page heading "Fund Allocation Variable Module" with form name "Fund Allocation" for data entry flow
-    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Bond Fund 1"
-    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Bond Fund 1"
-    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Bond Fund 1" is "100"
-    Then User Enters ".11" in field "Bond Fund 1"
-    Then User verifies "Bond Fund 1" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Bond Fund 1"
-    Then User verifies "Bond Fund 1" field has Prefilled Value "1.01%"
-    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Bond Fund 2"
-    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Bond Fund 2"
-    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Bond Fund 2" is "100"
-    Then User Enters ".11" in field "Bond Fund 2"
-    Then User verifies "Bond Fund 2" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Bond Fund 2"
-    Then User verifies "Bond Fund 2" field has Prefilled Value "1.01%"
-    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Bond Fund 3"
-    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Bond Fund 3"
-    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Bond Fund 3" is "100"
-    Then User Enters ".11" in field "Bond Fund 3"
-    Then User verifies "Bond Fund 3" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Bond Fund 3"
-    Then User verifies "Bond Fund 3" field has Prefilled Value "1.01%"
-    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Bond Fund 4"
-    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Bond Fund 4"
-    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Bond Fund 4" is "100"
-    Then User Enters ".11" in field "Bond Fund 4"
-    Then User verifies "Bond Fund 4" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Bond Fund 4"
-    Then User verifies "Bond Fund 4" field has Prefilled Value "1.01%"
-    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Bond Fund 5"
-    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Bond Fund 5"
-    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Bond Fund 5" is "100"
-    Then User Enters ".11" in field "Bond Fund 5"
-    Then User verifies "Bond Fund 5" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Bond Fund 5"
-    Then User verifies "Bond Fund 5" field has Prefilled Value "1.01%"
-    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "International Fund 1"
-    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "International Fund 1"
-    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "International Fund 1" is "100"
-    Then User Enters ".11" in field "International Fund 1"
-    Then User verifies "International Fund 1" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "International Fund 1"
-    Then User verifies "International Fund 1" field has Prefilled Value "1.01%"
-    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "International Fund 2"
-    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "International Fund 2"
-    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "International Fund 2" is "100"
-    Then User Enters ".11" in field "International Fund 2"
-    Then User verifies "International Fund 2" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "International Fund 2"
-    Then User verifies "International Fund 2" field has Prefilled Value "1.01%"
-    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "International Fund 3"
-    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "International Fund 3"
-    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "International Fund 3" is "100"
-    Then User Enters ".11" in field "International Fund 3"
-    Then User verifies "International Fund 3" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "International Fund 3"
-    Then User verifies "International Fund 3" field has Prefilled Value "1.01%"
-    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "International Fund 4"
-    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "International Fund 4"
-    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "International Fund 4" is "100"
-    Then User Enters ".11" in field "International Fund 4"
-    Then User verifies "International Fund 4" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "International Fund 4"
-    Then User verifies "International Fund 4" field has Prefilled Value "1.01%"
-    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "International Fund 5"
-    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "International Fund 5"
-    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "International Fund 5" is "100"
-    Then User Enters ".11" in field "International Fund 5"
-    Then User verifies "International Fund 5" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "International Fund 5"
-    Then User verifies "International Fund 5" field has Prefilled Value "1.01%"
-    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Large Cap Value Fund 1"
-    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Large Cap Value Fund 1"
-    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Large Cap Value Fund 1" is "100"
-    Then User Enters ".11" in field "Large Cap Value Fund 1"
-    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Large Cap Value Fund 1"
-    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "1.01%"
-    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Large Cap Value Fund 2"
-    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Large Cap Value Fund 2"
-    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Large Cap Value Fund 2" is "100"
-    Then User Enters ".11" in field "Large Cap Value Fund 2"
-    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Large Cap Value Fund 2"
-    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "1.01%"
-    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Large Cap Value Fund 3"
-    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Large Cap Value Fund 3"
-    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Large Cap Value Fund 3" is "100"
-    Then User Enters ".11" in field "Large Cap Value Fund 3"
-    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Large Cap Value Fund 3"
-    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "1.01%"
-    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Large Cap Value Fund 4"
-    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Large Cap Value Fund 4"
-    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Large Cap Value Fund 4" is "100"
-    Then User Enters ".11" in field "Large Cap Value Fund 4"
-    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Large Cap Value Fund 4"
-    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "1.01%"
-    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Large Cap Value Fund 5"
-    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Large Cap Value Fund 5"
-    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Large Cap Value Fund 5" is "100"
-    Then User Enters ".11" in field "Large Cap Value Fund 5"
-    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Large Cap Value Fund 5"
-    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "1.01%"
-    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Mid Cap Value Fund 1"
-    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Mid Cap Value Fund 1"
-    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Mid Cap Value Fund 1" is "100"
-    Then User Enters ".11" in field "Mid Cap Value Fund 1"
-    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Mid Cap Value Fund 1"
-    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "1.01%"
-    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Mid Cap Value Fund 2"
-    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Mid Cap Value Fund 2"
-    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Mid Cap Value Fund 2" is "100"
-    Then User Enters ".11" in field "Mid Cap Value Fund 2"
-    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Mid Cap Value Fund 2"
-    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "1.01%"
-    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Mid Cap Value Fund 3"
-    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Mid Cap Value Fund 3"
-    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Mid Cap Value Fund 3" is "100"
-    Then User Enters ".11" in field "Mid Cap Value Fund 3"
-    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Mid Cap Value Fund 3"
-    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "1.01%"
-    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Mid Cap Value Fund 4"
-    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Mid Cap Value Fund 4"
-    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Mid Cap Value Fund 4" is "100"
-    Then User Enters ".11" in field "Mid Cap Value Fund 4"
-    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Mid Cap Value Fund 4"
-    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "1.01%"
-    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Mid Cap Value Fund 5"
-    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Mid Cap Value Fund 5"
-    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Mid Cap Value Fund 5" is "100"
-    Then User Enters ".11" in field "Mid Cap Value Fund 5"
-    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Mid Cap Value Fund 5"
-    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "1.01%"
-    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Small Cap Value Fund 1"
-    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Small Cap Value Fund 1"
-    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Small Cap Value Fund 1" is "100"
-    Then User Enters ".11" in field "Small Cap Value Fund 1"
-    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Small Cap Value Fund 1"
-    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "1.01%"
-    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Small Cap Value Fund 2"
-    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Small Cap Value Fund 2"
-    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Small Cap Value Fund 2" is "100"
-    Then User Enters ".11" in field "Small Cap Value Fund 2"
-    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Small Cap Value Fund 2"
-    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "1.01%"
-    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Small Cap Value Fund 3"
-    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Small Cap Value Fund 3"
-    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Small Cap Value Fund 3" is "100"
-    Then User Enters ".11" in field "Small Cap Value Fund 3"
-    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Small Cap Value Fund 3"
-    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "1.01%"
-    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Small Cap Value Fund 4"
-    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Small Cap Value Fund 4"
-    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Small Cap Value Fund 4" is "100"
-    Then User Enters ".11" in field "Small Cap Value Fund 4"
-    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Small Cap Value Fund 4"
-    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "1.01%"
-    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "abcd" in field "Small Cap Value Fund 5"
-    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User Enters "!@#$" in field "Small Cap Value Fund 5"
-    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-    Then User verify max length of field "Small Cap Value Fund 5" is "100"
-    Then User Enters ".11" in field "Small Cap Value Fund 5"
-    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "0.11%"
-    Then User Enters "1.01" in field "Small Cap Value Fund 5"
-    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "1.01%"
     Then User Enters "6" in field "Bond Fund 1"
     Then User Enters "1" in field "Bond Fund 2"
     Then User Enters "2" in field "Bond Fund 3"
@@ -2006,548 +1644,6 @@ Feature: FireLight_End2End_Tests
       | Investment Allocation | InvestmentAllocation | Total_Initial_Investment_Allocation_Percentage | Input        | The total initial allocation must equal 100%. |
     Then User Enters "13" in field "Small Cap Value Fund 5"
     Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100.00%"
-#    Then User "check" checkbox "I elect Automatic Asset Rebalancing"
-#    Then User Verifies "Frequency" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "Start Date" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies options present for "Frequency" dropdown
-#      | options     |
-#      |             |
-#      | Annual      |
-#      | Semi-Annual |
-#      | Quarterly   |
-#      | Monthly     |
-#    Then User Chooses Blank option for Dropdown "Frequency" having id "Frequency" or DataItemId "Rebalancing_Frequency"
-#    Then User verifies Validation Message for
-#      | Field     | Id        | data-dataitemid       | Locator Type | Validation Error                      |
-#      | Frequency | Frequency | Rebalancing_Frequency | Select       | Auto Rebalance frequency is required. |
-#    Then User selects value "Semi-Annual" for field "Frequency"
-#    Then User verifies Validation Message for
-#      | Field     | Id        | data-dataitemid       | Locator Type | Validation Error                       |
-#      | StartDate | StartDate | Rebalancing_StartDate | Input        | Auto Rebalance start date is required. |
-#    Then User verifies data picker is displayed
-#    Then User select start date in past from date picker
-#    Then User verifies Validation Message for
-#      | Field     | Id        | data-dataitemid       | Locator Type | Validation Error                                 |
-#      | StartDate | StartDate | Rebalancing_StartDate | Input        | Auto Rebalance Start Date must be in the future. |
-#    Then User Enters "03122024" in TextBox "StartDate"
-#    Then User "check" checkbox "I elect Dollar Cost Averaging"
-#    Then User Verifies "Frequency" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Duration" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Percent" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Amount" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies options present for "DollarCostAverage_Frequency" dropdown
-#      | options     |
-#      |             |
-#      | Annual      |
-#      | Semi-Annual |
-#      | Quarterly   |
-#      | Monthly     |
-#    Then User Chooses Blank option for Dropdown "Frequency" having DataItemId "DollarCostAverage_Frequency"
-#    Then User verifies Validation Message for
-#      | Field      | Id        | data-dataitemid | Locator Type | Validation Error        |
-#      | Frequency      |         | DollarCostAverage_Frequency | Select | Dollar Cost Averaging Frequency is required.        |
-#    Then User selects value "Quarterly" for field "DollarCostAverage_Frequency"
-#    Then User Verifies options present for "Duration" dropdown
-#      | options   |
-#      |           |
-#      | 3 Months  |
-#      | 6 Months  |
-#      | 9 Months  |
-#      | 12 Months |
-#      | 15 Months |
-#      | 18 Months |
-#      | 21 Months |
-#      | 24 Months |
-#    Then User Chooses Blank option for Dropdown "Duration" having id "Duration" or DataItemId "DollarCostAverage_Duration"
-##    Then User verifies Validation Message for
-##      | Field    | Id       | data-dataitemid            | Locator Type | Validation Error                            |
-##      | Duration | Duration | DollarCostAverage_Duration | Select       | Dollat Cost Averaging Duration is required. |
-#    Then User selects value "15 Months" for field "Duration"
-#    Then User verifies Validation Message for
-#      | Field  | Id     | data-dataitemid          | Locator Type | Validation Error                                        |
-#      | Amount | Amount | DollarCostAverage_Amount | Input        | A Dollar Cost Average Amount or Percentage is required. |
-#    Then User verify "placeholder" of field "Amount" is "Whole Dollar Amount"
-#    Then User verifies Validation Message for
-#      | Field   | Id      | data-dataitemid              | Locator Type | Validation Error                                        |
-#      | Percent | Percent | DollarCostAverage_Percentage | Input        | A Dollar Cost Average Amount or Percentage is required. |
-#    Then User verify "placeholder" of field "Percent" is "Whole Percentage"
-#    Then User Enters "1" in TextBox "Amount"
-#    Then User Verifies "Percent" is "not displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Enters "25.351" in TextBox "Amount"
-#    Then User verifies "Amount" TextBox has Prefilled Value "$25.35"
-#    Then User clears value in field "Amount"
-#    Then User Verifies "Percent" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Amount" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Enters "1" in TextBox "Percent"
-#    Then User Verifies "Amount" is "not displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Enters "25.351" in TextBox "Percent"
-#    Then User verifies "Percent" TextBox has Prefilled Value "25%"
-#    Then User clears value in field "Percent"
-#    Then User Verifies "Percent" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Amount" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Enters "254531" in TextBox "Amount"
-#    Then User clicks "Previous" button
-#    Then User verifies Page heading "Annuity ACH Module" with form name "ACH Payment" for data entry flow
-#    Then User verifies "FinancialInstitutionName" TextBox has Prefilled Value "A2B corporation!"
-#    Then User verifies "AccountHolderFirstName" TextBox has Prefilled Value "Jemimah"
-#    Then User verifies "MiddleName" TextBox has Prefilled Value "M"
-#    Then User verifies "LastName" TextBox has Prefilled Value "Rodrigues"
-#    Then User verifies "RoutingNumber(9digits)" TextBox has Prefilled Value "051000017"
-#    Then User verifies "AccountNumber" TextBox has Prefilled Value "456789123456789"
-#    Then User verifies "FinancialInstitutionAddress" TextBox has Prefilled Value "National park road"
-#    Then User verifies "City" TextBox has Prefilled Value "Laugh town"
-#    Then User verifies "PostalCode" TextBox has Prefilled Value "64684-6846"
-#    Then User Verifies value "CA" for field "State"
-#    Then User Verifies value "Savings" for field "Please indicate the account type"
-#    Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "6"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "1"
-#    Then User verifies "Bond Fund 3" field has Prefilled Value "2"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "3"
-#    Then User verifies "Bond Fund 5" field has Prefilled Value "4"
-#    Then User verifies "International Fund 1" field has Prefilled Value "2"
-#    Then User verifies "International Fund 2" field has Prefilled Value "3"
-#    Then User verifies "International Fund 3" field has Prefilled Value "1"
-#    Then User verifies "International Fund 4" field has Prefilled Value "5"
-#    Then User verifies "International Fund 5" field has Prefilled Value "7"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.4"
-#    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "5.6"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "3"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "6"
-#    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "9"
-#    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "1"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "2"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "1"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "2"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "1"
-#    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "2"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "4"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "6"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "8"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "13"
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100%"
-#    Then User Verifies checkbox "I elect Automatic Asset Rebalancing" is "checked"
-#    Then User Verifies value "Semi-Annual" for field "Frequency"
-#    Then User verifies "StartDate" TextBox has Prefilled Value "03/12/2024"
-#    Then User Verifies checkbox "I elect Dollar Cost Averaging" is "checked"
-#    Then User Verifies value "Quarterly" for field "DollarCostAverage_Frequency"
-#    Then User Verifies value "15 Months" for field "Duration"
-#    Then User verifies "Amount" TextBox has Prefilled Value "$254,531.00"
-#    Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
-#    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Bond Fund 1"
-#    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Bond Fund 1"
-#    Then User verifies "Bond Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Bond Fund 1"
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Bond Fund 1" is "100"
-#    Then User Enters "98.012" in field "Bond Fund 1"
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "98.01%"
-#    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Bond Fund 2"
-#    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Bond Fund 2"
-#    Then User verifies "Bond Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Bond Fund 2"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Bond Fund 2" is "100"
-#    Then User Enters "98.012" in field "Bond Fund 2"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "98.01%"
-#    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Bond Fund 3"
-#    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Bond Fund 3"
-#    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Bond Fund 3"
-#    Then User verifies "Bond Fund 3" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Bond Fund 3" is "100"
-#    Then User Enters "98.012" in field "Bond Fund 3"
-#    Then User verifies "Bond Fund 3" field has Prefilled Value "98.01%"
-#    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Bond Fund 4"
-#    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Bond Fund 4"
-#    Then User verifies "Bond Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Bond Fund 4"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Bond Fund 4" is "100"
-#    Then User Enters "98.012" in field "Bond Fund 4"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "98.01%"
-#    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Bond Fund 5"
-#    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Bond Fund 5"
-#    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Bond Fund 5"
-#    Then User verifies "Bond Fund 5" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Bond Fund 5" is "100"
-#    Then User Enters "98.012" in field "Bond Fund 5"
-#    Then User verifies "Bond Fund 5" field has Prefilled Value "98.01%"
-#    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "International Fund 1"
-#    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "International Fund 1"
-#    Then User verifies "International Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "International Fund 1"
-#    Then User verifies "International Fund 1" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "International Fund 1" is "100"
-#    Then User Enters "98.012" in field "International Fund 1"
-#    Then User verifies "International Fund 1" field has Prefilled Value "98.01%"
-#    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "International Fund 2"
-#    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "International Fund 2"
-#    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "International Fund 2"
-#    Then User verifies "International Fund 2" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "International Fund 2" is "100"
-#    Then User Enters "98.012" in field "International Fund 2"
-#    Then User verifies "International Fund 2" field has Prefilled Value "98.01%"
-#    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "International Fund 3"
-#    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "International Fund 3"
-#    Then User verifies "International Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "International Fund 3"
-#    Then User verifies "International Fund 3" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "International Fund 3" is "100"
-#    Then User Enters "98.012" in field "International Fund 3"
-#    Then User verifies "International Fund 3" field has Prefilled Value "98.01%"
-#    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "International Fund 4"
-#    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "International Fund 4"
-#    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "International Fund 4"
-#    Then User verifies "International Fund 4" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "International Fund 4" is "100"
-#    Then User Enters "98.012" in field "International Fund 4"
-#    Then User verifies "International Fund 4" field has Prefilled Value "98.01%"
-#    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "International Fund 5"
-#    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "International Fund 5"
-#    Then User verifies "International Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "International Fund 5"
-#    Then User verifies "International Fund 5" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "International Fund 5" is "100"
-#    Then User Enters "98.012" in field "International Fund 5"
-#    Then User verifies "International Fund 5" field has Prefilled Value "98.01%"
-#    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Large Cap Value Fund 1"
-#    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Large Cap Value Fund 1"
-#    Then User verifies "Large Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Large Cap Value Fund 1"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Large Cap Value Fund 1" is "100"
-#    Then User Enters "98.012" in field "Large Cap Value Fund 1"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "98.01%"
-#    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Large Cap Value Fund 2"
-#    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Large Cap Value Fund 2"
-#    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Large Cap Value Fund 2"
-#    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Large Cap Value Fund 2" is "100"
-#    Then User Enters "98.012" in field "Large Cap Value Fund 2"
-#    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "98.01%"
-#    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Large Cap Value Fund 3"
-#    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Large Cap Value Fund 3"
-#    Then User verifies "Large Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Large Cap Value Fund 3"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Large Cap Value Fund 3" is "100"
-#    Then User Enters "98.012" in field "Large Cap Value Fund 3"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "98.01%"
-#    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Large Cap Value Fund 4"
-#    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Large Cap Value Fund 4"
-#    Then User verifies "Large Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Large Cap Value Fund 4"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Large Cap Value Fund 4" is "100"
-#    Then User Enters "98.012" in field "Large Cap Value Fund 4"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "98.01%"
-#    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Large Cap Value Fund 5"
-#    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Large Cap Value Fund 5"
-#    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Large Cap Value Fund 5"
-#    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Large Cap Value Fund 5" is "100"
-#    Then User Enters "98.012" in field "Large Cap Value Fund 5"
-#    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "98.01%"
-#    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Mid Cap Value Fund 1"
-#    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Mid Cap Value Fund 1"
-#    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Mid Cap Value Fund 1"
-#    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Mid Cap Value Fund 1" is "100"
-#    Then User Enters "98.012" in field "Mid Cap Value Fund 1"
-#    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "98.01%"
-#    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Mid Cap Value Fund 2"
-#    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Mid Cap Value Fund 2"
-#    Then User verifies "Mid Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Mid Cap Value Fund 2"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Mid Cap Value Fund 2" is "100"
-#    Then User Enters "98.012" in field "Mid Cap Value Fund 2"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "98.01%"
-#    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Mid Cap Value Fund 3"
-#    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Mid Cap Value Fund 3"
-#    Then User verifies "Mid Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Mid Cap Value Fund 3"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Mid Cap Value Fund 3" is "100"
-#    Then User Enters "98.012" in field "Mid Cap Value Fund 3"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "98.01%"
-#    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Mid Cap Value Fund 4"
-#    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Mid Cap Value Fund 4"
-#    Then User verifies "Mid Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Mid Cap Value Fund 4"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Mid Cap Value Fund 4" is "100"
-#    Then User Enters "98.012" in field "Mid Cap Value Fund 4"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "98.01%"
-#    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Mid Cap Value Fund 5"
-#    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Mid Cap Value Fund 5"
-#    Then User verifies "Mid Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Mid Cap Value Fund 5"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Mid Cap Value Fund 5" is "100"
-#    Then User Enters "98.012" in field "Mid Cap Value Fund 5"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "98.01%"
-#    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Small Cap Value Fund 1"
-#    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Small Cap Value Fund 1"
-#    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Small Cap Value Fund 1"
-#    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Small Cap Value Fund 1" is "100"
-#    Then User Enters "98.012" in field "Small Cap Value Fund 1"
-#    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "98.01%"
-#    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Small Cap Value Fund 2"
-#    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Small Cap Value Fund 2"
-#    Then User verifies "Small Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Small Cap Value Fund 2"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Small Cap Value Fund 2" is "100"
-#    Then User Enters "98.012" in field "Small Cap Value Fund 2"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "98.01%"
-#    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Small Cap Value Fund 3"
-#    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Small Cap Value Fund 3"
-#    Then User verifies "Small Cap Value Fund 3" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Small Cap Value Fund 3"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Small Cap Value Fund 3" is "100"
-#    Then User Enters "98.012" in field "Small Cap Value Fund 3"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "98.01%"
-#    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Small Cap Value Fund 4"
-#    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Small Cap Value Fund 4"
-#    Then User verifies "Small Cap Value Fund 4" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Small Cap Value Fund 4"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Small Cap Value Fund 4" is "100"
-#    Then User Enters "98.012" in field "Small Cap Value Fund 4"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "98.01%"
-#    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "abc" in field "Small Cap Value Fund 5"
-#    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "!@#$" in field "Small Cap Value Fund 5"
-#    Then User verifies "Small Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User Enters "100.25" in field "Small Cap Value Fund 5"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "100.25%"
-#    Then User verify max length of field "Small Cap Value Fund 5" is "100"
-#    Then User Enters "98.012" in field "Small Cap Value Fund 5"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "98.01%"
-#    Then User Enters "5" in field "Bond Fund 1"
-#    Then User Enters "2.45" in field "Bond Fund 2"
-#    Then User Enters "0.00" in field "Bond Fund 3"
-#    Then User Enters "6.68" in field "Bond Fund 4"
-#    Then User Enters "0.00" in field "Bond Fund 5"
-#    Then User Enters "2.99" in field "International Fund 1"
-#    Then User Enters "0.00" in field "International Fund 2"
-#    Then User Enters "4.96" in field "International Fund 3"
-#    Then User Enters "0.00" in field "International Fund 4"
-#    Then User Enters "6.88" in field "International Fund 5"
-#    Then User Enters "8.86" in field "Large Cap Value Fund 1"
-#    Then User Enters "0.00" in field "Large Cap Value Fund 2"
-#    Then User Enters "5.89" in field "Large Cap Value Fund 3"
-#    Then User Enters "7.00" in field "Large Cap Value Fund 4"
-#    Then User Enters "0.00" in field "Large Cap Value Fund 5"
-#    Then User Enters "0.00" in field "Mid Cap Value Fund 1"
-#    Then User Enters "9.69" in field "Mid Cap Value Fund 2"
-#    Then User Enters "5.68" in field "Mid Cap Value Fund 3"
-#    Then User Enters "6.89" in field "Mid Cap Value Fund 4"
-#    Then User Enters "6.99" in field "Mid Cap Value Fund 5"
-#    Then User Enters "0.00" in field "Small Cap Value Fund 1"
-#    Then User Enters "5.88" in field "Small Cap Value Fund 2"
-#    Then User Enters "8.89" in field "Small Cap Value Fund 3"
-#    Then User Enters "2.99" in field "Small Cap Value Fund 4"
-#    Then User Enters "0.84" in field "Small Cap Value Fund 5"
-#    Then User verifies "Fund_Allocation_Total" is "readOnly" field
-#    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "98.56%"
-#    Then User verifies Validation Message for
-#      | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |
-#      | Fund Allocation | FundAllocation | Fund_Allocation_Total  | Input        | Allocations must total 100% but are currently 98.56%. |
-#    Then User Enters "2.84" in field "Small Cap Value Fund 5"
-#    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "100.56%"
-#    Then User verifies Validation Message for
-#      | Field          | Id              | data-dataitemid        | Locator Type | Validation Error                        |
-#      | Fund Allocation | FundAllocation | Fund_Allocation_Total  | Input        | Allocations must total 100% but are currently 100.56%. |
-#    Then User Enters "2.28" in field "Small Cap Value Fund 5"
-#    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "100.00%"
-#    Then User clicks "Previous" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "6"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "1"
-#    Then User verifies "Bond Fund 3" field has Prefilled Value "2"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "3"
-#    Then User verifies "Bond Fund 5" field has Prefilled Value "4"
-#    Then User verifies "International Fund 1" field has Prefilled Value "2"
-#    Then User verifies "International Fund 2" field has Prefilled Value "3"
-#    Then User verifies "International Fund 3" field has Prefilled Value "1"
-#    Then User verifies "International Fund 4" field has Prefilled Value "5"
-#    Then User verifies "International Fund 5" field has Prefilled Value "7"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "2.4"
-#    Then User verifies "Large Cap Value Fund 2" field has Prefilled Value "5.6"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "3"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "6"
-#    Then User verifies "Large Cap Value Fund 5" field has Prefilled Value "9"
-#    Then User verifies "Mid Cap Value Fund 1" field has Prefilled Value "1"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "2"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "1"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "2"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "1"
-#    Then User verifies "Small Cap Value Fund 1" field has Prefilled Value "2"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "4"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "6"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "8"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "13"
-#    Then User verifies "Total_Initial_Investment_Allocation_Percentage" TextBox has Prefilled Value "100%"
-#    Then User Verifies checkbox "I elect Automatic Asset Rebalancing" is "checked"
-#    Then User Verifies value "Semi-Annual" for field "Frequency"
-#    Then User verifies "StartDate" TextBox has Prefilled Value "03/12/2024"
-#    Then User Verifies checkbox "I elect Dollar Cost Averaging" is "checked"
-#    Then User Verifies value "Quarterly" for field "DollarCostAverage_Frequency"
-#    Then User Verifies value "15 Months" for field "Duration"
-#    Then User verifies "Amount" TextBox has Prefilled Value "$254,531.00"
-#    Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "5.00%"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "2.45%"
-#    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "6.68%"
-#    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 1" field has Prefilled Value "2.99%"
-#    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 3" field has Prefilled Value "4.96%"
-#    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 5" field has Prefilled Value "6.88%"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "8.86%"
-#    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "5.89%"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "7.00%"
-#    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "9.69%"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "5.68%"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "6.89%"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "6.99%"
-#    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "5.88%"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "8.89%"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "2.99%"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "2.28%"
-#    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "100.00%"
-#    Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Product Features" for data entry flow
-#    Then User Verifies "I elect Automatic Asset Rebalancing" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "Frequency" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "Start Date" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "I elect Dollar Cost Averaging" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Frequency" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Duration" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Percent" is "not displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Amount" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies checkbox "I elect Automatic Asset Rebalancing" is "checked"
-#    Then User Verifies value "Semi-Annual" for field "Frequency"
-#    Then User verifies "StartDate" TextBox has Prefilled Value "03/12/2024"
-#    Then User Verifies checkbox "I elect Dollar Cost Averaging" is "checked"
-#    Then User Verifies value "Quarterly" for field "DollarCostAverage_Frequency"
-#    Then User Verifies value "15 Months" for field "Duration"
-#    Then User verifies "Amount" TextBox has Prefilled Value "$254,531.00"
-#    Then User clicks "Previous" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Fund Allocation" for data entry flow
-#    Then User verifies "Bond Fund 1" field has Prefilled Value "5.00%"
-#    Then User verifies "Bond Fund 2" field has Prefilled Value "2.45%"
-#    Then User verifies "Bond Fund 3" field has "placeholder" Value "0.00%"
-#    Then User verifies "Bond Fund 4" field has Prefilled Value "6.68%"
-#    Then User verifies "Bond Fund 5" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 1" field has Prefilled Value "2.99%"
-#    Then User verifies "International Fund 2" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 3" field has Prefilled Value "4.96%"
-#    Then User verifies "International Fund 4" field has "placeholder" Value "0.00%"
-#    Then User verifies "International Fund 5" field has Prefilled Value "6.88%"
-#    Then User verifies "Large Cap Value Fund 1" field has Prefilled Value "8.86%"
-#    Then User verifies "Large Cap Value Fund 2" field has "placeholder" Value "0.00%"
-#    Then User verifies "Large Cap Value Fund 3" field has Prefilled Value "5.89%"
-#    Then User verifies "Large Cap Value Fund 4" field has Prefilled Value "7.00%"
-#    Then User verifies "Large Cap Value Fund 5" field has "placeholder" Value "0.00%"
-#    Then User verifies "Mid Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User verifies "Mid Cap Value Fund 2" field has Prefilled Value "9.69%"
-#    Then User verifies "Mid Cap Value Fund 3" field has Prefilled Value "5.68%"
-#    Then User verifies "Mid Cap Value Fund 4" field has Prefilled Value "6.89%"
-#    Then User verifies "Mid Cap Value Fund 5" field has Prefilled Value "6.99%"
-#    Then User verifies "Small Cap Value Fund 1" field has "placeholder" Value "0.00%"
-#    Then User verifies "Small Cap Value Fund 2" field has Prefilled Value "5.88%"
-#    Then User verifies "Small Cap Value Fund 3" field has Prefilled Value "8.89%"
-#    Then User verifies "Small Cap Value Fund 4" field has Prefilled Value "2.99%"
-#    Then User verifies "Small Cap Value Fund 5" field has Prefilled Value "2.28%"
-#    Then User verifies "Fund_Allocation_Total" TextBox has Prefilled Value "100.00%"
-#    Then User clicks "Next" button
-#    Then User verifies Page heading "Fund Allocation Module" with form name "Product Features" for data entry flow
-#    Then User Verifies "I elect Automatic Asset Rebalancing" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "Frequency" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "Start Date" is "displayed" under "Automatic Asset Rebalancing" on page
-#    Then User Verifies "I elect Dollar Cost Averaging" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Frequency" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Duration" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Percent" is "not displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies "Amount" is "displayed" under "Dollar Cost Averaging (DCA)" on page
-#    Then User Verifies checkbox "I elect Automatic Asset Rebalancing" is "checked"
-#    Then User Verifies value "Semi-Annual" for field "Frequency"
-#    Then User verifies "StartDate" TextBox has Prefilled Value "03/12/2024"
-#    Then User Verifies checkbox "I elect Dollar Cost Averaging" is "checked"
-#    Then User Verifies value "Quarterly" for field "DollarCostAverage_Frequency"
-#    Then User Verifies value "15 Months" for field "Duration"
-#    Then User verifies "Amount" TextBox has Prefilled Value "$254,531.00"
     Then User clicks "Next" button
     Then User verifies Page heading "Agent Module" with form name "Agent/Advisor" for data entry flow
     Then User verifies Agent Information is displayed on Agent Module Header

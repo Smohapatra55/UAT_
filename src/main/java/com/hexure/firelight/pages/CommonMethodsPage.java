@@ -248,9 +248,9 @@ public class CommonMethodsPage extends FLUtilities {
 
     private  String dataFieldsMVC="//input[@data-dataitemid='%s' or @id='%s']";
     private  String dataFieldsSelectTag="//select[@data-dataitemid='%s' or @id='%s']";
-    private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div//span[@class='validationText']";
+    private String msg_ErrorMessageTextBox ="//input[@data-dataitemid='%s' or @id='%s']/ancestor::div[@class='componentWrapper ']//div/span[@class='validationText']";
     public static String chk_Option = "//label[text()='%s']//parent::div//preceding-sibling::div//div[contains(@class,'ITCheckBox   ')]";
-    private String chkBox_ByDataItemId = "//div[@data-dataitemid='%s']//div[@role]";
+    private String chkBox_ByDataItemId = "//div[@data-dataitemid='%s']//div[@role]/div";
     private String chkBox_ByDataItemIdAndTitle = "//div[@data-dataitemid='%s']//div[@title='%s']";
     private String stringElement="//div[text()='%s']//..//..//*[@title='%s']";
     public String requiredFieldError = "//div[@title='%s']//ancestor::div[@class='ITComponent']//div[contains(@class,'errorText')]";

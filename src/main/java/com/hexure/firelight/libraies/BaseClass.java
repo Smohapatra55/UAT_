@@ -477,7 +477,7 @@ public class BaseClass {
 
         try{
             if(testContext.getDriver() != null){
-                 testContext.getDriver().quit();
+             //    testContext.getDriver().quit();
             }
             Log.info("Driver Quit Successfully");
             Log.info("<<<===== END OF TEST =====>>>");
@@ -544,7 +544,7 @@ public class BaseClass {
         wait.until(jQueryLoad);
         wait.until(jsLoad);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

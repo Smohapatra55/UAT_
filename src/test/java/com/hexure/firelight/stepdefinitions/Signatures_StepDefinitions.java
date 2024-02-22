@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
@@ -1217,7 +1218,8 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_Enters_in_TextBox(String value, String txtBox) {
         captureScreenshot(driver, testContext, false);
         waitForPageToLoad(driver);
-        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+        WebElement element = findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox));
+        new Actions(driver).moveToElement(element).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)), value);
     }
 

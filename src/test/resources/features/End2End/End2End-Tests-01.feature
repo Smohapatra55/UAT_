@@ -2,7 +2,7 @@ Feature: FireLight_End2End_Tests
 
   This feature will verify UAT Application End2End Tests
 
-  @End2EndTest1
+  @End2EndTest
   Scenario: TC_01_Complete UAT application Data Entry for client Fidelity Automation
     Given User is on FireLight login page for TestCase "End2End_TC_01"
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button
@@ -107,7 +107,7 @@ Feature: FireLight_End2End_Tests
       | Last Name | LastName | Owner_LastName  | Input        | Last Name is required. |
     Then User sets data for the field
       | Field             | Value  | Id | data-dataitemid  | Locator Type |
-      | Owner First Name  | Monkey |    | Owner_FirstName  | Input        |
+      | Owner First Name  | Johns |    | Owner_FirstName  | Input        |
       | Owner Middle Name | D      |    | Owner_MiddleName | Input        |
       | Owner Last Name   | Luffy  |    | Owner_LastName   | Input        |
     Then User clicks red bubble icon
@@ -303,7 +303,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
     Then User verifies prefilled form
       | Field                      | Value                   | data-dataitemid                | Locator Type |
-      | Owner First Name           | Monkey                  | Owner_FirstName                | Input        |
+      | Owner First Name           | Johns                  | Owner_FirstName                | Input        |
       | Owner Middle Name          | D                       | Owner_MiddleName               | Input        |
       | Owner Last Name            | Luffy                   | Owner_LastName                 | Input        |
       | Owner Dob                  | 10/11/1965              | Owner_DOB                      | Input        |
@@ -649,7 +649,7 @@ Feature: FireLight_End2End_Tests
     Then User verifies Page heading "Annuity Owner Module" with form name "Owner(s)" for data entry flow
     Then User verifies prefilled form
       | Field                      | Value                   | data-dataitemid                | Locator Type |
-      | Owner First Name           | Monkey                  | Owner_FirstName                | Input        |
+      | Owner First Name           | Johns                  | Owner_FirstName                | Input        |
       | Owner Middle Name          | D                       | Owner_MiddleName               | Input        |
       | Owner Last Name            | Luffy                   | Owner_LastName                 | Input        |
       | Owner Dob                  | 10/11/1965              | Owner_DOB                      | Input        |
@@ -1031,9 +1031,9 @@ Feature: FireLight_End2End_Tests
       | Last Name  |    | ContingentBeneficiary1_LastName  | Input        | Beneficiary Last Name is required.  |
     Then User sets data for the field
       | Field       | Value | Id | data-dataitemid                   | Locator Type |
-      | First Name  | Test  |    | ContingentBeneficiary1_FirstName  | Input        |
-      | Middle Name | Ram   |    | ContingentBeneficiary1_MiddleName | Input        |
-      | Last Name   | Dev   |    | ContingentBeneficiary1_LastName   | Input        |
+      | First Name  | Joy  |    | ContingentBeneficiary1_FirstName  | Input        |
+      | Middle Name | R   |    | ContingentBeneficiary1_MiddleName | Input        |
+      | Last Name   | Taylor   |    | ContingentBeneficiary1_LastName   | Input        |
     Then User verifies fields Present in UI
       | Field         | Id | data-item-id               | Locator Type |
       | Date of Birth |    | ContingentBeneficiary1_DOB | Input        |
@@ -1177,9 +1177,9 @@ Feature: FireLight_End2End_Tests
       | Living Person?                     | Yes                          | ContingentBeneficiary1_Natural              | Select       |
       | Relationship                       | Other Family                 | ContingentBeneficiary1_Relationship         | Select       |
       | Contingent Percent                 | 100.00%                      | ContingentBeneficiary1_Percentage           | Input        |
-      | First Name                         | Test                         | ContingentBeneficiary1_FirstName            | Input        |
-      | Middle Name                        | Ram                          | ContingentBeneficiary1_MiddleName           | Input        |
-      | Last Name                          | Dev                          | ContingentBeneficiary1_LastName             | Input        |
+      | First Name                         | Joy                         | ContingentBeneficiary1_FirstName            | Input        |
+      | Middle Name                        | R                          | ContingentBeneficiary1_MiddleName           | Input        |
+      | Last Name                          | Taylor                          | ContingentBeneficiary1_LastName             | Input        |
       | Date of Birth                      | 10/11/1980                   | ContingentBeneficiary1_DOB                  | Input        |
       | SSN                                | 546-57-7855                  | ContingentBeneficiary1_SSN                  | Input        |
       | Phone Number                       | (786) 458-7264               | ContingentBeneficiary1_Primary_PhoneNumber  | Input        |

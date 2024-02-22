@@ -566,7 +566,7 @@ public class Common_StepDefinitions extends FLUtilities {
                 syncElement(driver, findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)), EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {
-                syncElement(driver, findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, dataItemId)), EnumsCommon.ATTRIBUTENOTEMPTY.getText());
+                syncElement(driver, findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)), EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
             }
             Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());

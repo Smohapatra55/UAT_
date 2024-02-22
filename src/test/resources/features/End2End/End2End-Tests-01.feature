@@ -199,6 +199,7 @@ Feature: FireLight_End2End_Tests
       | Postal Code                |                          | Owner_ResidentialAddress_Zipcode | Input        |
       | State                      |                          | Owner_ResidentialAddress_State   | Select       |
     Then User "Uncheck" checkbox "Mailing Address is different than Residential Address"
+    Then User Verifies checkbox "Mailing Address is different than Residential Address" is "unchecked"
     Then User verifies fields is not Present in UI
       | Field                      | Id                       | data-item-id                     | Locator Type |
       | Residential Address Lookup |                          | Owner_ResidentialAddress_Lookup  | Input        |
@@ -392,7 +393,7 @@ Feature: FireLight_End2End_Tests
     Then User Chooses option for Dropdown
       | Field                 | Id                  | data-dataitemid        | Locator Type | Option |
       | Relationship to Owner | RelationshiptoOwner | Annuitant_Relationship | Select       | Child  |
-    Then User "check" checkbox "Same address as Owner"
+    Then User "check" checkbox "Same address as Owner" with data item Id "Annuitant_SameAsOwnerAddress"
     Then User verifies fields is not Present in UI
       | Field                  | Id | data-item-id                     | Locator Type |
       | Mailing Address Lookup |    | Annuitant_Address_Lookup         | Input        |
@@ -497,7 +498,7 @@ Feature: FireLight_End2End_Tests
       | Field                 | Id | data-dataitemid             | Locator Type | Option |
       | Relationship to Owner |    | JointAnnuitant_Relationship | Select       | Spouse |
 
-    Then User "check" checkbox "Same address as Owner" with data item Id "JointAnnuitant_SameAsOwnerAddress"
+    Then User "check" checkbox "Same address as owner" with data item Id "JointAnnuitant_SameAsOwnerAddress"
     Then User verifies fields is not Present in UI
       | Field                  | Id | data-item-id                          | Locator Type |
       | Mailing Address Lookup |    | JointAnnuitant_Address_Lookup         | Input        |
@@ -505,7 +506,7 @@ Feature: FireLight_End2End_Tests
       | City                   |    | JointAnnuitant_MailingAddress_City    | Input        |
       | State                  |    | JointAnnuitant_MailingAddress_State   | Select       |
       | Postal Code            |    | JointAnnuitant_MailingAddress_Zipcode | Input        |
-    Then User "uncheck" checkbox "Same address as Owner" with data item Id "JointAnnuitant_SameAsOwnerAddress"
+    Then User "uncheck" checkbox "Same address as owner" with data item Id "JointAnnuitant_SameAsOwnerAddress"
     Then User verifies fields Present in UI
       | Field                  | Id | data-item-id                          | Locator Type |
       | Mailing Address Lookup |    | JointAnnuitant_Address_Lookup         | Input        |
@@ -616,7 +617,6 @@ Feature: FireLight_End2End_Tests
       | Postal Code |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        | Joint Annuitant Postal Code is required. |
     Then User sets data for the field
       | Field       | Value | Id | data-dataitemid                           | Locator Type |
-      | Postal Code | 28134 |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
       | Postal Code | 28134 |    | JointAnnuitant_ResidentialAddress_Zipcode | Input        |
     Then User verifies Validation Message for
       | Field                | Id | data-dataitemid                    | Locator Type | Validation Error                          |

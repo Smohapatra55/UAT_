@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
@@ -1134,6 +1135,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_verifies_TextBoxHasPrefilledValue(String txtBox, String value) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
+        sleepInMilliSeconds(500);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute("value"));
     }
 
@@ -1218,6 +1220,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
         waitForPageToLoad(driver);
         findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
         sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)), value);
+        sleepInMilliSeconds(1000);
     }
 
     @Then("User Clears the TextBox{string}")
@@ -1863,7 +1866,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void verifyField(String txtBox, String value) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        sleepInMilliSeconds(200);
+        sleepInMilliSeconds(1000);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
     }
 
@@ -1886,6 +1889,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).sendKeys(Keys.TAB);
     }
 
     @Then("User verifies {string} field has {string} Value {string}")

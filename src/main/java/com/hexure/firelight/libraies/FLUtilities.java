@@ -183,7 +183,7 @@ public class FLUtilities extends BaseClass
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }
-      //  sleepInMilliSeconds(1000);
+        sleepInMilliSeconds(400);
         ((JavascriptExecutor) driver).executeScript(
                 "return (function(){return document.querySelector('.ITSpinner') === null;})();");
     }

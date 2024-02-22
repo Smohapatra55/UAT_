@@ -334,7 +334,7 @@
 
                     <parallel>methods</parallel>
                     <threadCount>5</threadCount>
-                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
                     <perCoreThreadCount>false</perCoreThreadCount>
 <!--                    <useUnlimitedThreads>true</useUnlimitedThreads>-->
                     <testFailureIgnore>false</testFailureIgnore>

@@ -421,7 +421,11 @@ public class Common_StepDefinitions extends FLUtilities {
                 case "Input":
                     if (!validationError.equals("")) {
                         syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.TOCLICKABLE.getText());
-                        findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+                      try {
+                          findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
+                      }catch (ElementClickInterceptedException e){
+                          clickElementByJSE(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
+                      }
                         syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)), EnumsCommon.TOVISIBLE.getText());
                         scrollToWebElement(driver,findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)));
                         Assert.assertEquals(fieldName + ": {" + validationError + "} is not showing required field error message in red color", validationError, findElement(driver, String.format(onCommonMethodsPage.getMsg_ErrorMessageTextBox(), dataItemId, id)).getAttribute("innerText").trim());
@@ -637,7 +641,7 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Input":
                     WebElement element = findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id));
-
+                   element.clear();
                     new Actions(driver).moveToElement(element).click().doubleClick().click().sendKeys(Keys.BACK_SPACE, Keys.TAB).perform();
 //                    ((JavascriptExecutor) driver).executeScript("inner", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
 //                    syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
@@ -656,10 +660,16 @@ public class Common_StepDefinitions extends FLUtilities {
     protected void checkBoxSelectYesNO(String userAction, WebElement element) {
         if (getCheckBoxAction(userAction)) {
             if (element.getAttribute("aria-checked").equals("false"))
-                element.click();
+               try { element.click(); }
+            catch (ElementClickInterceptedException e){
+                   clickElementByJSE(driver,element);
+            }
         } else {
             if (element.getAttribute("aria-checked").equals("true"))
-                element.click();
+                try { element.click(); }
+                catch (ElementClickInterceptedException e){
+                    clickElementByJSE(driver,element);
+                }
         }
     }
     private boolean getCheckBoxAction(String action) {
@@ -864,6 +874,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String locatorType = fieldData.get("Locator Type");
             switch (locatorType) {
                 case "Input":
+                    sleepInMilliSeconds(500);
                     Assert.assertFalse(fieldName+" Field was Present", findElements(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).size() > 0);
                     break;
                 case "Select":
@@ -912,9 +923,10 @@ public class Common_StepDefinitions extends FLUtilities {
     @Then("User {string} checkbox {string} with data item Id {string}")
     public void userSelectsCheckbox(String userAction, String whichCheckBox, String dataItemId) {
         waitForPageToLoad(driver);
-        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
-        checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemId(), dataItemId)));
+        scrollToWebElement(driver, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemIdAndTitle(), dataItemId,whichCheckBox)));
+        checkBoxSelectYesNO(userAction, findElement(driver, String.format(onCommonMethodsPage.getChkBox_ByDataItemIdAndTitle(), dataItemId,whichCheckBox)));
         captureScreenshot(driver, testContext, false);
+        sleepInMilliSeconds(1000);
     }
 
     @Then("User Verifies {string} is {string} under {string} on page")
@@ -949,6 +961,7 @@ public class Common_StepDefinitions extends FLUtilities {
                 Assert.assertTrue(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
                 break;
             case "unchecked" :
+                waitForPageToLoad(driver);
                 Assert.assertFalse(whichCheckBox+" was not "+userAction,findElement(driver, String.format(onCommonMethodsPage.chk_Option, whichCheckBox)).getAttribute("aria-checked").equalsIgnoreCase("true"));
                 break;
             case "disabled" :
@@ -1052,6 +1065,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("\\d+\\.\\d{1,2}\\%");
+            waitForPageToLoad(driver);
             match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", match.matches());
         }
@@ -1146,6 +1160,15 @@ public class Common_StepDefinitions extends FLUtilities {
     public void userClicksOnCloseIconOnToastPopup() {
         captureScreenshot(driver, testContext, false);
         clickElementByJSE(driver,getElement(driver, onCommonMethodsPage.getIcon_closeTostPopupboxMVC()));
+    }
+
+    @Then("User select start date in future from date picker")
+    public void selectfutureDate() {
+        waitForPageToLoad(driver);
+        captureScreenshot(driver, testContext, false);
+        int day = LocalDate.now().getDayOfMonth() + 1;
+        if(findElements(driver, "//div[text()='" + day + "']").size() > 0)
+        clickElement(driver, findElement(driver, "//div[text()='" + day + "']"));
     }
 
 }

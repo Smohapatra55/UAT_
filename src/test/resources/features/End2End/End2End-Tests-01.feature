@@ -2,7 +2,7 @@ Feature: FireLight_End2End_Tests
 
   This feature will verify UAT Application End2End Tests
 
-  @End2EndTest5
+  @End2EndTest1
   Scenario: TC_01_Complete UAT application Data Entry for client Fidelity Automation
     Given User is on FireLight login page for TestCase "End2End_TC_01"
     Then User on Login Page enters valid username as "Ashwani_FBW" and password and clicks Login button

@@ -3,6 +3,8 @@ package com.hexure.firelight.libraies;
 public enum  EnumsCommon {
     TOVISIBLE("ToVisible"),
     TOINVISIBLE("ToInvisible"),
+    ATTRIBUTENOTEMPTY("AttributeNotEmpty"),
+    ATTRIBUTECONTAINSPERCENTAGE("AttributeContainsPercentage"),
     SELECT("select"),
     UNCHECK("uncheck"),
     TOCLICKABLE("ToClickable"),

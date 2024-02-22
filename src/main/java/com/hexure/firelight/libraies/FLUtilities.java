@@ -61,6 +61,14 @@ public class FLUtilities extends BaseClass
                             .until(ExpectedConditions.invisibilityOf(element));
                     break;
 
+                case "AttrbuiteNotEmpty":
+                    new WebDriverWait(driver,15)
+                            .until(ExpectedConditions.attributeToBeNotEmpty(element,"value"));
+                    break;
+                case "AttributeContainsPercentage":
+                    new WebDriverWait(driver,15)
+                            .until(ExpectedConditions.attributeContains(element,"value","%"));
+                    break;
                 default:
                     throw new FLException("Invalid Condition " + conditionForWait);
             }

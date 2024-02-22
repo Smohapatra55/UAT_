@@ -69,7 +69,7 @@ public class FLUtilities extends BaseClass
                     new WebDriverWait(driver,15)
                             .until(ExpectedConditions.attributeContains(element,"value","%"));
                     break;
-                case "AttributeContainsDoller":
+                case "AttributeContainsDollar":
                     new WebDriverWait(driver,15)
                             .until(ExpectedConditions.attributeContains(element,"value","$"));
                     break;

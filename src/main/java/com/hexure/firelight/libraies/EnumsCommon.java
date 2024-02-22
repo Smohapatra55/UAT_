@@ -5,6 +5,7 @@ public enum  EnumsCommon {
     TOINVISIBLE("ToInvisible"),
     ATTRIBUTENOTEMPTY("AttributeNotEmpty"),
     ATTRIBUTECONTAINSPERCENTAGE("AttributeContainsPercentage"),
+    ATTRIBUTECONTAINSDOLLER("AttributeContainsDoller"),
     SELECT("select"),
     UNCHECK("uncheck"),
     TOCLICKABLE("ToClickable"),

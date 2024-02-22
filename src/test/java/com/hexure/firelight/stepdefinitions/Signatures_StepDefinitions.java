@@ -1133,6 +1133,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User verifies {string} TextBox has Prefilled Value {string}")
     public void user_verifies_TextBoxHasPrefilledValue(String txtBox, String value) {
         waitForPageToLoad(driver);
+        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithIdValue,txtBox,txtBox,txtBox,value)),EnumsCommon.TOVISIBLE.getText());
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute("value"));
     }
@@ -1861,6 +1862,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User verifies {string} field has Prefilled Value {string}")
     public void verifyField(String txtBox, String value) {
         waitForPageToLoad(driver);
+        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithValue, txtBox,value)),EnumsCommon.TOVISIBLE.getText());
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
     }
@@ -1888,7 +1890,8 @@ public class Signatures_StepDefinitions extends FLUtilities {
 
     @Then("User verifies {string} field has {string} Value {string}")
     public void verifyField(String txtBox, String attribute, String value) {
-        waitForPageToLoad(driver);
+        //waitForPageToLoad(driver);
+        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithPlaceholder, txtBox,value)),EnumsCommon.TOVISIBLE.getText());
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute(attribute));
     }

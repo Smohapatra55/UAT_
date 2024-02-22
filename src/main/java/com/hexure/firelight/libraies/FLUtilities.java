@@ -183,7 +183,7 @@ public class FLUtilities extends BaseClass
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }
-        sleepInMilliSeconds(1000);
+        sleepInMilliSeconds(500);
     }
 
     protected void selectOptionFromList(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType)

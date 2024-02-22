@@ -546,6 +546,12 @@ public class SignaturesPage extends FLUtilities {
     public static String txtFieldWithId = "//*[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\" and @readonly]";
     public static String tableWithClass = "(//table[@class='%s'])[1]//th";
     public static String txtFieldWithClass = "//*[@class=\"%s\"]";
+    public static String txtFieldWithPlaceholder = "//div[@title=\"%s\"]/../../following-sibling::div//input[@placeholder=\"%s\"]";
+    public static String txtFieldWithValue = "//div[@title=\"%s\"]/../../following-sibling::div//input[@value=\"%s\"]";
+    public static String txtFieldWithIdValue = "//*[@id=\"%s\" or @name=\"%s\" or @data-dataitemid=\"%s\" and @readonly and @value=\"%s\"]";
+
+
+
 
     public static String btnText = "//span[text()='%s']";
 

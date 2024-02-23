@@ -1864,7 +1864,7 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User verifies {string} field has Prefilled Value {string}")
     public void verifyField(String txtBox, String value) {
         //waitForPageToLoad(driver);
-        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtField, txtBox)),EnumsCommon.ATTRIBUTECONTAINSPERCENTAGE.getText());
+        syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtField, txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"%");
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
     }

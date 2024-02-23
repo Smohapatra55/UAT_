@@ -554,7 +554,7 @@ public class Common_StepDefinitions extends FLUtilities {
         Pattern pattern;
         Matcher match;
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
+        //waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
@@ -563,10 +563,10 @@ public class Common_StepDefinitions extends FLUtilities {
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("^\\$\\d{1,3}(,\\d{3})*$");
             if (fieldName.equalsIgnoreCase("Total$")) {
-                syncElement(driver, findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)), EnumsCommon.ATTRIBUTECONTAINSDOLLAR.getText());
+                syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"$");
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {
-                syncElement(driver, findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)), EnumsCommon.ATTRIBUTECONTAINSDOLLAR.getText());
+                syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"$");
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
             }
             Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());

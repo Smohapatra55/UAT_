@@ -221,7 +221,7 @@ public class RCTCompleteFillingAppPage extends FLUtilities {
 
     public void entersDetailsForNameEmailSSNDOB(TestContext testContext, WebDriver driver, String name, String email, String ssn, String birthdate) {
         syncElement(driver, getReceipantName(), EnumsCommon.TOCLICKABLE.getText());
-        sleepInMilliSeconds(1000);
+        //sleepInMilliSeconds(1000);
         getReceipantName().clear();
         name = testContext.getMapTestData().get(name);
         if(name.contains("Random")) {
@@ -243,7 +243,7 @@ public class RCTCompleteFillingAppPage extends FLUtilities {
 
     public void entersDetailsForNameEmail(TestContext testContext, WebDriver driver, String name, String email) {
         syncElement(driver, getReceipantName(), EnumsCommon.TOCLICKABLE.getText());
-        sleepInMilliSeconds(1000);
+        //sleepInMilliSeconds(1000);
         getReceipantName().clear();
         name = testContext.getMapTestData().get(name);
         if(name.contains("Random")) {

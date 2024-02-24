@@ -328,9 +328,10 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
             String id = fieldData.get("Id");
-            sleepInMilliSeconds(500);
+            //sleepInMilliSeconds(500);
             switch (locatorType) {
                 case "Input":
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                     Assert.assertEquals("Value Mismatched for field" + fieldName, expectedValue, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("value"));
                     break;
                 case "Select":
@@ -617,8 +618,10 @@ public class Common_StepDefinitions extends FLUtilities {
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("^\\d{1,3}(,\\d{3})*$");
             if (fieldName.contains("What is the Client's Total Net Worth?")) {
+                syncElement(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {
+                syncElement(driver,findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)),EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
             }
             Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());

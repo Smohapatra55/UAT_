@@ -57,8 +57,11 @@ public class FLUtilities extends BaseClass {
                     new WebDriverWait(driver, 15)
                             .until(ExpectedConditions.invisibilityOf(element));
                     break;
-
-                case "AttrbuiteNotEmpty":
+                case "ToSelected":
+                    new WebDriverWait(driver, 15)
+                            .until(ExpectedConditions.elementToBeSelected(element));
+                    break;
+                case "AttributeNotEmpty":
                     new WebDriverWait(driver, 15)
                             .until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
                     break;
@@ -180,7 +183,7 @@ public class FLUtilities extends BaseClass {
         try {
             element.clear();
             clickElement(driver, element);
-            sleepInMilliSeconds(100);
+            //sleepInMilliSeconds(100);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
         } catch (ElementClickInterceptedException s) {
@@ -191,7 +194,7 @@ public class FLUtilities extends BaseClass {
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }
-        sleepInMilliSeconds(500);
+        //sleepInMilliSeconds(500);
     }
 
     protected void selectOptionFromList(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType) {

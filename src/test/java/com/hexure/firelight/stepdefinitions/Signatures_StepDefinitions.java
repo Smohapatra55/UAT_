@@ -1134,8 +1134,16 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User verifies {string} TextBox has Prefilled Value {string}")
     public void user_verifies_TextBoxHasPrefilledValue(String txtBox, String value) {
         waitForPageToLoad(driver);
-        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithIdValue,txtBox,txtBox,txtBox,value)),EnumsCommon.TOVISIBLE.getText());
-        captureScreenshot(driver, testContext, false);
+        if(value.contains("$"))
+        {
+            String substringValue = value.substring(0,2);
+            syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox,txtBox,txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),substringValue);
+        }
+        else if(!value.contains(""))
+        {
+            syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox,txtBox,txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),value);
+            captureScreenshot(driver, testContext, false);
+        }
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute("value"));
     }
 

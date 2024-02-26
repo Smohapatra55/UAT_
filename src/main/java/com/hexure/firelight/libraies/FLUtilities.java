@@ -364,7 +364,7 @@ public class FLUtilities extends BaseClass {
         try {
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
             wait.pollingEvery(100, TimeUnit.MILLISECONDS);
-            wait.withTimeout(1, TimeUnit.SECONDS);
+            wait.withTimeout(2, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
 
             Function<WebDriver, Boolean> function = arg0 -> {

@@ -363,8 +363,8 @@ public class FLUtilities extends BaseClass {
     protected void waitUntilDropDownListPopulated(WebDriver driver, Select dropdown) {
         try {
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
-            wait.pollingEvery(250, TimeUnit.MILLISECONDS);
-            wait.withTimeout(15, TimeUnit.SECONDS);
+            wait.pollingEvery(100, TimeUnit.MILLISECONDS);
+            wait.withTimeout(1, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
 
             Function<WebDriver, Boolean> function = arg0 -> {

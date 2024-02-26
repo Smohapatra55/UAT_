@@ -1062,6 +1062,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("\\d+\\.\\d{1,2}\\%");
+            syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"%");
             match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", match.matches());
         }

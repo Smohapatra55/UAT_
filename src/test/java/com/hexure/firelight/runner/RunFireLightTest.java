@@ -10,13 +10,14 @@ import org.junit.runner.RunWith;
         plugin = {
                 "json:target/cucumber-html-report",
                 "json:target/cucumber-reports/cucumber.xml",
+                "html:target/cucumber-reports/cucumber.html",
                 "rerun:target/failedrun.txt",
                 "json:target/cucumber-reports/cucumber.json",
                 "pretty",
                 "io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
         },
         features = {"classpath:"},
-        tags = {"@End2EndTest"},
+        tags = {"@End2EndTest1"},
         glue = {"com.hexure.firelight.stepdefinitions"},
         dryRun = false
 )

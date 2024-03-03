@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
@@ -1133,7 +1134,16 @@ public class Signatures_StepDefinitions extends FLUtilities {
     @Then("User verifies {string} TextBox has Prefilled Value {string}")
     public void user_verifies_TextBoxHasPrefilledValue(String txtBox, String value) {
         waitForPageToLoad(driver);
-        captureScreenshot(driver, testContext, false);
+        if(value.contains("$"))
+        {
+            String substringValue = value.substring(0,2);
+            syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox,txtBox,txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),substringValue);
+        }
+        else if(!value.contains(""))
+        {
+            syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox,txtBox,txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),value);
+            captureScreenshot(driver, testContext, false);
+        }
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).getAttribute("value"));
     }
 
@@ -1216,7 +1226,8 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void user_Enters_in_TextBox(String value, String txtBox) {
         captureScreenshot(driver, testContext, false);
         waitForPageToLoad(driver);
-        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+        WebElement element = findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox));
+        new Actions(driver).moveToElement(element).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
         sendKeys(driver, findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)), value);
     }
 
@@ -1860,7 +1871,8 @@ public class Signatures_StepDefinitions extends FLUtilities {
 
     @Then("User verifies {string} field has Prefilled Value {string}")
     public void verifyField(String txtBox, String value) {
-        waitForPageToLoad(driver);
+        //waitForPageToLoad(driver);
+        syncElementValue(driver,findElement(driver, String.format(onSignaturesPage.txtField, txtBox)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"%");
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute("value"));
     }
@@ -1883,12 +1895,16 @@ public class Signatures_StepDefinitions extends FLUtilities {
     public void clearValue(String txtBox) {
         waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
-        findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox)).clear();
+        WebElement element = findElement(driver, String.format(onSignaturesPage.txtFieldWithId, txtBox, txtBox, txtBox));
+        element.clear();
+        new Actions(driver).moveToElement(element).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        new Actions(driver).moveToElement(element).sendKeys(Keys.TAB).perform();
     }
 
     @Then("User verifies {string} field has {string} Value {string}")
     public void verifyField(String txtBox, String attribute, String value) {
-        waitForPageToLoad(driver);
+        //waitForPageToLoad(driver);
+        syncElement(driver,findElement(driver, String.format(onSignaturesPage.txtFieldWithPlaceholder, txtBox,value)),EnumsCommon.TOVISIBLE.getText());
         captureScreenshot(driver, testContext, false);
         Assert.assertEquals(txtBox + " Text Box has not value " +value,value , findElement(driver, String.format(onSignaturesPage.txtField, txtBox)).getAttribute(attribute));
     }

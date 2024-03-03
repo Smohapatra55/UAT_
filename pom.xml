@@ -334,7 +334,7 @@
 
                     <parallel>methods</parallel>
                     <threadCount>5</threadCount>
-                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
                     <perCoreThreadCount>false</perCoreThreadCount>
 <!--                    <useUnlimitedThreads>true</useUnlimitedThreads>-->
                     <testFailureIgnore>false</testFailureIgnore>
@@ -346,7 +346,7 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version> <!-- Use the appropriate version -->
                 <configuration>
-                    <reportVersion>2.12.0</reportVersion>
+                    <reportVersion>2.14.0</reportVersion>
 
                 </configuration>
             </plugin>

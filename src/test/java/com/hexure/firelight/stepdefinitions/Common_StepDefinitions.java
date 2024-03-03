@@ -328,9 +328,10 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             String locatorType = fieldData.get("Locator Type");
             String id = fieldData.get("Id");
-            sleepInMilliSeconds(500);
+            //sleepInMilliSeconds(500);
             switch (locatorType) {
                 case "Input":
+                    syncElement(driver, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)), EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                     Assert.assertEquals("Value Mismatched for field" + fieldName, expectedValue, findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).getAttribute("value"));
                     break;
                 case "Select":
@@ -554,7 +555,7 @@ public class Common_StepDefinitions extends FLUtilities {
         Pattern pattern;
         Matcher match;
         List<Map<String, String>> formFields = dataTable.asMaps(String.class, String.class);
-        waitForPageToLoad(driver);
+        //waitForPageToLoad(driver);
         captureScreenshot(driver, testContext, false);
         for (Map<String, String> fieldData : formFields) {
             String fieldName = fieldData.get("Field");
@@ -563,8 +564,10 @@ public class Common_StepDefinitions extends FLUtilities {
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("^\\$\\d{1,3}(,\\d{3})*$");
             if (fieldName.equalsIgnoreCase("Total$")) {
+                syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"$");
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {
+                syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"$");
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
             }
             Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());
@@ -615,8 +618,10 @@ public class Common_StepDefinitions extends FLUtilities {
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("^\\d{1,3}(,\\d{3})*$");
             if (fieldName.contains("What is the Client's Total Net Worth?")) {
+                syncElement(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             } else {
+                syncElement(driver,findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)),EnumsCommon.ATTRIBUTENOTEMPTY.getText());
                 match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.btn_CustomTextFields, id)).getAttribute("value"));
             }
             Assert.assertTrue("Converted Value doesn't matched with the expected", match.matches());
@@ -636,8 +641,14 @@ public class Common_StepDefinitions extends FLUtilities {
             switch (locatorType) {
                 case "Input":
                     WebElement element = findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id));
+//                    element.clear();
+//                    new Actions(driver).moveToElement(element).click().doubleClick().click().sendKeys(Keys.BACK_SPACE, Keys.TAB).perform();
+                    syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
+                    element.clear();
+                    new Actions(driver).moveToElement(element).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+                    new Actions(driver).moveToElement(element).sendKeys(Keys.TAB).perform();
 
-                    new Actions(driver).moveToElement(element).click().doubleClick().click().sendKeys(Keys.BACK_SPACE, Keys.TAB).perform();
+
 //                    ((JavascriptExecutor) driver).executeScript("inner", findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)));
 //                    syncElement(driver,findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)),EnumsCommon.TOCLICKABLE.getText());
 //                    findElement(driver, String.format(onCommonMethodsPage.getDataFieldsMVC(), dataItemId, id)).click();
@@ -1051,6 +1062,7 @@ public class Common_StepDefinitions extends FLUtilities {
             String dataItemId = fieldData.get("data-dataitemid");
             captureScreenshot(driver, testContext, false);
             pattern = Pattern.compile("\\d+\\.\\d{1,2}\\%");
+            syncElementValue(driver,findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)),EnumsCommon.ATTRIBUTECONTAINSVALUE.getText(),"%");
             match = pattern.matcher(findElement(driver, String.format(onDataEntryPage.dataFieldsMVC1, dataItemId)).getAttribute("value"));
             Assert.assertTrue(fieldName + " Decimal value does not have up to two decimal Digits", match.matches());
         }

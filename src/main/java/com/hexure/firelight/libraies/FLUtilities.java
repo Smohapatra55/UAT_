@@ -37,15 +37,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FLUtilities extends BaseClass
-{
+public class FLUtilities extends BaseClass {
     private static final Logger Log = LogManager.getLogger(FLUtilities.class);
 
-    protected void syncElement(WebDriver driver, WebElement element, String conditionForWait)
-    {
-        try{
-            switch (conditionForWait)
-            {
+    protected void syncElement(WebDriver driver, WebElement element, String conditionForWait) {
+        try {
+            switch (conditionForWait) {
                 case "ToVisible":
                     new WebDriverWait(driver, 15)
                             .until(ExpectedConditions.visibilityOf(element));
@@ -60,23 +57,44 @@ public class FLUtilities extends BaseClass
                     new WebDriverWait(driver, 15)
                             .until(ExpectedConditions.invisibilityOf(element));
                     break;
-
+                case "ToSelected":
+                    new WebDriverWait(driver, 15)
+                            .until(ExpectedConditions.elementToBeSelected(element));
+                    break;
+                case "AttributeNotEmpty":
+                    new WebDriverWait(driver, 15)
+                            .until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
+                    break;
                 default:
                     throw new FLException("Invalid Condition " + conditionForWait);
             }
-        }catch (StaleElementReferenceException e){}
-        catch (Exception e)
-        {
+        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
             Log.error("Could Not Sync WebElement ", e);
             throw new FLException("Could Not Sync WebElement " + e.getMessage());
         }
     }
 
-    protected void syncMultipleElement(WebDriver driver, List<WebElement> elementsList, String conditionForWait)
-    {
-        try{
-            switch (conditionForWait)
-            {
+    protected void syncElementValue(WebDriver driver, WebElement element, String conditionForWait, String value) {
+        try {
+            switch (conditionForWait) {
+                case "AttributeContainsValue":
+                    new WebDriverWait(driver, 15)
+                            .until(ExpectedConditions.attributeContains(element, "value", value));
+                    break;
+                default:
+                    throw new FLException("Invalid Condition " + conditionForWait);
+            }
+        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
+            Log.error("Could Not Sync WebElement ", e);
+            throw new FLException("Could Not Sync WebElement " + e.getMessage());
+        }
+    }
+
+    protected void syncMultipleElement(WebDriver driver, List<WebElement> elementsList, String conditionForWait) {
+        try {
+            switch (conditionForWait) {
                 case "ToVisible":
                     new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOfAllElements(elementsList));
                     break;
@@ -88,46 +106,43 @@ public class FLUtilities extends BaseClass
                 default:
                     throw new FLException("Invalid Condition " + conditionForWait);
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.error("Could Not Sync WebElement ", e);
             throw new FLException("Could Not Sync WebElement " + e.getMessage());
         }
     }
 
-    protected void clickElement(WebDriver driver, WebElement element)
-    {
+    protected void clickElement(WebDriver driver, WebElement element) {
         syncElement(driver, element, EnumsCommon.TOCLICKABLE.getText());
 
-        try{
-            if(!element.isDisplayed()){
+        try {
+            if (!element.isDisplayed()) {
                 scrollToWebElement(driver, element);
                 element.click();
-            }else{
+            } else {
                 element.click();
             }
-        }catch (StaleElementReferenceException s){
+        } catch (StaleElementReferenceException s) {
             element.click();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Log.error("Could Not Click WebElement ", e);
             throw new FLException("Could Not Click WebElement " + e.getMessage());
         }
     }
 
     protected void scrollToWebElement(WebDriver driver, WebElement element) {
-        try{
-            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        }catch (Exception e){
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        } catch (Exception e) {
             Log.error("Could Not Scroll WebElement ", e);
             throw new FLException("Could Not Scroll WebElement " + e.getMessage());
         }
     }
 
     protected void scrollToTopOfPage(WebDriver driver) {
-        try{
+        try {
             ((JavascriptExecutor) driver).executeScript("window.scrollTo({behavior: \"instant\", top: 0, left: 0})");
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.error("Could Not Scroll WebElement ", e);
             throw new FLException("Could Not Scroll WebElement " + e.getMessage());
         }
@@ -137,95 +152,88 @@ public class FLUtilities extends BaseClass
     protected void clickElementByJSE(WebDriver driver, WebElement element) {
         syncElement(driver, element, EnumsCommon.TOVISIBLE.getText());
 
-        try{
-            ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
-        }catch (Exception e){
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        } catch (Exception e) {
             Log.error("Clicking WebElement By JavaScriptExecutor Failed ", e);
             throw new FLException("Clicking WebElement By JavaScriptExecutor Failed " + e.getMessage());
         }
     }
 
-    protected void moveToElement(WebDriver driver, WebElement element)
-    {
+    protected void moveToElement(WebDriver driver, WebElement element) {
         try {
             new Actions(driver).moveToElement(element).build().perform();
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.error("Move MouseOver Action WebElement Failed ", e);
             throw new FLException("Move MouseOver Action WebElement Failed " + e.getMessage());
         }
     }
 
-    protected void sendKeysThruAction(WebDriver driver, WebElement element, String stringToInput)
-    {
+    protected void sendKeysThruAction(WebDriver driver, WebElement element, String stringToInput) {
         try {
-            new Actions(driver).sendKeys(element,stringToInput);
-        }catch (Exception e) {
+            new Actions(driver).sendKeys(element, stringToInput);
+        } catch (Exception e) {
             Log.error("SendKeys Thru Action Failed ", e);
             throw new FLException("SendKeys Thru Action Failed " + e.getMessage());
         }
     }
 
-    protected void sendKeys(WebDriver driver, WebElement element, String stringToInput)
-    {
+    protected void sendKeys(WebDriver driver, WebElement element, String stringToInput) {
         syncElement(driver, element, EnumsCommon.TOCLICKABLE.getText());
         try {
             element.clear();
             clickElement(driver, element);
-            sleepInMilliSeconds(100);
+            //sleepInMilliSeconds(100);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
-        }catch (ElementClickInterceptedException s) {
+        } catch (ElementClickInterceptedException s) {
             clickElementByJSE(driver, element);
             element.sendKeys(stringToInput);
             element.sendKeys(Keys.TAB);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.error("SendKeys Failed ", e);
             throw new FLException(stringToInput + " could not be entered in element" + e.getMessage());
         }
-        sleepInMilliSeconds(1000);
+        //sleepInMilliSeconds(500);
     }
 
-    protected void selectOptionFromList(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType)
-    {
+    protected void selectOptionFromList(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType) {
         try {
-            for (WebElement webElement: webElementList){
-                if (webElement.getText().trim().contains(optionValue.trim())){
-                    if(actionType.trim().equalsIgnoreCase("click"))
+            for (WebElement webElement : webElementList) {
+                if (webElement.getText().trim().contains(optionValue.trim())) {
+                    if (actionType.trim().equalsIgnoreCase("click"))
                         clickElement(driver, webElement);
                     else
                         moveToElement(driver, webElement);
                 }
             }
-        }catch (StaleElementReferenceException e){}
-        catch (Exception e) {
+        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
             Log.error("Clicking WebElement From List Failed ", e);
             throw new FLException("Clicking WebElement From List Failed " + e.getMessage());
         }
 
     }
 
-    protected void selectOptionFromListByCase(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType)
-    {
+    protected void selectOptionFromListByCase(WebDriver driver, List<WebElement> webElementList, String optionValue, String actionType) {
         try {
-            for (WebElement webElement: webElementList){
-                if (webElement.getText().trim().equalsIgnoreCase(optionValue.trim())){
-                    if(actionType.trim().equalsIgnoreCase("click"))
+            for (WebElement webElement : webElementList) {
+                if (webElement.getText().trim().equalsIgnoreCase(optionValue.trim())) {
+                    if (actionType.trim().equalsIgnoreCase("click"))
                         clickElement(driver, webElement);
                     else
                         moveToElement(driver, webElement);
                 }
             }
-        }catch (StaleElementReferenceException e){}
-        catch (Exception e) {
+        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
             Log.error("Clicking WebElement From List Failed ", e);
             throw new FLException("Clicking WebElement From List Failed " + e.getMessage());
         }
 
     }
 
-    protected void sleepInMilliSeconds(int milliSeconds)
-    {
+    protected void sleepInMilliSeconds(int milliSeconds) {
         try {
             Thread.sleep(milliSeconds);
         } catch (InterruptedException e) {
@@ -234,17 +242,15 @@ public class FLUtilities extends BaseClass
         }
     }
 
-    protected Alert getAlert(TestContext testContext){
+    protected Alert getAlert(TestContext testContext) {
         return testContext.getDriver().switchTo().alert();
     }
 
-    protected String getRandomString(int stringLength, String dataType)
-    {
+    protected String getRandomString(int stringLength, String dataType) {
         StringBuilder builder = new StringBuilder();
         String stringType;
 
-        switch (dataType)
-        {
+        switch (dataType) {
             case "Numbers":
                 stringType = "0123456789";
                 break;
@@ -261,13 +267,12 @@ public class FLUtilities extends BaseClass
                 Log.error("Invalid Datatype For Random String ");
                 throw new FLException("Invalid Datatype For Random String ");
         }
-        try{
-            while (stringLength != 0)
-            {
+        try {
+            while (stringLength != 0) {
                 int characterIndex = (int) (Math.random() * stringType.length());
                 builder.append(stringType.charAt(characterIndex));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.error("Random String Generation Failed ", e);
             throw new FLException("Random String Generation Failed " + e.getMessage());
         }
@@ -275,27 +280,27 @@ public class FLUtilities extends BaseClass
         return builder.toString();
     }
 
-    protected void waitTilTextIsVisible(WebDriver driver, WebElement element){
+    protected void waitTilTextIsVisible(WebDriver driver, WebElement element) {
         try {
             (new WebDriverWait(driver, 15)).until(new ExpectedCondition<Boolean>() {
 
-                public Boolean apply(WebDriver driver1){
+                public Boolean apply(WebDriver driver1) {
 
                     return element.getText().length() != 0;
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.error("TEXT WAS NOT VISIBLE WITHIN GIVEN TIME");
             throw new FLException("TEXT WAS NOT VISIBLE WITHIN GIVEN TIME" + e);
         }
     }
 
-    protected void waitTillTextIsReplaced(WebDriver driver, WebElement element, String expectedText){
+    protected void waitTillTextIsReplaced(WebDriver driver, WebElement element, String expectedText) {
         new WebDriverWait(driver, 15).until(ExpectedConditions.textToBePresentInElement(element, expectedText));
     }
 
     protected void setResultSet(TestContext testContext, String query) {
-        
+
         createConnection(testContext);
 
         try {
@@ -318,50 +323,48 @@ public class FLUtilities extends BaseClass
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
 
-    protected void closeDBResources(TestContext testContext){
+    protected void closeDBResources(TestContext testContext) {
         try {
-            if (testContext.getResultSet() != null){
+            if (testContext.getResultSet() != null) {
                 System.out.println("ResultSet closing...");
                 testContext.getResultSet().close();
                 System.out.println("ResultSet closed");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            if (testContext.getStatement() != null){
+            if (testContext.getStatement() != null) {
                 System.out.println("Statement closing...");
                 testContext.getStatement().close();
                 System.out.println("Statement closed");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            if (testContext.getConnection() != null){
+            if (testContext.getConnection() != null) {
                 System.out.println("Connection closing...");
                 testContext.getConnection().close();
                 System.out.println("Connection closed");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected void waitUntilDropDownListPopulated(WebDriver driver, Select dropdown)
-    {
-        try{
+    protected void waitUntilDropDownListPopulated(WebDriver driver, Select dropdown) {
+        try {
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
-            wait.pollingEvery(250,  TimeUnit.MILLISECONDS);
-            wait.withTimeout(15, TimeUnit.SECONDS);
+            wait.pollingEvery(100, TimeUnit.MILLISECONDS);
+            wait.withTimeout(2, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
 
             Function<WebDriver, Boolean> function = arg0 -> {
@@ -370,8 +373,9 @@ public class FLUtilities extends BaseClass
 
             wait.until(function);
 
-        }catch (StaleElementReferenceException se){}
-        catch (Exception e) {}
+        } catch (StaleElementReferenceException se) {
+        } catch (Exception e) {
+        }
     }
 
     protected void addDigitalSignature(WebDriver driver, WebElement element) {
@@ -405,18 +409,18 @@ public class FLUtilities extends BaseClass
             builder.clickAndHold(element).perform();
             builder.moveByOffset(-150, 0).perform();
             builder.moveToElement(element).perform();
-      } catch (Exception e) {
+        } catch (Exception e) {
             Log.error("Adding Digital Signature Failed", e);
             throw new FLException("Adding Digital Signature Failed " + e.getMessage());
         }
     }
 
-    protected  String getPDFText(String pdfFileName) {
+    protected String getPDFText(String pdfFileName) {
 
         String pdfText;
 
         try {
-            File pdfFile = new File (EnumsCommon.RELATIVE_DOWNLOADFILES_PATH.getText() + pdfFileName);
+            File pdfFile = new File(EnumsCommon.RELATIVE_DOWNLOADFILES_PATH.getText() + pdfFileName);
             PDDocument pdfDocument = PDDocument.load(new FileInputStream(pdfFile));
             pdfText = new PDFTextStripper().getText(pdfDocument);
             pdfDocument.close();
@@ -435,39 +439,36 @@ public class FLUtilities extends BaseClass
     }
 
     protected void renameFile(String oldFileName, String newFileName) throws IOException {
-        Path source = Paths.get(EnumsCommon.ABSOLUTE_DOWNLOADFILES_PATH.getText()+ oldFileName +".pdf");
+        Path source = Paths.get(EnumsCommon.ABSOLUTE_DOWNLOADFILES_PATH.getText() + oldFileName + ".pdf");
         Files.move(source, source.resolveSibling(newFileName));
     }
 
 
-    protected void clickElement(WebDriver driver, String stringXpath)
-    {
-        WebElement element= driver.findElement(By.xpath(stringXpath));
+    protected void clickElement(WebDriver driver, String stringXpath) {
+        WebElement element = driver.findElement(By.xpath(stringXpath));
         syncElement(driver, element, EnumsCommon.TOCLICKABLE.getText());
 
-        try{
-            if(!element.isDisplayed()){
+        try {
+            if (!element.isDisplayed()) {
                 scrollToWebElement(driver, element);
                 element.click();
-            }else{
+            } else {
                 element.click();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.error("Could Not Click WebElement ", e);
             throw new FLException("Could Not Click WebElement " + e.getMessage());
         }
     }
 
-    public WebElement findElement(WebDriver driver,String stringXpath)
-    {
-        WebElement element= driver.findElement(By.xpath(stringXpath));
+    public WebElement findElement(WebDriver driver, String stringXpath) {
+        WebElement element = driver.findElement(By.xpath(stringXpath));
         syncElement(driver, element, EnumsCommon.TOVISIBLE.getText());
         return element;
     }
 
-    public List<WebElement> findElements(WebDriver driver,String stringXpath)
-    {
-        List<WebElement> element= driver.findElements(By.xpath(stringXpath));
+    public List<WebElement> findElements(WebDriver driver, String stringXpath) {
+        List<WebElement> element = driver.findElements(By.xpath(stringXpath));
         return element;
     }
 
@@ -475,8 +476,8 @@ public class FLUtilities extends BaseClass
         PDDocument document = null;
         try {
             document = PDDocument.load(new File(pdfLocation));
-            File imagesFolder = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() + "/" + pdfFleName.replace(".pdf","") + "/");
-            if(!imagesFolder.exists())
+            File imagesFolder = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() + "/" + pdfFleName.replace(".pdf", "") + "/");
+            if (!imagesFolder.exists())
                 imagesFolder.mkdirs();
             PDPageTree pageList = document.getPages();
             for (PDPage page : pageList) {
@@ -485,17 +486,15 @@ public class FLUtilities extends BaseClass
                     PDXObject pdxObject = null;
                     pdxObject = pdResources.getXObject(object);
                     if (pdxObject instanceof PDImageXObject) {
-                        File file = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() + "/" + pdfFleName.replace(".pdf","") + "/" + System.nanoTime() + ".png");
+                        File file = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() + "/" + pdfFleName.replace(".pdf", "") + "/" + System.nanoTime() + ".png");
                         ImageIO.write(((PDImageXObject) pdxObject).getImage(), "png", file);
                     }
                 }
             }
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             Log.error("PDF File Could Not Be Loaded ", e);
             throw new FLException("PDF File Could Not Be Loaded " + e.getMessage());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.error("Could Not Read PDF File ", e);
             throw new FLException("Could Not Read PDF File " + e.getMessage());
         } catch (Exception e) {
@@ -504,19 +503,19 @@ public class FLUtilities extends BaseClass
         }
     }
 
-    protected boolean verifySignatureMatchingInPDF(TestContext testContext, String path)  {
+    protected boolean verifySignatureMatchingInPDF(TestContext testContext, String path) {
         String expectedImagePath = "";
         nu.pattern.OpenCV.loadLocally();
-        String[] listImagePath = new String[]{"SignedMVC","SignedMVC1","SignedMVC2","SignedMVC3","SignedMVC4","SignedMVC5","SignedReact","SignedReact1","SignedReact2","SignedReact3"};
+        String[] listImagePath = new String[]{"SignedMVC", "SignedMVC1", "SignedMVC2", "SignedMVC3", "SignedMVC4", "SignedMVC5", "SignedReact", "SignedReact1", "SignedReact2", "SignedReact3"};
 
-        PDFBoxExtractImages(EnumsCommon.RELATIVE_DOWNLOADFILES_PATH.getText() + path, path.replace(".pdf",""), testContext);
+        PDFBoxExtractImages(EnumsCommon.RELATIVE_DOWNLOADFILES_PATH.getText() + path, path.replace(".pdf", ""), testContext);
 
         // Source directory containing the images
-        File sourceDir = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() +  "/" + path.replace(".pdf","") + "/");
+        File sourceDir = new File(configProperties.get("imagesFolder.path") + testContext.getTestCaseID() + "/" + path.replace(".pdf", "") + "/");
 
         int counter = 0;
 
-        for(String image : listImagePath) {
+        for (String image : listImagePath) {
             // Iterate through the images in the source directory
             expectedImagePath = configProperties.get("signedImagesFolder.path") + "/" + image + ".png";
             Mat subImage = Imgcodecs.imread(expectedImagePath);
@@ -531,7 +530,7 @@ public class FLUtilities extends BaseClass
             }
         }
 
-        if(counter > 0)
+        if (counter > 0)
             return true;
 
         return false;
@@ -542,7 +541,7 @@ public class FLUtilities extends BaseClass
 
         if (mainImage.height() < subImage.height() || mainImage.width() < subImage.width())
             return false;
-        else{
+        else {
             Imgproc.matchTemplate(mainImage, subImage, result, Imgproc.TM_CCOEFF_NORMED);
             Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
             // Define a threshold for similarity
@@ -553,25 +552,19 @@ public class FLUtilities extends BaseClass
     }
 
     protected List<WebElement> getElements(WebDriver driver, By locator) {
-        try
-        {
+        try {
             return driver.findElements(locator);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             Log.error("Could not find elements with locator " + locator, e);
             throw new FLException("Could not find elements with locator >>>> " + e.getMessage());
         }
     }
 
     protected WebElement getElement(WebDriver driver, By locator) {
-        try
-        {
-            syncElement(driver, driver.findElement(locator),EnumsCommon.TOVISIBLE.getText());
+        try {
+            syncElement(driver, driver.findElement(locator), EnumsCommon.TOVISIBLE.getText());
             return driver.findElement(locator);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             Log.error("Could not find any element with locator " + locator, e);
             throw new FLException("Could not find any element with locator >>>> " + e.getMessage());
         }
@@ -587,16 +580,17 @@ public class FLUtilities extends BaseClass
                 return locator2;
             else if (getElements(driver, locator3).size() > 0)
                 return locator3;
-        } catch (StaleElementReferenceException e) { }
-        catch (Exception e) {}
+        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
+        }
         return null;
     }
 
     protected void checkBoxSelectYesNO(String userAction, WebElement element) {
-        if (getCheckBoxAction(userAction)){
+        if (getCheckBoxAction(userAction)) {
             if (!element.isSelected())
                 element.click();
-        }else {
+        } else {
             if (element.isSelected())
                 element.click();
         }
@@ -605,6 +599,7 @@ public class FLUtilities extends BaseClass
     private boolean getCheckBoxAction(String action) {
         return action.equalsIgnoreCase("select");
     }
+
     protected void scrollInBrowserTillEnd(WebDriver driver) {
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }

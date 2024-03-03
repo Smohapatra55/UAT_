@@ -520,34 +520,19 @@ public class BaseClass {
      */
     public void waitForPageToLoad(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 60);
-        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                try {
-                    return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
-                } catch (Exception e) {
-                    // no jQuery present
-                    return true;
-                }
-            }
 
+        // Wait until document ready state is 'complete'
+        ExpectedCondition<Boolean> documentReadyState = webDriver -> {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) webDriver;
+            return jsExecutor.executeScript("return document.readyState").equals("complete");
         };
 
-        // wait for Javascript to load
-        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) driver).executeScript("return document.readyState")
-                        .toString().equals("complete");
-            }
-        };
-        wait.until(jQueryLoad);
-        wait.until(jsLoad);
+        // Wait for the document ready state
+        wait.until(documentReadyState);
         try {
-            Thread.sleep(2000);
+           Thread.sleep(500);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+           throw new RuntimeException(e);
         }
     }
-
 }
